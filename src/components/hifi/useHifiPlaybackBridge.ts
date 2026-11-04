@@ -21,6 +21,7 @@ import {
     useHifiTrackStore,
     type HifiTrack,
 } from '../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../services/playbackRoute';
 import {
     armQueueEndReplay,
     bindHifiPlayIntent,
@@ -117,13 +118,13 @@ export function useHifiPlaybackBridge({
 
     // 换到 HiFi 的那一首随载入带上了 loop-file；这里只管在 HiFi 上改了循环（含进出私人 FM），以及接管时对齐一次。
     useEffect(() => {
-        if (playbackRoute !== 'hifi') return;
+        if (!isHifiPlaybackRoute(playbackRoute)) return;
         void hifiEngine.setLoopFile(loopFile);
     }, [loopFile, playbackRoute]);
 
     // 载入落定时再对一次：mpv 还在拉起时发的 setLoopFile 主进程只记下，随后被载入请求里的 loop-file 盖掉。
     useEffect(() => {
-        if (playbackRoute !== 'hifi' || loadState !== 'ready' || !trackKey) return;
+        if (!isHifiPlaybackRoute(playbackRoute) || loadState !== 'ready' || !trackKey) return;
         const engine = useHifiEngineStore.getState().engine;
         const wanted = latestRef.current.loopFile;
         if (engine?.trackKey === trackKey && engine.loopFile !== wanted) void hifiEngine.setLoopFile(wanted);
@@ -132,7 +133,7 @@ export function useHifiPlaybackBridge({
     // 自动播放：和 usePlaybackAudioBridge 对 <audio> 的规则一样，歌词还在载入时先不用掉意图。没有意图就是恢复成暂停的样子。
     // 恢复时延后载入的那一首：有意图就现在载入（载入好了再走这里开播），没有就摆成停着的样子，等第一次播放或跳转。
     useEffect(() => {
-        if (playbackRoute !== 'hifi' || !trackKey) return;
+        if (!isHifiPlaybackRoute(playbackRoute) || !trackKey) return;
         // mpv 无缝接上的那一首已经在放：意图归之后认领它的那次 playSong（见 useHifiGaplessPreload），这里只记成开播过。
         if (promotedByGapless) {
             markHifiTrackStarted(trackKey);

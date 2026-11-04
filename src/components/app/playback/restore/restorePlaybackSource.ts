@@ -41,6 +41,7 @@ import { loadLocalSongAudio, loadLocalSongHifiSource, loadNavidromeSongAudio, lo
 import { useLyricSettingsStore } from '../../../../stores/useLyricSettingsStore';
 import { useHifiSettingsStore } from '../../../../stores/useHifiSettingsStore';
 import { beginHifiTrack, hifiRouteFor, releaseUnclaimedHifiTrack, whenHifiRuntimeKnown } from '../../../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../../../services/playbackRoute';
 import type { PlaybackRoute } from '../../../../types/hifi';
 
 // src/components/app/playback/restore/restorePlaybackSource.ts
@@ -205,7 +206,7 @@ const restoreSourceForSong = async (
 
         currentOnlineAudioUrlFetchedAtRef.current = null;
         const audio = loadNavidromeSongAudio(config, navidromeSongToRestore);
-        const onHifi = await restoredSongRoute('navidrome', `navidrome:${navidromeId}`) === 'hifi';
+        const onHifi = isHifiPlaybackRoute(await restoredSongRoute('navidrome', `navidrome:${navidromeId}`));
         // The HiFi route also takes the file's format from the server's record: its signal path shows it.
         await (onHifi ? audio.takeServerGainAndFormat() : audio.takeServerGain());
         if (overtaken()) return 'stale';
@@ -282,7 +283,7 @@ const restoreSourceForSong = async (
         }
 
         // Asked before the file is read: on the HiFi route mpv reads the file itself, and no blob URL is made.
-        const onHifi = await restoredSongRoute('local', `local:${songToRestore.id}`) === 'hifi';
+        const onHifi = isHifiPlaybackRoute(await restoredSongRoute('local', `local:${songToRestore.id}`));
         if (overtaken()) return 'stale';
         const audio = onHifi ? await loadLocalSongHifiSource(songToRestore) : await loadLocalSongAudio(songToRestore);
         if (overtaken()) {

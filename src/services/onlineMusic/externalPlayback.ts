@@ -6,6 +6,7 @@ import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
 import { createExternalClock } from './externalClock';
 import { setExternalRouteMedia } from '../hifi/hifiMediaShim';
 import { leaveHifiRoute } from '../hifi/hifiRouteGuard';
+import { isHifiPlaybackRoute } from '../playbackRoute';
 import { MediaShim } from '../mediaShim';
 import { omni } from './omni';
 import { externalQueueSuccessors } from './externalQueue';
@@ -327,7 +328,7 @@ export async function beginExternalPlayback(song: SongResult, startSec = 0): Pro
     if (isExternalRoute()) {
         // Already on the route: replacing the track is one call, and the old clock must not speak
         // for the new song while it does.
-    } else if (usePlaybackStore.getState().playbackRoute === 'hifi') {
+    } else if (isHifiPlaybackRoute(usePlaybackStore.getState().playbackRoute)) {
         // mpv must give the song up before the other player starts, or both sound at once.
         leaveHifiRoute('external player');
     }

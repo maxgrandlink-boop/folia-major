@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MutableRefObject, RefObject } from 'react';
 import { usePlaybackStore } from '../../stores/usePlaybackStore';
+import { isNativeRoute } from '../../services/playbackRoute';
 import type { PlaybackRoute } from '../../types/hifi';
 
 // src/components/hifi/useWebEngineYield.ts
@@ -77,7 +78,7 @@ export const installWebEngineYield = (ports: WebEngineYieldPorts) => {
         const route = usePlaybackStore.getState().playbackRoute;
         if (route === lastRoute) return;
         lastRoute = route;
-        if (route === 'hifi') yieldWebEngine(ports);
+        if (isNativeRoute(route)) yieldWebEngine(ports);
         else resumeWebEngine(ports.audioContext());
     };
     check();
