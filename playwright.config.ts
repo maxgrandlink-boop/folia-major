@@ -17,7 +17,8 @@ export default defineConfig({
   // 每个 worker 都是一个完整 dev 模式应用加浏览器，默认的「CPU 核数一半」会把机器压满：
   // 20 线程机器上 10 个 worker 负载到 23，页面挂载要 16–19s，十几条用例在各种等待上超时，
   // 整轮反而要 16 分钟。5 个 worker 只剩真实失败，整轮约 14 分钟。
-  workers: 5,
+  // 托管 CI 是 4 核（windows-latest）。照搬 5 个会把挂载拖过用例超时，失败的不是被测行为。
+  workers: process.env.CI ? 2 : 5,
   fullyParallel: false,
   reporter: 'line',
   timeout: 90_000,
@@ -45,7 +46,9 @@ export default defineConfig({
     },
     trace: 'on-first-retry',
     launchOptions: {
-      executablePath: chromiumExecutablePath,
+      // Linux 上优先用系统 Chrome。候选路径在 Windows 上都不存在，此时不设 executablePath，
+      // 让 Playwright 用 `playwright install` 装的 Chromium（CI 走这一支）。
+      ...(chromiumExecutablePath ? { executablePath: chromiumExecutablePath } : {}),
       args: [
         '--no-sandbox',
         '--disable-dev-shm-usage',
@@ -78,7 +81,7 @@ export default defineConfig({
     // 初始选择钉在 grid：截图基线与现有用例都假设没选过 suite 的人看到网格（开发阶段的初始选择是 bravais）。
     // 构建类别钉成官方（FOLIA_DEV_BUILD_KIND 只在 vite serve 下生效，见 dev/build/buildIdentity.mjs）：
     // 不钉的话 dev server 一律被判成非官方，扫码失败的诊断入口换成「See diagnostics」、不给反馈按钮，
-    // 而账户用例断言的是官方构建的入口。仓库 CI 不跑 Playwright，这些用例只在本机跑。
+    // 而账户用例断言的是官方构建的入口。钉在这条命令上，本机和 Windows CI 拉起的是同一套。
     // 只在 Playwright 自己拉起服务时生效：4173 上已有别的 dev server 会被复用（reuseExistingServer），先停掉它。
     // 首启流程的开发捷径钉成关：startupOnboarding 用例要等它自己弹出来（见 src/dev/devLaunchFlags.ts）。
     command: 'cross-env VITE_LIBRARY_TUI=true VITE_LIBRARY_INITIAL_SUITE=grid VITE_SKIP_STARTUP_EXPERIENCE=false VITE_NETEASE_API_BASE=http://127.0.0.1:4173/__mock_netease__ FOLIA_DEV_BUILD_KIND=official npm run dev -- --host 127.0.0.1 --port 4173 --strictPort',
