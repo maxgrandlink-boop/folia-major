@@ -94,6 +94,19 @@ jobs:
 
       # 截图基线按平台后缀分开（playwright.config.ts 的 snapshotPathTemplate）：
       # 仓库里已有的是 *-linux.png，Windows 写 *-win32.png，两套并存。
+      # 仓库里还没有 win32 图时，先在这台机器上写出来并上传。同一 job 里随后的对比
+      # 用的就是刚写的图；提交进仓库之后删掉这一步，之后的运行只做对比。
+      - name: Write missing Windows screenshot baselines
+        run: npx playwright test test/ui/app.screenshot.spec.ts --update-snapshots --workers=1 --reporter=line
+
+      - name: Upload Windows screenshot baselines
+        if: matrix.shard == 1
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-ui-snapshots
+          path: test/ui/**/*-win32.png
+          if-no-files-found: error
+
       # --workers=1 盖过配置里 CI 的 2：这一台只跑四分之一用例，再开第二个浏览器只会把 4 核占满。
       - name: Run test:ui
         shell: pwsh
