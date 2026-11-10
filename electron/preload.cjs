@@ -460,4 +460,114 @@ contextBridge.exposeInMainWorld('electron', {
             return () => ipcRenderer.removeListener('hifi:read', listener);
         },
     },
+    // ok唱歌 W1 桩。契约版本与 src/types/multitrack.ts 的 OK_CONTRACT_VERSION 保持一致（preload 不能引用 TS）。
+    ok: {
+        contractVersion: '1.1',
+        works: {
+            listRoots: () => ipcRenderer.invoke('ok-works:list-roots'),
+            addRoot: () => ipcRenderer.invoke('ok-works:add-root'),
+            removeRoot: (rootId) => ipcRenderer.invoke('ok-works:remove-root', rootId),
+            rescan: (rootId) => ipcRenderer.invoke('ok-works:rescan', rootId),
+            list: (rootId) => ipcRenderer.invoke('ok-works:list', rootId),
+            readSettings: (workId) => ipcRenderer.invoke('ok-works:read-settings', workId),
+            writeSettings: (workId, settings) => ipcRenderer.invoke('ok-works:write-settings', workId, settings),
+            readCover: (workId) => ipcRenderer.invoke('ok-works:read-cover', workId),
+            reveal: (workId) => ipcRenderer.invoke('ok-works:reveal', workId),
+            onChanged: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-works:changed', listener);
+                return () => ipcRenderer.removeListener('ok-works:changed', listener);
+            },
+        },
+        engine: {
+            load: (req) => ipcRenderer.invoke('ok-engine:load', req),
+            play: (attempt) => ipcRenderer.invoke('ok-engine:play', attempt),
+            pause: (attempt) => ipcRenderer.invoke('ok-engine:pause', attempt),
+            stop: (attempt) => ipcRenderer.invoke('ok-engine:stop', attempt),
+            seek: (attempt, sec) => ipcRenderer.invoke('ok-engine:seek', attempt, sec),
+            setMix: (attempt, mix) => ipcRenderer.invoke('ok-engine:set-mix', attempt, mix),
+            setKaraoke: (on) => ipcRenderer.invoke('ok-engine:set-karaoke', on),
+            setHarmony: (on) => ipcRenderer.invoke('ok-engine:set-harmony', on),
+            setMaster: (volume, muted) => ipcRenderer.invoke('ok-engine:set-master', volume, muted),
+            setLoopOne: (on) => ipcRenderer.invoke('ok-engine:set-loop-one', on),
+            listDevices: () => ipcRenderer.invoke('ok-engine:list-devices'),
+            setOutputDevice: (id) => ipcRenderer.invoke('ok-engine:set-output-device', id),
+            getSnapshot: () => ipcRenderer.invoke('ok-engine:get-snapshot'),
+            onState: (callback) => {
+                const listener = (_event, state) => callback(state);
+                ipcRenderer.on('ok-engine:state', listener);
+                return () => ipcRenderer.removeListener('ok-engine:state', listener);
+            },
+            onClock: (callback) => {
+                const listener = (_event, clock) => callback(clock);
+                ipcRenderer.on('ok-engine:clock', listener);
+                return () => ipcRenderer.removeListener('ok-engine:clock', listener);
+            },
+            onEnded: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-engine:ended', listener);
+                return () => ipcRenderer.removeListener('ok-engine:ended', listener);
+            },
+            onLooped: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-engine:looped', listener);
+                return () => ipcRenderer.removeListener('ok-engine:looped', listener);
+            },
+            onError: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-engine:error', listener);
+                return () => ipcRenderer.removeListener('ok-engine:error', listener);
+            },
+            onDevices: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-engine:devices', listener);
+                return () => ipcRenderer.removeListener('ok-engine:devices', listener);
+            },
+        },
+        live: {
+            getStatus: () => ipcRenderer.invoke('ok-live:get-status'),
+            setMode: (mode, source) => ipcRenderer.invoke('ok-live:set-mode', mode, source),
+            setFollowConfig: (config) => ipcRenderer.invoke('ok-live:set-follow-config', config),
+            setSmartReverb: (config) => ipcRenderer.invoke('ok-live:set-smart-reverb', config),
+            setPluginGains: (gains) => ipcRenderer.invoke('ok-live:set-plugin-gains', gains),
+            setLeaveAiGap: (ms) => ipcRenderer.invoke('ok-live:set-leave-ai-gap', ms),
+            setLevelsSubscribed: (on) => ipcRenderer.invoke('ok-live:set-levels-subscribed', on),
+            getPluginInfo: () => ipcRenderer.invoke('ok-live:get-plugin-info'),
+            openPluginFolder: () => ipcRenderer.invoke('ok-live:open-plugin-folder'),
+            onStatus: (callback) => {
+                const listener = (_event, status) => callback(status);
+                ipcRenderer.on('ok-live:status', listener);
+                return () => ipcRenderer.removeListener('ok-live:status', listener);
+            },
+            onLevels: (callback) => {
+                const listener = (_event, levels) => callback(levels);
+                ipcRenderer.on('ok-live:levels', listener);
+                return () => ipcRenderer.removeListener('ok-live:levels', listener);
+            },
+        },
+        cover: {
+            getComponent: () => ipcRenderer.invoke('ok-cover:get-component'),
+            pickInstallDir: () => ipcRenderer.invoke('ok-cover:pick-install-dir'),
+            installComponent: (opts) => ipcRenderer.invoke('ok-cover:install-component', opts),
+            locateComponent: (dir) => ipcRenderer.invoke('ok-cover:locate-component', dir),
+            cancelInstall: () => ipcRenderer.invoke('ok-cover:cancel-install'),
+            removeComponent: (opts) => ipcRenderer.invoke('ok-cover:remove-component', opts),
+            listModels: () => ipcRenderer.invoke('ok-cover:list-models'),
+            addModel: () => ipcRenderer.invoke('ok-cover:add-model'),
+            removeModel: (modelId) => ipcRenderer.invoke('ok-cover:remove-model', modelId),
+            submit: (req) => ipcRenderer.invoke('ok-cover:submit', req),
+            cancel: (jobId) => ipcRenderer.invoke('ok-cover:cancel', jobId),
+            listJobs: () => ipcRenderer.invoke('ok-cover:list-jobs'),
+            onInstallProgress: (callback) => {
+                const listener = (_event, progress) => callback(progress);
+                ipcRenderer.on('ok-cover:install-progress', listener);
+                return () => ipcRenderer.removeListener('ok-cover:install-progress', listener);
+            },
+            onJob: (callback) => {
+                const listener = (_event, payload) => callback(payload);
+                ipcRenderer.on('ok-cover:job', listener);
+                return () => ipcRenderer.removeListener('ok-cover:job', listener);
+            },
+        },
+    },
 });
