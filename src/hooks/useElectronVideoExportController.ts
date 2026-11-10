@@ -26,7 +26,7 @@ import { usePlaybackStore } from '../stores/usePlaybackStore';
 import { useAppChromeStore } from '../stores/useAppChromeStore';
 import { setIsPanelOpen } from '../stores/useAppViewStore';
 import { currentTime } from '../stores/motionSignals';
-import { isHifiRoute } from '../services/hifi/hifiPlayback';
+import { isNativeRouteNow } from '../services/playbackRoute';
 
 // src/hooks/useElectronVideoExportController.ts
 // Records the real player window so audio.currentTime remains the single animation clock.
@@ -73,7 +73,7 @@ export const useElectronVideoExportController = ({
 
         // The recording takes its sound from the deck's captureStream(); on the HiFi route mpv
         // sounds the song outside the page, so there is nothing to record.
-        if (isHifiRoute()) {
+        if (isNativeRouteNow()) {
             setExportState({
                 ...idleVideoExportState(),
                 status: 'error',

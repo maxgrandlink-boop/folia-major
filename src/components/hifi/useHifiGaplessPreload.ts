@@ -18,6 +18,7 @@ import {
     type HifiLoadState,
     type HifiTrack,
 } from '../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../services/playbackRoute';
 import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
 import { nextQueueIndex, queueIndexOf, queueLoopMode } from '../../utils/playbackNeighbors';
 import { loadQueuedSongHifiSource } from '../app/playback/source/songAudioSource';
@@ -55,7 +56,7 @@ export const hifiGaplessNextSong = (
     { playbackRoute, current, loadState, engineTrackKey, engineStatus, playQueue, currentSong, loopMode, isFmMode }: HifiGaplessInput,
     routeFor: RouteFor = hifiRouteFor,
 ): SongResult | null => {
-    if (playbackRoute !== 'hifi' || !current || current.promotedByGapless || loadState !== 'ready') return null;
+    if (!isHifiPlaybackRoute(playbackRoute) || !current || current.promotedByGapless || loadState !== 'ready') return null;
     if (engineTrackKey !== current.trackKey || (engineStatus !== 'playing' && engineStatus !== 'paused')) return null;
     if (loopMode === 'one' && !isFmMode) return null;
     if (!currentSong || getPlaybackSongKey(currentSong) !== current.songKey) return null;
@@ -66,7 +67,7 @@ export const hifiGaplessNextSong = (
     if (songKey === current.songKey) return null;
     const kind = playbackKindOfSong(next);
     if (kind !== 'local' && kind !== 'navidrome') return null;
-    return routeFor(kind, songKey) === 'hifi' ? next : null;
+    return isHifiPlaybackRoute(routeFor(kind, songKey)) ? next : null;
 };
 
 type GaplessFollowParams = {

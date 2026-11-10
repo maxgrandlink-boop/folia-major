@@ -12,6 +12,7 @@ import { useDesktopSettingsStore } from '../../../stores/useDesktopSettingsStore
 import { openAddToPlaylist, useAddToPlaylistStore } from '../../../stores/useAddToPlaylistStore';
 import { useInteractionSettingsStore } from '../../../stores/useInteractionSettingsStore';
 import { usePlaybackStore } from '../../../stores/usePlaybackStore';
+import { isHifiPlaybackRoute } from '../../../services/playbackRoute';
 import { isLocalPlaybackSong } from '../../../utils/appPlaybackGuards';
 import { openHifiSignalPath } from '../../hifi/hifiPanelStore';
 
@@ -98,7 +99,7 @@ export const buildPlaybackCommandContext = (
             useAudioSettingsStore.getState().handleReleaseModEqualizerCurve({ kind: 'command' });
         },
         // Read at the press: each new song picks its route without this context being rebuilt.
-        isHifiRoute: () => usePlaybackStore.getState().playbackRoute === 'hifi',
+        isHifiRoute: () => isHifiPlaybackRoute(usePlaybackStore.getState().playbackRoute),
         openHifiSignalPath,
     };
 };

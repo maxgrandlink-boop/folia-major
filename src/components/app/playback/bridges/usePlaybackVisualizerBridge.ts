@@ -21,6 +21,7 @@ import { useBeatFxTrack } from '../../../../hooks/useBeatFxTrack';
 import { readIncomingLyricClock } from './incomingLyricClock';
 import { isBackgroundLyricHeld, setHeldLyricTime, useBackgroundLyricHoldStore } from '../../backgroundThrottling/backgroundLyricHoldStore';
 import { getHifiPosition } from '../../../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../../../services/playbackRoute';
 import { getExternalPosition, isExternalPlaybackSounding } from '../../../../services/onlineMusic/externalPlayback';
 
 // src/components/app/playback/bridges/usePlaybackVisualizerBridge.ts
@@ -99,7 +100,7 @@ export function usePlaybackVisualizerBridge({
     const playerState = usePlaybackStore(state => state.playerState);
     const duration = usePlaybackStore(state => state.duration);
     // mpv sounds the song on the HiFi route: the decks are silent, and the clock is extrapolated from mpv's position.
-    const isHifiActive = usePlaybackStore(state => state.playbackRoute) === 'hifi';
+    const isHifiActive = usePlaybackStore(state => isHifiPlaybackRoute(state.playbackRoute));
     // A provider's own player sounds it on the external route, with its own extrapolated clock.
     // Only once the app has shown the song: before that the old song still owns the lyric clock.
     const isExternalRouteActive = usePlaybackStore(state => state.playbackRoute) === 'external';

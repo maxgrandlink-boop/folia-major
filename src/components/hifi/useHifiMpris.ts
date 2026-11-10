@@ -6,6 +6,7 @@ import type { HifiMprisArtwork, HifiMprisCommand, HifiMprisState, HifiMprisStatu
 import type { UseMediaSessionBridgeOptions } from '../../hooks/useMediaSessionBridge';
 import { getProviderSongMetadata, getSongAlbumLabel, getSongCoverUrl } from '../../services/onlineMusic/songMetadata';
 import { usePlaybackStore } from '../../stores/usePlaybackStore';
+import { isHifiPlaybackRoute } from '../../services/playbackRoute';
 import { hifiMediaShim } from '../../services/hifi/hifiMediaShim';
 import { useHifiTrackStore } from '../../services/hifi/hifiTrackStore';
 import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
@@ -129,7 +130,7 @@ export function useHifiMpris({
     const displayIsTrack = currentSong !== null && hifiTrack !== null && getPlaybackSongKey(currentSong) === hifiTrack.songKey;
     const song = displayIsTrack ? currentSong : hifiTrack?.song ?? null;
     const api = useMemo(getHifiMprisApi, []);
-    const active = api !== null && route === 'hifi' && song !== null && trackKey !== null;
+    const active = api !== null && isHifiPlaybackRoute(route) && song !== null && trackKey !== null;
     const status = mprisStatusOf(playerState, isNowPlayingStageActive);
     const playerStateRef = useRef(playerState);
     playerStateRef.current = playerState;
@@ -186,7 +187,7 @@ export function useHifiMpris({
         if (!api) return;
         // 和页面的 Media Session 处理一样：被禁用（Stage 接管）时不动。
         return api.onMprisCommand(command => {
-            if (usePlaybackStore.getState().playbackRoute !== 'hifi' || isNowPlayingControlDisabledRef.current) return;
+            if (!isHifiPlaybackRoute(usePlaybackStore.getState().playbackRoute) || isNowPlayingControlDisabledRef.current) return;
             console.info('[MPRIS] system media control', { command });
             const play = () => {
                 mediaSessionPlayRef.current().catch(error => console.error('[MPRIS] play failed', error));

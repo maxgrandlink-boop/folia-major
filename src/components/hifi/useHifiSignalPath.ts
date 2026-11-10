@@ -6,13 +6,14 @@ import { buildSignalPath } from '../../services/hifi/signalPath';
 import { useAudioSettingsStore } from '../../stores/useAudioSettingsStore';
 import { useHifiSettingsStore } from '../../stores/useHifiSettingsStore';
 import { usePlaybackStore } from '../../stores/usePlaybackStore';
+import { isHifiPlaybackRoute } from '../../services/playbackRoute';
 
 // src/components/hifi/useHifiSignalPath.ts
 // 播放界面读 HiFi 信号链路的 hook：现在是不是 HiFi 路线，当前曲目载入了没有，以及它从源文件到声卡的每一级
 // （Linux 上经 PipeWire 时还有 PipeWire 报的那一级）。
 
 /** 当前这首歌由 mpv 发声。 */
-export const useIsHifiRoute = () => usePlaybackStore(state => state.playbackRoute === 'hifi');
+export const useIsHifiRoute = () => usePlaybackStore(state => isHifiPlaybackRoute(state.playbackRoute));
 
 /** 当前曲目是恢复出来、暂停着、还没交给 mpv 载入的（loadState 'deferred'）：按下播放才载入，在那之前没有输出格式可比。 */
 export const useHifiTrackDeferred = () => useHifiTrackStore(state => state.loadState === 'deferred');

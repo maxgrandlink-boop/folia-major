@@ -7,6 +7,7 @@ import { usePlaybackStore } from '../../stores/usePlaybackStore';
 import { useHifiEngineStore } from '../../services/hifi/hifiEngine';
 import { playbackKindOfSong } from '../../services/hifi/hifiEligibility';
 import { hifiRouteFor } from '../../services/hifi/hifiPlayback';
+import { isNativeRoute } from '../../services/playbackRoute';
 import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
 import { nextQueueIndex, queueIndexOf, queueLoopMode } from '../../utils/playbackNeighbors';
 
@@ -20,7 +21,7 @@ const routesHifi = (song: SongResult | null | undefined, routeFor: RouteFor): bo
     if (!song) return false;
     const kind = playbackKindOfSong(song);
     if (kind !== 'local' && kind !== 'navidrome') return false;
-    return routeFor(kind, getPlaybackSongKey(song)) === 'hifi';
+    return isNativeRoute(routeFor(kind, getPlaybackSongKey(song)));
 };
 
 export type HifiAutomixGateInput = {
@@ -39,7 +40,7 @@ export const hifiBlocksAutomix = (
     { playbackRoute, playQueue, currentSong, loopMode, isFmMode }: HifiAutomixGateInput,
     routeFor: RouteFor = hifiRouteFor,
 ): boolean => {
-    if (playbackRoute === 'hifi') return true;
+    if (isNativeRoute(playbackRoute)) return true;
     if (routesHifi(currentSong, routeFor)) return true;
     const nextIndex = nextQueueIndex(playQueue.length, queueIndexOf(playQueue, currentSong), queueLoopMode(loopMode, isFmMode));
     return nextIndex >= 0 && routesHifi(playQueue[nextIndex], routeFor);
@@ -61,7 +62,7 @@ export function useHifiAutomixGate(): boolean {
 
     return useMemo(() => {
         // 这几项挡住时 hifiRouteFor 一律答 web，不必逐首去问。
-        if (playbackRoute !== 'hifi' && (!supported || !enabled || !runtimeAvailable || circuitOpen)) return false;
+        if (!isNativeRoute(playbackRoute) && (!supported || !enabled || !runtimeAvailable || circuitOpen)) return false;
         return hifiBlocksAutomix({ playbackRoute, playQueue, currentSong, loopMode, isFmMode });
         // navidrome 不在函数体里，是 hifiRouteFor 读的。
         // eslint-disable-next-line react-hooks/exhaustive-deps

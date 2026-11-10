@@ -1,3 +1,4 @@
+import { isHifiPlaybackRoute } from '../../../services/playbackRoute';
 import type { PlaybackRoute } from '../../../types/hifi';
 
 // src/components/app/presentation/buildPlayerViewFlags.ts
@@ -44,7 +45,7 @@ export const buildPlayerViewFlags = ({
         shouldHidePlayerRightPanelButton: isPlayerView && hidePlayerRightPanelButton,
         canToggleCurrentPlayback: !isNowPlayingControlDisabled && Boolean(
             audioSrc
-            || (playbackRoute === 'hifi' && hasHifiTrack)
+            || (isHifiPlaybackRoute(playbackRoute) && hasHifiTrack)
             // Not gated on the route: a song restored paused has no route of its own yet, and the
             // transport starts the provider's player when it is pressed.
             || hasExternalSong

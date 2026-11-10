@@ -102,6 +102,7 @@ import { useHifiMediaSessionKeepAlive } from './components/hifi/useHifiMediaSess
 import { useHifiMpris } from './components/hifi/useHifiMpris';
 import { useHifiWebRouteNotice } from './components/hifi/useHifiWebRouteNotice';
 import { isHifiRoute, useHifiTrackStore } from './services/hifi/hifiPlayback';
+import { deckSrcForRoute, isNativeRouteNow } from './services/playbackRoute';
 import { hifiEngine } from './services/hifi/hifiEngine';
 import { selectHifiEngineConfig, useHifiSettingsStore } from './stores/useHifiSettingsStore';
 import { useElectronDisplaySleepBlocker } from './hooks/useElectronDisplaySleepBlocker';
@@ -2470,7 +2471,7 @@ export default function App() {
             key={deck}
             ref={register}
             data-playback-deck={deck}
-            src={playbackRoute === 'hifi' ? undefined : automix.deckSrc(deck)}
+            src={deckSrcForRoute(playbackRoute, automix.deckSrc(deck))}
             preload="auto"
             crossOrigin="anonymous"
             loop={effectiveLoopMode === 'one' && automix.activeDeck === deck}
@@ -2500,7 +2501,7 @@ export default function App() {
                 }
             }}
             onPlay={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 if (!automix.isActiveDeck(e.currentTarget)) return;
                 shouldAutoPlay.current = false;
                 // The same split onTimeUpdate, onSeeked and onLoadedMetadata all make, and the two
@@ -2510,7 +2511,7 @@ export default function App() {
                 setPlayerState(PlayerState.PLAYING);
             }}
             onPlaying={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 if (!automix.isActiveDeck(e.currentTarget)) return;
                 shouldAutoPlay.current = false;
                 if (!isShowingTail) currentTime.set(e.currentTarget.currentTime);
@@ -2529,7 +2530,7 @@ export default function App() {
                 // the transport state and play intent belong to that song now.
                 if (consumeProgrammaticPause(e.currentTarget)) return;
                 // The Web engine yielding to mpv pauses the deck: the HiFi song's autoplay intent stays.
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 if (!automix.isActiveDeck(e.currentTarget)) return;
                 // A deck whose source failed fires `pause` immediately AFTER `error` - Chromium
                 // clears the play state as part of failing the load - and that is not the listener
@@ -2545,7 +2546,7 @@ export default function App() {
                 }
             }}
             onTimeUpdate={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 const audioElement = e.currentTarget;
                 const isActive = automix.isActiveDeck(audioElement);
                 // The clock and the transport are driven by different decks during a transition.
@@ -2592,7 +2593,7 @@ export default function App() {
                 automix.checkTransitionPoint(audioElement.currentTime);
             }}
             onSeeked={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 // Same split as onTimeUpdate: whichever deck the bar is showing is the one a seek
                 // on it has to be reflected from.
                 const isActive = automix.isActiveDeck(e.currentTarget);
@@ -2626,7 +2627,7 @@ export default function App() {
             // }}
             onEnded={(e) => {
                 // mpv's own end advances the queue on the HiFi route (useHifiPlaybackBridge).
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 // A track finishing in the background has already handed the queue over.
                 if (!automix.isActiveDeck(e.currentTarget)) {
                     automix.handleTailEnded();
@@ -2652,7 +2653,7 @@ export default function App() {
                 }
             }}
             onLoadedMetadata={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 const audioElement = e.currentTarget;
                 if (!automix.isActiveDeck(audioElement)) return;
                 setDuration(audioElement.duration);
@@ -2677,7 +2678,7 @@ export default function App() {
                 currentTime.set(0); // Ensure currentTime is reset when new audio loads
             }}
             onError={(e) => {
-                if (isHifiRoute()) return;
+                if (isNativeRouteNow()) return;
                 const audioElement = e.currentTarget;
                 const isActiveDeck = automix.isActiveDeck(audioElement);
                 const reportedDuration = Number.isFinite(audioElement.duration) && audioElement.duration > 0

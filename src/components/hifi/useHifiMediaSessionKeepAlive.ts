@@ -3,6 +3,7 @@ import type { PlaybackRoute } from '../../types/hifi';
 import { useHifiSettingsStore } from '../../stores/useHifiSettingsStore';
 import { usePlaybackStore } from '../../stores/usePlaybackStore';
 import { hifiMediaShim } from '../../services/hifi/hifiMediaShim';
+import { isHifiPlaybackRoute } from '../../services/playbackRoute';
 import { useHifiTrackStore } from '../../services/hifi/hifiTrackStore';
 import { useMainProcessMediaControls } from './useHifiMpris';
 
@@ -68,7 +69,7 @@ export const keepAliveAction = ({ route, enginePlaying, exclusiveOutput, mainPro
     exclusiveOutput: boolean;
     mainProcessMediaControls?: boolean;
 }): KeepAliveAction => {
-    if (route !== 'hifi' || exclusiveOutput || mainProcessMediaControls) return 'remove';
+    if (!isHifiPlaybackRoute(route) || exclusiveOutput || mainProcessMediaControls) return 'remove';
     return enginePlaying ? 'play' : 'pause';
 };
 
@@ -166,7 +167,7 @@ export function useHifiMediaSessionKeepAlive() {
     const action = keepAliveAction({ route, enginePlaying, exclusiveOutput, mainProcessMediaControls });
 
     useEffect(() => {
-        if (route !== 'hifi' || !exclusiveOutput || mainProcessMediaControls) return;
+        if (!(exclusiveOutput && isHifiPlaybackRoute(route)) || mainProcessMediaControls) return;
         console.info('[HiFi] no media session keep-alive on an exclusive output: system media controls are unavailable', {
             platform: currentPlatform(),
             audioDevice,

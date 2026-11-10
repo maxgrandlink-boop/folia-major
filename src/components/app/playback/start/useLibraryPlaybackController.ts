@@ -59,6 +59,7 @@ import { setActiveLocalLyricsSource, setAudioSrc, setCachedCoverUrl, setCurrentL
 import { askedSongKeyRef, askForSong, keepSongsOfProvidersStanding, playsDroppedSoFar, providerDropsSoFar, replaceShownSong, showSong, startPlay } from '../currentSong';
 import { loadLocalSongAudio, loadLocalSongHifiSource, loadNavidromeSongAudio } from '../source/songAudioSource';
 import { beginHifiTrack, hifiRouteFor } from '../../../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../../../services/playbackRoute';
 import { supplyLyricsAfterEmptyLoad } from '../createLyricsSetter';
 import { useStableActionSurface } from '../../../../hooks/useStableCallbacks';
 import { useTranslation } from 'react-i18next';
@@ -712,7 +713,7 @@ export function useLibraryPlaybackController({
         interruptStagePlaybackForMainTransition();
 
         // Asked before the file is read: on the HiFi route mpv reads the file itself, and no blob URL is made.
-        const onHifi = hifiRouteFor('local', `local:${localSong.id}`) === 'hifi';
+        const onHifi = isHifiPlaybackRoute(hifiRouteFor('local', `local:${localSong.id}`));
         const audio = onHifi ? await loadLocalSongHifiSource(localSong) : await loadLocalSongAudio(localSong);
         if (!audio) {
             // Another song was asked for while the file was read: this failure is not the listener's
@@ -931,7 +932,7 @@ export function useLibraryPlaybackController({
 
         try {
             const navidromeId = navidromeSong.navidromeData.id;
-            const onHifi = hifiRouteFor('navidrome', `navidrome:${navidromeId}`) === 'hifi';
+            const onHifi = isHifiPlaybackRoute(hifiRouteFor('navidrome', `navidrome:${navidromeId}`));
             const audio = loadNavidromeSongAudio(config, navidromeSong);
             const matchData = await getFromCacheWithMigration<NavidromeMatchData>(
                 getNavidromeMatchCacheKey(navidromeSong),

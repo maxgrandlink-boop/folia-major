@@ -50,6 +50,7 @@ import { currentTime } from '../../../stores/motionSignals';
 import { useAudioSettingsStore } from '../../../stores/useAudioSettingsStore';
 import type { PlaybackRoute } from '../../../types/hifi';
 import { getHifiPosition, isHifiRoute } from '../../../services/hifi/hifiPlayback';
+import { isHifiPlaybackRoute } from '../../../services/playbackRoute';
 import { getExternalPosition, isExternalPlaybackSounding } from '../../../services/onlineMusic/externalPlayback';
 import { restorePlaybackSourceForSong } from './restore/restorePlaybackSource';
 import { findPlaybackDecks } from '../../hifi/useWebEngineYield';
@@ -247,7 +248,7 @@ export function useStagePlaybackController({
         const restoresSource = Boolean(
             snapshot && song
             && (isLocalPlaybackSong(song) || isNavidromePlaybackSong(song))
-            && (snapshot.route === 'hifi' || !snapshot.audioSrc),
+            && (isHifiPlaybackRoute(snapshot.route) || !snapshot.audioSrc),
         );
         pendingResumeTimeRef.current = snapshot ? Math.max(0, snapshot.currentTime) : null;
         shouldAutoPlayRef.current = !external && snapshot?.playerState === PlayerState.PLAYING;
