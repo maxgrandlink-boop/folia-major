@@ -1138,6 +1138,8 @@ declare global {
         onModRpcMessage: (callback: (message: ModRpcMessage) => void) => () => void;
         onModSecretChanged: (callback: (change: ModSecretChange) => void) => () => void;
       };
+      /** ok唱歌 W1。网页版没有；VITE_OK_MOCK=true 时由 bootstrap 装上 mock。 */
+      ok?: import('./types/okBridge').OkBridge;
       /** HiFi 原生直通后端（mpv 子进程）。只在桌面版存在。 */
       hifi?: {
         getRuntimeStatus: () => Promise<import('./types/hifi').HifiRuntimeStatus>;

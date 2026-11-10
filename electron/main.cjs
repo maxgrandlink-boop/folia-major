@@ -115,6 +115,7 @@ const { createMpvRuntimeInstaller } = require('./hifi/mpvRuntimeInstaller.cjs');
 const { createSourceBridge } = require('./hifi/sourceBridge.cjs');
 const { createMpvSession } = require('./hifi/mpvSession.cjs');
 const { registerHifiIpc } = require('./hifi/hifiIpc.cjs');
+const { registerOkIpc } = require('./okIpc.cjs');
 const { createPipewireProbe, collectOwnPids } = require('./hifi/pipewireProbe.cjs');
 const { createApprovedMpvPathStore, isReservedHifiSettingKey } = require('./hifi/approvedMpvPath.cjs');
 const { registerMprisIpc } = require('./hifi/mpris/mprisIpc.cjs');
@@ -343,6 +344,11 @@ hifiIpc = registerHifiIpc({
   webContentsFromId: id => electronWebContents.fromId(id),
   getApprovedMpvPath: () => hifiApprovedMpvPath.get(),
   setApprovedMpvPath: value => hifiApprovedMpvPath.set(value),
+});
+// ok唱歌 W1：通道先登记成桩，一律回 not implemented。不接引擎，不改现有播放。
+registerOkIpc({
+  ipcMain,
+  isTrustedSender: event => isTrustedMainWindowContents(event.sender),
 });
 // Linux: while HiFi plays, main registers MPRIS on the session bus itself. A silent keep-alive in
 // the page would be a Chromium stream on the same PipeWire device, and PipeWire switches the
