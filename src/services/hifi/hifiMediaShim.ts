@@ -1,4 +1,5 @@
 import { usePlaybackStore } from '../../stores/usePlaybackStore';
+import { dispatchPlaybackRoute } from '../playbackRoute';
 import { MEDIA_SHIM_TIMEUPDATE_INTERVAL_MS, MediaShim, type ObservedMedia } from '../mediaShim';
 
 // src/services/hifi/hifiMediaShim.ts
@@ -29,10 +30,10 @@ export const setExternalRouteMedia = (reader: (() => ObservedMedia | null) | nul
 };
 
 /** 观察者该看的媒体：走 HiFi 或外部播放器时是它自己的 shim，否则是传入的 <audio>。 */
-export const getObservedMedia = (fallback: HTMLAudioElement | null): ObservedMedia | null => {
-    switch (usePlaybackStore.getState().playbackRoute) {
-        case 'hifi': return hifiMediaShim;
-        case 'external': return otherRouteMedia?.() ?? null;
-        default: return fallback;
-    }
-};
+export const getObservedMedia = (fallback: HTMLAudioElement | null): ObservedMedia | null => (
+    dispatchPlaybackRoute(usePlaybackStore.getState().playbackRoute, {
+        hifi: () => hifiMediaShim,
+        external: () => otherRouteMedia?.() ?? null,
+        web: () => fallback,
+    })
+);

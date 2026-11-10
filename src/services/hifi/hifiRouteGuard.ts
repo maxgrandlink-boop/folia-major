@@ -1,4 +1,5 @@
 import type { HifiEngineState } from '../../types/hifi';
+import { isHifiPlaybackRoute } from '../playbackRoute';
 import { setPlaybackRoute, usePlaybackStore } from '../../stores/usePlaybackStore';
 import { hifiEngine, useHifiEngineStore } from './hifiEngine';
 import { clearHifiTrack, isCurrentHifiTrackKey, nextHifiAttempt, useHifiTrackStore } from './hifiTrackStore';
@@ -7,7 +8,7 @@ import { clearHifiTrack, isCurrentHifiTrackKey, nextHifiAttempt, useHifiTrackSto
 // 离开 HiFi 路线的唯一出口：Web 引擎接手（audioSrc 有值）、Stage 接管、或别处把路线改回 web 时，当场停掉 mpv、放开独占的设备。
 // 也管上一个窗口留下、这个窗口没接管的那一首：这个窗口用上 Web 引擎或恢复没接管它时，一样停掉。
 
-export const isHifiRoute = () => usePlaybackStore.getState().playbackRoute === 'hifi';
+export const isHifiRoute = () => isHifiPlaybackRoute(usePlaybackStore.getState().playbackRoute);
 
 // beginHifiTrack 自己写 audioSrc / playbackRoute 的那几下，以及 leaveHifiRoute 自己切路线的那一下，守卫不管。
 let ownWriteDepth = 0;

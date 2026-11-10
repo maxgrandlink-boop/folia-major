@@ -9,6 +9,8 @@ describe('isNativeRoute', () => {
         expect(isNativeRoute('hifi')).toBe(true);
         expect(isNativeRoute('web')).toBe(false);
         expect(isNativeRoute('external')).toBe(false);
+        expect(isNativeRoute(null)).toBe(false);
+        expect(isNativeRoute(undefined)).toBe(false);
     });
 });
 
@@ -17,5 +19,7 @@ describe('isHifiPlaybackRoute', () => {
         expect(isHifiPlaybackRoute('hifi')).toBe(true);
         expect(isHifiPlaybackRoute('web')).toBe(false);
         expect(isHifiPlaybackRoute('external')).toBe(false);
+        expect(isHifiPlaybackRoute(null)).toBe(false);
+        expect(isHifiPlaybackRoute(undefined)).toBe(false);
     });
 });

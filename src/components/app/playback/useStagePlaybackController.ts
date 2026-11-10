@@ -248,7 +248,7 @@ export function useStagePlaybackController({
         const restoresSource = Boolean(
             snapshot && song
             && (isLocalPlaybackSong(song) || isNavidromePlaybackSong(song))
-            && ((snapshot.route !== undefined && isHifiPlaybackRoute(snapshot.route)) || !snapshot.audioSrc),
+            && (isHifiPlaybackRoute(snapshot.route) || !snapshot.audioSrc),
         );
         pendingResumeTimeRef.current = snapshot ? Math.max(0, snapshot.currentTime) : null;
         shouldAutoPlayRef.current = !external && snapshot?.playerState === PlayerState.PLAYING;

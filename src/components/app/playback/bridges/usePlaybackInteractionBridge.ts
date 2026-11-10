@@ -18,6 +18,7 @@ import { useAudioSettingsStore } from '../../../../stores/useAudioSettingsStore'
 import { currentTime } from '../../../../stores/motionSignals';
 import { errorFields } from '../../../../utils/errorText';
 import { hifiTransport, isHifiRoute } from '../../../../services/hifi/hifiPlayback';
+import { isNativeRouteNow } from '../../../../services/playbackRoute';
 import { seekHifiRoute } from '../../../hifi/hifiRouteTransport';
 import { isExternalPaused, isExternalRoute, seekExternalPlayback } from '../../../../services/onlineMusic/externalPlayback';
 
@@ -286,7 +287,7 @@ export function usePlaybackInteractionBridge({
                 case 'Space':
                     // On the HiFi route `audioSrc` is null: mpv has the song. The external player
                     // is the same: no source, but it does sound the song.
-                    if (currentSong && (audioSrc || isHifiRoute() || isExternalRoute() || isNowPlayingStageActive || (activePlaybackContext === 'stage' && stageActiveEntryKind === 'lyrics'))) {
+                    if (currentSong && (audioSrc || isNativeRouteNow() || isExternalRoute() || isNowPlayingStageActive || (activePlaybackContext === 'stage' && stageActiveEntryKind === 'lyrics'))) {
                         event.preventDefault();
                         if (isNowPlayingStageActive) {
                             return;

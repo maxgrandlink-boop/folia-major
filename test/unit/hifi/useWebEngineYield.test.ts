@@ -216,6 +216,7 @@ describe('the decks in App', () => {
     it('mounts the yield with the decks it unloads, and marks each deck so it can be found', () => {
         expect(app).toMatch(/useWebEngineYield\(\{ audioRef, audioContextRef, automix \}\);/);
         expect(deck).toContain(`${PLAYBACK_DECK_ATTRIBUTE}={deck}`);
+        expect(deck).toContain('src={deckSrcForRoute(playbackRoute, automix.deckSrc(deck))}');
     });
 
     it('puts no source on the deck while a native engine sounds, and keeps one on web and external', () => {
@@ -243,13 +244,13 @@ describe('the decks in App', () => {
     });
 
     it.each(['onPlay', 'onPlaying', 'onPause', 'onTimeUpdate', 'onSeeked', 'onEnded', 'onLoadedMetadata', 'onError'])(
-        'does nothing in %s while the route is HiFi',
+        'does nothing in %s while a native engine sounds',
         (handler) => {
             const start = deck.indexOf(`${handler}={(e) => {`);
             expect(start).toBeGreaterThan(-1);
             // The guard comes before anything the handler writes (onPause first spends a flushed fade's mark).
             const head = deck.slice(start, start + 800).split('\n').slice(1, 7).join('\n');
-            expect(head).toMatch(/if \(isHifiRoute\(\)\) return;/);
+            expect(head).toMatch(/if \(isNativeRouteNow\(\)\) return;/);
         },
     );
 });
