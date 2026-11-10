@@ -6,7 +6,7 @@ import { installBaseState, localImportFixture, mockNeteaseApi, openApp } from '.
 // 把它拉起来，而面板上那颗星仍然照常工作——星星的可用性现在由搬出去的宿主发布，
 // 宿主没挂上的话它会安静地消失。
 
-const dialog = (page: Page) => page.getByText('Add to Playlist', { exact: true });
+const dialog = (page: Page) => page.getByRole('heading', { name: 'Save to a playlist', exact: true });
 
 /** 直接写 store：这里验的是选择器的归属，不是本地库的导入流程。 */
 const seedLocalSong = (page: Page) => page.evaluate(async () => {

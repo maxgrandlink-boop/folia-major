@@ -55,9 +55,7 @@ jobs:
 
   test-ui:
     name: test:ui (${{ matrix.shard }}/4)
-    if: >-
-      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository)
-      && (github.event.inputs.update_ui_snapshots != 'true' || matrix.shard == 1)
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     # 上一轮 2 个 worker 在 4 核上跑完整包，90 分钟只跑完约一半（487 过、69 失败、518 没跑到），
     # 失败里大量是 15s/90s 等元素出现。拆成 4 台机器、每台 1 个 worker：墙钟降下来，
     # 性能护栏（bravaisPerf 的 loaf 天花板）也不再和另一个完整页面抢 CPU。超时不加。
