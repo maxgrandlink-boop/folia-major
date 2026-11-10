@@ -226,7 +226,12 @@ const openWall = async (page: import('@playwright/test').Page) => {
         route.fulfill({ status: 200, contentType: 'application/json', body: '{}' })
     ));
     await page.goto('/');
-    await page.waitForTimeout(1500);
+    // The launch view is restored in a mount effect (useAppNavigation). Writing lattice before
+    // that effect runs is overwritten back to home. A fixed 1500ms loses the race on a cold CI
+    // machine: the app is still compiling, the write lands first, and the effect puts home back.
+    // The empty-home heading is only painted after that restore. The queue-collage control is not
+    // in this nav on every platform, so it cannot be the signal.
+    await page.getByRole('heading', { name: 'Try searching a few songs first' }).waitFor();
     await page.evaluate(async () => {
         const playbackPath = '/src/stores/usePlaybackStore.ts';
         const viewsPath = '/src/stores/useAppViewStore.ts';
@@ -240,7 +245,9 @@ const openWall = async (page: import('@playwright/test').Page) => {
         playback.usePlaybackStore.setState({ playQueue: queue, currentSong: queue[0] });
         views.useAppViewStore.setState({ view: 'lattice' });
     });
-    // Long enough for the opening tile-landing wave and the entry pan to finish.
+    // Posters mount with the view change. The landing wave still has to finish after that,
+    // or its renders land in the measurement window.
+    await page.waitForFunction(() => document.querySelectorAll('.lattice-poster').length > 20, null, { timeout: 20_000 });
     await page.waitForTimeout(2500);
 };
 

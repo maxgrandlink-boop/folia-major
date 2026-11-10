@@ -54,10 +54,19 @@ jobs:
         run: npm run test:unit
 
   test-ui:
-    name: test:ui
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    name: test:ui (${{ matrix.shard }}/4)
+    if: >-
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository)
+      && (github.event.inputs.update_ui_snapshots != 'true' || matrix.shard == 1)
+    # 上一轮 2 个 worker 在 4 核上跑完整包，90 分钟只跑完约一半（487 过、69 失败、518 没跑到），
+    # 失败里大量是 15s/90s 等元素出现。拆成 4 台机器、每台 1 个 worker：墙钟降下来，
+    # 性能护栏（bravaisPerf 的 loaf 天花板）也不再和另一个完整页面抢 CPU。超时不加。
     runs-on: windows-latest
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
 
     steps:
       - name: Check out Git repository
@@ -85,20 +94,22 @@ jobs:
 
       # 截图基线按平台后缀分开（playwright.config.ts 的 snapshotPathTemplate）：
       # 仓库里已有的是 *-linux.png，Windows 写 *-win32.png，两套并存。
-      # update_ui_snapshots 只给一次性补 Windows 基线用，平常对比已提交的图。
+      # --workers=1 盖过配置里 CI 的 2：这一台只跑四分之一用例，再开第二个浏览器只会把 4 核占满。
       - name: Run test:ui
         shell: pwsh
         env:
           UPDATE_UI_SNAPSHOTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.update_ui_snapshots == 'true' }}
         run: |
           if ($env:UPDATE_UI_SNAPSHOTS -eq 'true') {
-            npm run test:ui -- --reporter=line --reporter=github --update-snapshots
+            # 只重写三张首页图，不把整包用例再跑一遍。
+            if ('${{ matrix.shard }}' -ne '1') { exit 0 }
+            npx playwright test test/ui/app.screenshot.spec.ts --update-snapshots --workers=1 --reporter=line
           } else {
-            npm run test:ui -- --reporter=line --reporter=github
+            npm run test:ui -- --reporter=line --reporter=github --shard=${{ matrix.shard }}/4 --workers=1
           }
 
       - name: Upload Windows screenshot baselines
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.update_ui_snapshots == 'true'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.update_ui_snapshots == 'true' && matrix.shard == 1
         uses: actions/upload-artifact@v6
         with:
           name: windows-ui-snapshots
@@ -106,10 +117,10 @@ jobs:
           if-no-files-found: error
 
       - name: Upload test:ui failure artifacts
-        if: failure()
+        if: failure() || cancelled()
         uses: actions/upload-artifact@v6
         with:
-          name: test-ui-failure
+          name: test-ui-failure-${{ matrix.shard }}
           path: |
             test-results
             playwright-report
