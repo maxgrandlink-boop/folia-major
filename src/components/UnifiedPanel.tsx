@@ -6,6 +6,7 @@ import { Album, Artist, SongResult, Theme, PlayerState, ReplayGainMode, ThemeMod
 import type { LibraryAccountController } from '../library/core/account/account.contract';
 import ControlsTab from './panelTab/ControlsTab';
 import QueueTab from './panelTab/QueueTab';
+import { onlineCatalogUiEnabled } from '../product/okChang';
 import AccountTab from './panelTab/AccountTab';
 import LocalTab from './panelTab/LocalTab';
 import FmTab from './panelTab/FmTab';
@@ -255,7 +256,7 @@ const UnifiedPanel: React.FC<UnifiedPanelProps> = ({
         isFmMode 
             ? { id: 'queue' as PanelTab, label: t('home.radio'), icon: Radio }
             : { id: 'queue' as PanelTab, label: t('panel.playlist'), icon: ListMusic },
-        { id: 'account' as PanelTab, label: t('panel.account'), icon: AudioLines },
+        ...(onlineCatalogUiEnabled ? [{ id: 'account' as PanelTab, label: t('panel.account'), icon: AudioLines }] : []),
     ];
 
     if (isLocal) {
@@ -271,7 +272,7 @@ const UnifiedPanel: React.FC<UnifiedPanelProps> = ({
     // A mod tab can vanish while open (mod disabled or reloaded): fall back to the cover tab.
     const currentTabExists = tabs.some((tab) => tab.id === currentTab);
     React.useEffect(() => {
-        if (!currentTabExists && currentTab.startsWith(FOLIUM_PANEL_TAB_PREFIX)) {
+        if (!currentTabExists && (currentTab.startsWith(FOLIUM_PANEL_TAB_PREFIX) || currentTab === 'account')) {
             onTabChange('cover');
         }
     }, [currentTabExists, currentTab, onTabChange]);

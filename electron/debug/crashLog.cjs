@@ -88,7 +88,7 @@ const prune = (dir) => {
 
 /** Everything that is worth knowing before reading the stack. */
 const describeEnvironment = (app) => [
-    `Folia      ${app.getVersion()}`,
+    `ok唱歌    ${app.getVersion()}`,
     `Electron   ${process.versions.electron}`,
     `Chrome     ${process.versions.chrome}`,
     `Node       ${process.versions.node}`,
@@ -141,7 +141,7 @@ const createCrashLog = ({ app, dialog, shell, getLocale, onLine }) => {
         if (!dir) return null;
         const file = uniquePath(`crash-${stamp()}`);
         const body = [
-            `# Folia crash report`,
+            `# ok唱歌 crash report`,
             `Time       ${new Date().toISOString()}`,
             `Kind       ${kind}`,
             describeEnvironment(app),

@@ -331,8 +331,8 @@ export default {
     "closeToQuit": "Menutup jendela akan keluar dari aplikasi",
     "wallpaperModeOn": "Mode wallpaper diaktifkan",
     "wallpaperModeOff": "Mode wallpaper dimatikan",
-    "macWallpaperInputMonitoringNeeded": "Mode wallpaper memerlukan izin Input Monitoring: izinkan Folia di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu aktifkan ulang mode wallpaper",
-    "macWallpaperAccessibilitySuggested": "Saat Stage Manager aktif, klik pada wallpaper juga dihitung sebagai klik desktop dan menyingkirkan jendela Anda. Izinkan Folia di Pengaturan Sistem → Privasi & Keamanan → Aksesibilitas lalu mulai ulang Folia untuk mencegahnya; ikon desktop tetap bisa diklik",
+    "macWallpaperInputMonitoringNeeded": "Mode wallpaper memerlukan izin Input Monitoring: izinkan ok唱歌 di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu aktifkan ulang mode wallpaper",
+    "macWallpaperAccessibilitySuggested": "Saat Stage Manager aktif, klik pada wallpaper juga dihitung sebagai klik desktop dan menyingkirkan jendela Anda. Izinkan ok唱歌 di Pengaturan Sistem → Privasi & Keamanan → Aksesibilitas lalu mulai ulang ok唱歌 untuk mencegahnya; ikon desktop tetap bisa diklik",
     "macWallpaperAutohideDockOn": "Sembunyikan Dock otomatis diaktifkan",
     "macWallpaperAutohideDockOff": "Sembunyikan Dock otomatis dimatikan",
     "voiceInputPauseOn": "Fitur jeda saat input suara diaktifkan",
@@ -348,7 +348,7 @@ export default {
     "autoPlayOnLaunchOn": "Pemutaran akan dilanjutkan sendiri saat aplikasi dibuka",
     "autoPlayOnLaunchOff": "Sesi terakhir akan dipulihkan dalam keadaan dijeda",
     "openHomeOnLaunch": "Buka halaman beranda secara default saat dibuka",
-    "gpuPreferenceChanged": "GPU render diubah; mulai ulang Folia untuk menerapkannya",
+    "gpuPreferenceChanged": "GPU render diubah; mulai ulang ok唱歌 untuk menerapkannya",
     "backgroundThrottlingOn": "Pembatasan latar belakang aktif",
     "backgroundThrottlingOff": "Pembatasan latar belakang nonaktif",
     "visualizerSwitched": "Beralih ke visualizer {{mode}}",
@@ -719,9 +719,9 @@ export default {
       "settings-local-lyrics-priority": { "title": "Prioritas lirik lagu lokal", "description": "Pilih apakah lagu lokal lebih mengutamakan lirik lokal atau online" },
       "settings-local-lyric-format-order": { "title": "Prioritas format file lirik lokal", "description": "Pilih format yang digunakan saat satu lagu memiliki beberapa file lirik" },
       "settings-integration": { "title": "Pengaturan integrasi", "description": "Buka pengaturan Stage, Now Playing, dan Navidrome" },
-      "automix-toggle": { "title": "Transisi pintar", "description": "Aktifkan atau nonaktifkan transisi pintar FOLIA" },
-      "transition-mode-crossfade": { "title": "Mode transisi: Folia Crossfade", "description": "Gunakan crossfade sederhana satu keluar satu masuk" },
-      "transition-mode-automix": { "title": "Mode transisi: Folia Automix", "description": "Menganalisis kedua trek dan mencampurnya otomatis" },
+      "automix-toggle": { "title": "Transisi pintar", "description": "Aktifkan atau nonaktifkan transisi pintar ok唱歌" },
+      "transition-mode-crossfade": { "title": "Mode transisi: Crossfade", "description": "Gunakan crossfade sederhana satu keluar satu masuk" },
+      "transition-mode-automix": { "title": "Mode transisi: Automix", "description": "Menganalisis kedua trek dan mencampurnya otomatis" },
       "transition-performance-toggle": { "title": "Mode performa transisi", "description": "Alihkan transisi yang lebih agresif (perlu model stem)" },
       "settings-discord-presence": { "title": "Status pemutaran Discord", "description": "Buka pengaturan Discord Rich Presence" },
       "lyric-staff-policy-cycle": { "title": "Penanganan kredit pembuka", "description": "Ganti cara blok kredit di awal lirik ditangani" },
@@ -735,7 +735,7 @@ export default {
       "settings-r2-sync": { "title": "Pengaturan server sinkronisasi", "description": "Buka pengaturan server sinkronisasi" },
       "sync-now": { "title": "Sinkronkan sekarang", "description": "Sinkronkan tema AI" },
       "export-lyric-cache": { "title": "Ekspor lirik tersimpan", "description": "Simpan semua lirik di perangkat ini sebagai .fia dan LRC enhanced dalam satu zip" },
-      "export-current-lyrics-fia": { "title": "Ekspor lirik saat ini sebagai .fia", "description": "Simpan lirik lagu ini dalam format lossless Folia, termasuk segmentasi kata yang disimpan" },
+      "export-current-lyrics-fia": { "title": "Ekspor lirik saat ini sebagai .fia", "description": "Simpan lirik lagu ini dalam format lossless ok唱歌, termasuk segmentasi kata yang disimpan" },
       "export-current-lyrics-lrc": { "title": "Ekspor lirik saat ini sebagai LRC", "description": "Simpan lirik lagu ini sebagai LRC enhanced yang bisa dibaca pemutar lain" },
       "settings-local-library-watch": { "title": "Pengaturan pantauan folder lokal", "description": "Buka pengaturan pemindaian otomatis untuk folder lokal yang diimpor" },
       "local-library-auto-scan-toggle": { "title": "Pindai otomatis folder lokal", "description": "Aktifkan atau matikan pemindaian ulang otomatis folder lokal yang diimpor" },
@@ -743,7 +743,7 @@ export default {
       "settings-update-channel": { "title": "Saluran pembaruan", "description": "Pilih saluran rilis aplikasi desktop" },
       "desktop-toggle-voice-input-pause": { "title": "Jeda input suara", "description": "Alihkan jeda pemutaran saat input suara aktif" },
       "desktop-toggle-prevent-display-sleep": { "title": "Cegah layar tidur saat pemutaran", "description": "Jaga layar tetap menyala selama musik diputar" },
-      "desktop-toggle-background-throttling": { "title": "Pembatasan latar belakang", "description": "Alihkan pembatasan rendering dan penghentian animasi lirik saat Folia diminimalkan atau disembunyikan" },
+      "desktop-toggle-background-throttling": { "title": "Pembatasan latar belakang", "description": "Alihkan pembatasan rendering dan penghentian animasi lirik saat ok唱歌 diminimalkan atau disembunyikan" },
       "settings-graphics": { "title": "Pengaturan grafis", "description": "Buka mode statis, batas frame rate, perbaikan glow Linux, dan pengurangan gerak" },
       "settings-gpu-preference": { "title": "Pengaturan GPU render", "description": "Langsung ke pilihan kartu grafis yang dipakai aplikasi untuk merender" },
       "gpu-preference-auto": { "title": "GPU render: Otomatis", "description": "Biarkan Windows memilih kartu grafis; berlaku setelah dimulai ulang" },
@@ -861,11 +861,11 @@ export default {
       "hifi-settings": { "title": "Pengaturan mesin pemutaran", "description": "Buka pengaturan mesin pemutaran: Web Audio atau mpv, serta perangkat output, mode eksklusif, dan DSD mpv" },
       "hifi-exclusive-toggle": { "title": "Mode eksklusif HiFi", "description": "Aktifkan atau matikan HiFi memakai perangkat output sendirian, agar mixer sistem tidak ikut campur" },
       "hifi-navidrome-toggle": { "title": "Navidrome lewat HiFi", "description": "Aktifkan atau matikan pemutaran lagu Navidrome lewat HiFi, sebagai berkas asli tanpa transkode" },
-      "hifi-software-volume-toggle": { "title": "Volume perangkat lunak HiFi", "description": "Aktifkan atau matikan slider volume Folia untuk mengatur volume mpv; tidak bit-perfect selama menyala" },
+      "hifi-software-volume-toggle": { "title": "Volume perangkat lunak HiFi", "description": "Aktifkan atau matikan slider volume ok唱歌 untuk mengatur volume mpv; tidak bit-perfect selama menyala" },
       "hifi-redetect-mpv": { "title": "Deteksi mpv ulang", "description": "Cari ulang mpv untuk HiFi, misalnya setelah memasang atau memperbaruinya" },
-      "hifi-download-mpv": { "title": "Unduh atau perbarui mpv", "description": "Unduh mpv yang disarankan untuk HiFi, atau perbarui yang diunduh Folia; kemajuannya tampil di pengaturan mesin pemutaran" },
+      "hifi-download-mpv": { "title": "Unduh atau perbarui mpv", "description": "Unduh mpv yang disarankan untuk HiFi, atau perbarui yang diunduh ok唱歌; kemajuannya tampil di pengaturan mesin pemutaran" },
       "hifi-signal-path": { "title": "Jalur sinyal HiFi", "description": "Lihat bagaimana lagu ini sampai ke DAC dan apakah tetap bit-perfect" },
-      "settings-transition": { "title": "Transisi cerdas", "description": "Langsung ke pengaturan transisi FOLIA" },
+      "settings-transition": { "title": "Transisi cerdas", "description": "Langsung ke pengaturan transisi ok唱歌" },
       "settings-navidrome": { "title": "Server Navidrome", "description": "Langsung ke pengaturan koneksi server Navidrome" },
       "settings-stage-mode": { "title": "Mode Stage", "description": "Langsung ke pengaturan pemutar eksternal Stage" },
       "settings-media-cache": { "title": "Cache media", "description": "Langsung ke cache audio yang telah diunduh" },
@@ -1138,10 +1138,10 @@ export default {
     "scopeOnlineDesc": "Lirik yang tersimpan untuk lagu online yang pernah diputar",
     "scopeLocal": "Pustaka lokal",
     "scopeLocalDesc": "Lirik hasil pencocokan online untuk lagu lokal, dinamai sesuai berkas audionya di folder aslinya, siap diletakkan di sebelahnya",
-    "formatFia": ".fia (Folia, lossless)",
-    "formatFiaDesc": "Menyimpan timing per kata, terjemahan, vokal latar, dan segmentasi Anda; bisa langsung diimpor kembali ke Folia",
+    "formatFia": ".fia (ok唱歌, lossless)",
+    "formatFiaDesc": "Menyimpan timing per kata, terjemahan, vokal latar, dan segmentasi Anda; bisa langsung diimpor kembali ke ok唱歌",
     "formatLrc": "LRC enhanced",
-    "formatLrcDesc": "Bisa dibaca pemutar lain; data khusus Folia seperti vokal latar dan segmentasi hilang",
+    "formatLrcDesc": "Bisa dibaca pemutar lain; data khusus ok唱歌 seperti vokal latar dan segmentasi hilang",
     "includeTranslationDesc": "Ditulis sebagai baris berikutnya dengan timestamp yang sama",
     "includeRomanizationDesc": "Ditulis setelah terjemahan",
     "resolveOnline": "Cari judul yang hilang secara online",
@@ -1171,7 +1171,7 @@ export default {
     "descriptionExportOnly": "Simpan lirik yang sedang tampil untuk lagu ini sebagai berkas.",
     "importHeading": "Impor",
     "importChoose": "Pilih berkas lirik",
-    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, atau .fia hasil ekspor Folia",
+    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, atau .fia hasil ekspor ok唱歌",
     "exportHeading": "Ekspor lagu ini",
     "batchTitle": "Ekspor semua lirik di perangkat ini",
     "batchDesc": "Membuka ekspor massal di palet perintah"
@@ -1209,28 +1209,28 @@ export default {
     "homePageNavigation": "Halaman beranda",
     "title": "Manajer Mod",
     "experimental": "Eksperimental",
-    "warning": "Mod kompatibel dengan Folium v{{version}}. Mod bertanda Terverifikasi telah ditinjau dan ditandatangani Folium; selebihnya mod pihak ketiga yang belum ditinjau. Terverifikasi atau tidak, setelah diaktifkan mod berjalan dengan hak penuh aplikasi (termasuk runtime Node.js dan pengaturan apa pun seperti URL dan kunci layanan AI). Aktifkan hanya mod dari sumber tepercaya.",
+    "warning": "Mod kompatibel dengan Mod v{{version}}. Mod bertanda Terverifikasi telah ditinjau dan ditandatangani Mod; selebihnya mod pihak ketiga yang belum ditinjau. Terverifikasi atau tidak, setelah diaktifkan mod berjalan dengan hak penuh aplikasi (termasuk runtime Node.js dan pengaturan apa pun seperti URL dan kunci layanan AI). Aktifkan hanya mod dari sumber tepercaya.",
     "market": "Pasar mod",
     "trustRevoked": "Berkas mod ini berubah sejak terakhir Anda konfirmasi, jadi mod dinonaktifkan otomatis. Periksa sumbernya, lalu aktifkan kembali.",
     "devSourceHint": "Mod di direktori pengembangan: setelah dikonfirmasi, mengubah berkasnya tidak membatalkan persetujuan (hanya build pengembangan).",
-    "platformReadHint": "Dapat membaca data di {{platforms}} dengan akun yang Anda pakai untuk masuk ke Folia, misalnya riwayat mendengarkan (API eksperimental platform.raw).",
+    "platformReadHint": "Dapat membaca data di {{platforms}} dengan akun yang Anda pakai untuk masuk ke ok唱歌, misalnya riwayat mendengarkan (API eksperimental platform.raw).",
     "platformWriteHint": "Juga dapat mengubah isi akun {{platforms}} Anda, misalnya suka, playlist, dan yang diikuti.",
     "queueReplaced": "“{{name}}” mengganti antrean putar",
     "queueReplaceUndo": "Urungkan",
     "queueReplaceUndone": "Antrean putar sebelum penggantian sudah dipulihkan",
     "queueReplaceUndoGone": "Antrean sudah berubah setelah diganti, jadi tidak ada yang bisa diurungkan",
-    "queueReplaceHint": "Dapat mengganti seluruh antrean putar sekaligus dan mengakhiri FM Pribadi; Folia lalu memberi tahu mod mana yang melakukannya, dan Anda dapat mengurungkannya selama antrean belum diubah lagi.",
+    "queueReplaceHint": "Dapat mengganti seluruh antrean putar sekaligus dan mengakhiri FM Pribadi; ok唱歌 lalu memberi tahu mod mana yang melakukannya, dan Anda dapat mengurungkannya selama antrean belum diubah lagi.",
     "equalizerControlHint": "Mengubah pengaturan suara Anda: dapat mengganti preset suara, atau memasang kurva equalizer miliknya sendiri.",
     "renderQualityHint": "Mengubah kualitas render kanvas lirik: dapat mengubah resolusi dan anti-aliasing kanvas lirik di Performa & gerakan.",
     "visualizerModeHint": "Mengganti gaya animasi lirik Anda, seperti yang Anda lakukan di panel pemutar.",
     "visualizerTuningHint": "Mengubah opsi gaya lirik bawaan (kecuali pengaturan kualitas).",
     "visualizerBeatEffectsHint": "Menyalakan atau mematikan efek ketukan mode ketukan pintar dan mengubah kekuatannya; mode ketukan pintar itu sendiri tetap Anda yang memilih, tetapi saat Aktif efek yang dinyalakan membuat GPU menganalisis lagu baru.",
     "signatureVerified": "Terverifikasi",
-    "signatureVerifiedDetail": "Memiliki tanda tangan resmi Folium yang valid ({{key}}): sumber dan isinya telah ditinjau Folium dan tidak berubah sejak ditandatangani. Setelah diaktifkan, mod tetap berjalan dengan hak penuh aplikasi.",
+    "signatureVerifiedDetail": "Memiliki tanda tangan resmi Mod yang valid ({{key}}): sumber dan isinya telah ditinjau Mod dan tidak berubah sejak ditandatangani. Setelah diaktifkan, mod tetap berjalan dengan hak penuh aplikasi.",
     "signatureBeta": "Pratinjau",
-    "signatureBetaDetail": "Ditandatangani dengan kunci pratinjau Folium ({{key}}): hanya lolos tinjauan keamanan. Implementasinya mungkin belum rapi dan fiturnya bisa saja sama sekali tidak berfungsi. Ditujukan bagi pengembang komunitas untuk bereksperimen; sebagian besar pengguna sebaiknya tidak mengaktifkannya. Setelah diaktifkan, mod tetap berjalan dengan hak penuh aplikasi.",
+    "signatureBetaDetail": "Ditandatangani dengan kunci pratinjau Mod ({{key}}): hanya lolos tinjauan keamanan. Implementasinya mungkin belum rapi dan fiturnya bisa saja sama sekali tidak berfungsi. Ditujukan bagi pengembang komunitas untuk bereksperimen; sebagian besar pengguna sebaiknya tidak mengaktifkannya. Setelah diaktifkan, mod tetap berjalan dengan hak penuh aplikasi.",
     "signatureUnsigned": "Belum terverifikasi",
-    "signatureUnsignedDetail": "Tanpa tanda tangan resmi: ini mod pihak ketiga yang belum ditinjau Folium. Aktifkan hanya mod dari sumber yang Anda percayai.",
+    "signatureUnsignedDetail": "Tanpa tanda tangan resmi: ini mod pihak ketiga yang belum ditinjau Mod. Aktifkan hanya mod dari sumber yang Anda percayai.",
     "signatureInvalid": "Tanda tangan tidak cocok",
     "signatureInvalidDetail": "Mod ini ditandatangani, tetapi tanda tangannya gagal diperiksa ({{reason}}), jadi tanda tangan ini tidak lagi bisa menjaminnya. Biasanya berkasnya diubah setelah ditandatangani; jika bukan Anda yang mengubahnya, jangan aktifkan.",
     "signatureReasons": {
@@ -1241,11 +1241,11 @@ export default {
       "bad-signature": "tanda tangan tidak valid",
       "unverifiable": "berkas tidak dapat diperiksa",
       "digest-mismatch": "berkas diubah setelah ditandatangani",
-      "revoked-mod": "versi mod ini ditarik oleh Folium"
+      "revoked-mod": "versi mod ini ditarik oleh Mod"
     },
     "reload": "Muat ulang",
     "ffmpegMissing": "ffmpeg tidak ditemukan",
-    "ffmpegMissingHint": "Ekspor video transparan membutuhkan ffmpeg. Atur FOLIA_FFMPEG_PATH atau letakkan ffmpeg di folder ffmpeg-8.1.2 di samping aplikasi.",
+    "ffmpegMissingHint": "Ekspor video transparan membutuhkan ffmpeg. Atur ok唱歌_FFMPEG_PATH atau letakkan ffmpeg di folder ffmpeg-8.1.2 di samping aplikasi.",
     "empty": "Tidak ada mod yang ditemukan",
     "enabled": "Aktif",
     "disabled": "Nonaktif",
@@ -1267,7 +1267,7 @@ export default {
     "exporting": "Mengekspor",
     "running": "Berjalan",
     "clientIssues": "Masalah kode antarmuka",
-    "oldNames": "Memakai nama lama yang tidak berlaku lagi di Folium 2",
+    "oldNames": "Memakai nama lama yang tidak berlaku lagi di Mod 2",
     "issueTimes_one": "gagal {{count}} kali, terakhir pukul {{time}}",
     "issueTimes_other": "gagal {{count}} kali, terakhir pukul {{time}}",
     "faultNotice": {
@@ -1286,8 +1286,8 @@ export default {
     "faultNoticeOpen": "Lihat",
     "faultNoticeMute": "Jangan tampilkan masalah atau lambat dimulai",
     "faultNoticeSwitch": "Beri tahu saya saat mod ini bermasalah atau lambat dimulai",
-    "skippedThisRun": "Tidak dijalankan kali ini. Akan berjalan seperti biasa saat Folia dibuka berikutnya.",
-    "startSkippedBanner": "Kali ini tidak ada mod yang berjalan. Mod berjalan seperti biasa saat Folia dibuka berikutnya.",
+    "skippedThisRun": "Tidak dijalankan kali ini. Akan berjalan seperti biasa saat ok唱歌 dibuka berikutnya.",
+    "startSkippedBanner": "Kali ini tidak ada mod yang berjalan. Mod berjalan seperti biasa saat ok唱歌 dibuka berikutnya.",
     "cost": {
       "title": "Waktu yang dipakai",
       "start": "Mulai dalam {{seconds}} detik",
@@ -1303,7 +1303,7 @@ export default {
       "noFailures": "Tidak ada kegagalan",
       "main": "Bagian latar: total {{total}} ms, panggilan terlama {{longest}} ms",
       "slow": "Lambat",
-      "slowHint": "Mod ini lambat saat mulai atau memakai banyak waktu saat berjalan. Folia tidak mematikannya karena itu."
+      "slowHint": "Mod ini lambat saat mulai atau memakai banyak waktu saat berjalan. ok唱歌 tidak mematikannya karena itu."
     },
     "commandUnavailable": "Perintah mod ini sudah tidak tersedia.",
     "cancelExport": "Batal",
@@ -1337,12 +1337,12 @@ export default {
       "install-too-many-files": "Paket mod berisi terlalu banyak berkas (maks 2000)",
       "install-main-missing": "Paket tidak memiliki berkas main yang dideklarasikan di mod.json",
       "install-client-missing": "Paket tidak memiliki berkas client yang dideklarasikan di mod.json",
-      "host-version-mismatch": "Mod ini memakai API internal dan tidak mendukung versi Folia ini",
+      "host-version-mismatch": "Mod ini memakai API internal dan tidak mendukung versi ok唱歌 ini",
       "enable-failed": "Gagal mengaktifkan mod: {{value}}",
       "mod-not-found": "Mod tidak ditemukan",
       "mod-content-unverifiable": "Berkas mod tidak dapat diverifikasi (terlalu banyak atau terlalu besar), jadi tidak akan diaktifkan",
       "install-failed": "Pemasangan gagal: {{value}}",
-      "export-ffmpeg-not-found": "ffmpeg tidak ditemukan; pasang atau atur FOLIA_FFMPEG_PATH",
+      "export-ffmpeg-not-found": "ffmpeg tidak ditemukan; pasang atau atur ok唱歌_FFMPEG_PATH",
       "export-already-running": "Ekspor lain sedang berjalan",
       "export-no-lyrics": "Lagu saat ini tidak memiliki lirik untuk dirender",
       "export-invalid-duration": "Rentang waktu ekspor tidak valid",
@@ -1563,7 +1563,7 @@ export default {
     "audioUnplayable": "Audio tidak dapat diputar",
     "refused": "Permintaan ditolak oleh {{provider}}",
     "noteCheckNetwork": "Periksa jaringan",
-    "noteRestartApp": "Mulai ulang Folia",
+    "noteRestartApp": "Mulai ulang ok唱歌",
     "noteRetryLater": "Coba lagi nanti",
     "noteSignIn": "Masuk lagi",
     "noteUnknown": "Kesalahan tidak diketahui",
@@ -1576,7 +1576,7 @@ export default {
     "signIn": "Masuk"
   },
   "home": {
-    "welcome": "Selamat datang di Folia",
+    "welcome": "Selamat datang di ok唱歌",
     "lattice": "Kolase antrean",
     "latticeLabel": "Kolase antrean",
     "latticeExplore": "Kolase jelajah",
@@ -1631,7 +1631,7 @@ export default {
     "loginCaseSpotifyDenied": "Pilih Setuju di halaman Spotify",
     "loginCaseSpotifyPort": "Port 5588 sudah digunakan",
     "loginCaseYtmUnfinished": "Masuk terlebih dahulu sebelum menutup browser",
-    "loginCaseQqRestart": "Mulai ulang Folia, lalu coba lagi",
+    "loginCaseQqRestart": "Mulai ulang ok唱歌, lalu coba lagi",
     "loginCaseQqWrongScanApp": "Untuk memindai dengan aplikasi QQ Music, pilih “Pindai aplikasi QQ Music”, atau pindai kode ini dengan QQ di ponsel",
     "loginCaseQqWrongScanAppMobileOnly": "Pindai QQ di sini hanya bisa dengan QQ di ponsel: pindai kode ini dengan QQ di ponsel",
     "loginCaseQqDeviceLimit": "Buka aplikasi QQ Music, masuk ke Pengaturan, gulir ke paling bawah, ketuk Manajemen Perangkat dan hapus perangkat yang tidak dipakai, lalu pindai lagi",
@@ -1663,13 +1663,13 @@ export default {
     "restartingBackend": "Memulai ulang…",
     "retryQr": "Muat ulang kode QR",
     "qrTipsTitle": "Coba dulu",
-    "qrTipRestart": "Mulai ulang Folia, lalu pindai lagi.",
-    "qrTipSwitchNetwork": "Ganti ke jaringan lain (misalnya hotspot ponsel), lalu mulai ulang Folia.",
+    "qrTipRestart": "Mulai ulang ok唱歌, lalu pindai lagi.",
+    "qrTipSwitchNetwork": "Ganti ke jaringan lain (misalnya hotspot ponsel), lalu mulai ulang ok唱歌.",
     "qrDeviceLimit": "Akun QQ Music ini sudah mencapai batas perangkat yang masuk. Hapus perangkat lama terlebih dahulu.",
     "qrDeviceLimitTipsTitle": "Hapus perangkat yang masuk terlebih dahulu",
     "qrDeviceLimitTipRemove": "Buka aplikasi resmi QQ Music, masuk ke Pengaturan → Manajemen Perangkat (paling bawah di Pengaturan), lalu hapus perangkat yang tidak lagi dipakai.",
     "qrDeviceLimitTipQuota": "QQ Music membatasi jumlah perangkat yang masuk bersamaan: 1 untuk akun gratis, 3 untuk Green Diamond, 5 untuk Super VIP.",
-    "qrDeviceLimitTipRescan": "Setelah itu kembali ke Folia dan pindai ulang.",
+    "qrDeviceLimitTipRescan": "Setelah itu kembali ke ok唱歌 dan pindai ulang.",
     "qrDiagnosticsToggle": "Masih belum berhasil? Kirimkan info diagnostik kepada kami",
     "qrDiagnosticsToggleElsewhere": "Masih belum berhasil? Lihat info diagnostik",
     "qrDiagnosticsPrompt": "Salin info diagnostik dan kirimkan kepada kami agar penyebabnya bisa ditemukan.",
@@ -1677,20 +1677,20 @@ export default {
     "qrDiagnosticsDisclosure": "Info diagnostik berisi versi aplikasi dan sistem, adaptor jaringan dan alamat IP, pengaturan proxy, catatan permintaan login beserta teks galat aslinya, dan hasil pemeriksaan jaringan. Tidak berisi kata sandi, cookie, atau token.",
     "qrDiagnosticsCopy": "Salin diagnostik",
     "qrDiagnosticsReport": "Laporkan di GitHub",
-    "qrDiagnosticsPasteHint": "Tempel info diagnostik yang disalin Folia di sini, dan jelaskan singkat apa yang terjadi (jaringan, apakah proxy aktif, dll.).",
-    "qrReportWebDeployment": "Ini masalah pada deployment web ini: situs ini belum mengatur API platform musik, atau tidak bisa menjangkaunya. Berikan info diagnostik kepada pihak yang men-deploy situs ini; jika itu kamu, periksa VITE_*_API_BASE sesuai dokumentasi deployment lalu build ulang. Jika hanya ingin memakai Folia, unduh aplikasi desktop resmi.",
-    "qrReportUnofficialBuild": "Kamu tidak memakai build resmi Folia maupun cara self-hosting yang terdokumentasi (mungkin dikemas ulang atau dimodifikasi orang lain). Laporkan masalah kepada pihak yang menyediakannya. Build resmi ada di GitHub Releases.",
+    "qrDiagnosticsPasteHint": "Tempel info diagnostik yang disalin ok唱歌 di sini, dan jelaskan singkat apa yang terjadi (jaringan, apakah proxy aktif, dll.).",
+    "qrReportWebDeployment": "Ini masalah pada deployment web ini: situs ini belum mengatur API platform musik, atau tidak bisa menjangkaunya. Berikan info diagnostik kepada pihak yang men-deploy situs ini; jika itu kamu, periksa VITE_*_API_BASE sesuai dokumentasi deployment lalu build ulang. Jika hanya ingin memakai ok唱歌, unduh aplikasi desktop resmi.",
+    "qrReportUnofficialBuild": "Kamu tidak memakai build resmi ok唱歌 maupun cara self-hosting yang terdokumentasi (mungkin dikemas ulang atau dimodifikasi orang lain). Laporkan masalah kepada pihak yang menyediakannya. Build resmi ada di GitHub Releases.",
     "qrSelfCheckTitle": "Pemeriksaan otomatis",
     "qrSelfCheckRunning": "Memeriksa jaringan dan layanan lokal…",
     "qrSelfCheckFailed": "Pemeriksaan otomatis tidak selesai: {{message}}",
-    "qrSelfCheckBackendDown": "Layanan lokal {{provider}} tidak berjalan dengan benar ({{detail}}). Mulai ulang Folia lalu coba lagi.",
+    "qrSelfCheckBackendDown": "Layanan lokal {{provider}} tidak berjalan dengan benar ({{detail}}). Mulai ulang ok唱歌 lalu coba lagi.",
     "qrSelfCheckRemoteUnreachable": "Tidak dapat menghubungi server API ({{detail}}). Periksa alamat deployment dan jaringan Anda.",
-    "qrSelfCheckCredentialStore": "Keyring sistem tidak tersedia ({{detail}}), sehingga sesi QQ Music tidak dapat disimpan terenkripsi. Pasang dan buka GNOME Keyring atau KWallet, lalu mulai ulang Folia.",
-    "qrSelfCheckDnsFailed": "Nama server {{provider}} tidak dapat di-resolve ({{detail}}). Periksa jaringan atau pengaturan DNS, atau ganti jaringan lalu mulai ulang Folia.",
-    "qrSelfCheckTlsReset": "Koneksi ke server {{provider}} terputus saat jabat tangan enkripsi ({{detail}}). Biasanya disebabkan proxy, akselerator, firewall, atau jaringan itu sendiri: ganti jaringan atau matikan proxy, lalu mulai ulang Folia dan coba lagi.",
-    "qrSelfCheckUnreachable": "Tidak dapat menghubungi server {{provider}} ({{detail}}). Periksa koneksi jaringan, atau ganti jaringan lalu mulai ulang Folia.",
+    "qrSelfCheckCredentialStore": "Keyring sistem tidak tersedia ({{detail}}), sehingga sesi QQ Music tidak dapat disimpan terenkripsi. Pasang dan buka GNOME Keyring atau KWallet, lalu mulai ulang ok唱歌.",
+    "qrSelfCheckDnsFailed": "Nama server {{provider}} tidak dapat di-resolve ({{detail}}). Periksa jaringan atau pengaturan DNS, atau ganti jaringan lalu mulai ulang ok唱歌.",
+    "qrSelfCheckTlsReset": "Koneksi ke server {{provider}} terputus saat jabat tangan enkripsi ({{detail}}). Biasanya disebabkan proxy, akselerator, firewall, atau jaringan itu sendiri: ganti jaringan atau matikan proxy, lalu mulai ulang ok唱歌 dan coba lagi.",
+    "qrSelfCheckUnreachable": "Tidak dapat menghubungi server {{provider}} ({{detail}}). Periksa koneksi jaringan, atau ganti jaringan lalu mulai ulang ok唱歌.",
     "qrSelfCheckIpv6Failed": "Koneksi ke server {{provider}} lewat IPv6 gagal, sedangkan IPv4 berfungsi ({{detail}}). Matikan IPv6 atau Teredo di pengaturan sistem lalu coba lagi.",
-    "qrSelfCheckHttpsFailed": "Server {{provider}} dapat dihubungi, tetapi permintaannya gagal ({{detail}}). Ganti jaringan, mulai ulang Folia, lalu coba lagi.",
+    "qrSelfCheckHttpsFailed": "Server {{provider}} dapat dihubungi, tetapi permintaannya gagal ({{detail}}). Ganti jaringan, mulai ulang ok唱歌, lalu coba lagi.",
     "qrSelfCheckClockSkew": "Jam sistem Anda selisih sekitar {{detail}} menit dari waktu server. Perbaiki waktu sistem lalu coba lagi.",
     "qrSelfCheckNetworkOk": "Pemeriksaan jaringan tidak menemukan masalah.",
     "qrSelfCheckProxyFakeIp": "Proxy mode TUN (fake-ip) sedang menangani koneksi. Jika masih gagal, biarkan domain {{provider}} terhubung langsung lalu coba lagi.",
@@ -1741,16 +1741,16 @@ export default {
     "gridFolderCreatePlaylistDescription": "Buat playlist dengan {{count}} trek lokal terpilih.",
     "gridFolderPlaylistNamePlaceholder": "Nama playlist",
     "gridFolderRemoveSelectedTitle": "Hapus trek terpilih?",
-    "gridFolderRemoveSelectedDescription": "Ini akan menghapus {{count}} trek dari Folia dan playlist-nya. File di disk tidak akan dihapus.",
+    "gridFolderRemoveSelectedDescription": "Ini akan menghapus {{count}} trek dari ok唱歌 dan playlist-nya. File di disk tidak akan dihapus.",
     "gridFolderRemoveRootTitle": "Hapus root yang diimpor?",
-    "gridFolderRemoveRootDescription": "Hapus {{path}} dan semua trek-nya dari Folia? File di disk tidak akan dihapus.",
+    "gridFolderRemoveRootDescription": "Hapus {{path}} dan semua trek-nya dari ok唱歌? File di disk tidak akan dihapus.",
     "login": "Login",
     "welcomeBack": "Selamat Datang Kembali",
     "guestTitle": "Coba cari beberapa lagu dulu",
     "guestPrompt": "Login untuk mengakses playlist, album tersimpan, dan radio Anda.",
     "guestPromptProvider": "Login dengan {{provider}} untuk mengakses perpustakaan musik online Anda.",
     "accountlessTitle": "{{provider}} belum menyediakan perpustakaan",
-    "accountlessBody": "Playlist, album, dan radio akan didukung oleh antarmuka sumber lengkap di Folium v2.\nUntuk saat ini, cari lagu untuk diputar.",
+    "accountlessBody": "Playlist, album, dan radio akan didukung oleh antarmuka sumber lengkap di Mod v2.\nUntuk saat ini, cari lagu untuk diputar.",
     "accountlessSearch": "Cari lagu",
     "multiPlatformLoginTitle": "Coba cari beberapa lagu dulu",
     "multiPlatformLoginPrompt": "Login untuk mengakses playlist, album tersimpan, dan radio Anda.",
@@ -1858,6 +1858,7 @@ export default {
     "openCommandPaletteQueue": "Buka antrean di palette perintah",
     "browserFullscreen": "Layar penuh",
     "madeBy": "Proyek:",
+    "credit": "Ucapan terima kasih",
     "joinCommunity": "Gabung komunitas",
     "communityDiscord": "Server Discord",
     "communityDiscordHint": "Buka tautan undangan",
@@ -1870,7 +1871,7 @@ export default {
     "majorUpdateLabel": "{{codename}} Update · Pembaruan besar",
     "servicePackLabel": "{{codename}} Update SP{{servicePack}} · Pembaruan besar",
     "ponder": "Ponder Bantuan",
-    "ponderDescription": "Pelajari kontrol dasar dan cara kerja Folia",
+    "ponderDescription": "Pelajari kontrol dasar dan cara kerja ok唱歌",
     "version": "Versi"
   },
   "qishui": { "recentPlayed": "Terakhir diputar di Qishui", "recommended": "Rekomendasi untuk Anda" },
@@ -2156,7 +2157,7 @@ export default {
     "customShortcutTaken": "Tombol itu sudah dipakai pintasan lain",
     "customShortcutLettersOnly": "Hanya huruf A\u2013Z",
     "globalShortcuts": "Pintasan global",
-    "globalShortcutsDesc": "Tombol yang berfungsi saat Folia di latar belakang: kontrol pemutaran, dan perintah yang disediakan mod.",
+    "globalShortcutsDesc": "Tombol yang berfungsi saat ok唱歌 di latar belakang: kontrol pemutaran, dan perintah yang disediakan mod.",
     "globalShortcutsNote": "Tekan sendiri kombinasinya: tombol pengubah (Ctrl, Alt, Shift, Win/Cmd) ditambah satu huruf, angka, tombol fungsi, Spasi, tombol panah, atau tombol seperti Backspace atau Delete. Kombinasi umum seperti salin, tempel, ganti jendela, atau memilih teks, serta yang mengetik karakter, ditolak, jadi biasanya Anda perlu menahan dua tombol pengubah atau lebih, tiga bila memakai Win/Cmd. Ctrl+Alt+Shift bawaan (Control+Option+Shift di macOS) dengan huruf atau angka paling kecil kemungkinannya bentrok dengan program lain. Kombinasi yang sudah dipakai program lain ditandai di barisnya.",
     "globalShortcutsPortalDesc": "Di Wayland, desktop yang menentukan tombolnya.",
     "globalShortcutsPortalNote": "Setelah didaftarkan, ikat tombol untuk tiap entri sesuai dokumentasi desktopmu. Tombol yang disarankan tiap entri:",
@@ -2176,19 +2177,19 @@ export default {
     "globalShortcutReserved": "Sistem, desktop, atau program umum sudah memakai kombinasi ini; pilih yang lain",
     "globalShortcutDuplicate": "Pintasan global lain sudah memakai kombinasi itu",
     "globalShortcutTakenBySystem": "Kombinasi ini sudah dipakai program lain",
-    "globalShortcutCustomCombination": "Pintasan internal program lain tidak bisa diperiksa dari sini. Setelah didaftarkan, kombinasi ini diambil Folia di semua program",
+    "globalShortcutCustomCombination": "Pintasan internal program lain tidak bisa diperiksa dari sini. Setelah didaftarkan, kombinasi ini diambil ok唱歌 di semua program",
     "globalShortcutAltGrCombination": "Pada tata letak dengan AltGr (Jerman, Polandia, dan lainnya), Ctrl+Alt dengan tombol ini mengetik karakter seperti @ atau €, yang tidak bisa diketik lagi setelah didaftarkan. Pintasan internal program lain juga tidak bisa diperiksa dari sini",
     "globalShortcutModCommand": "{{command}} · {{mod}}",
     "globalShortcutModInactive": "Mod belum diaktifkan. Tombol ini kembali berfungsi setelah mod diaktifkan",
     "globalShortcutModCommandMissing": "Mod saat ini tidak menyediakan perintah ini",
     "replayGainMode": "Mode ReplayGain (Penyeimbang Kenyaringan)",
     "replayGainModeDesc": "Normalisasi kenyaringan pemutaran menggunakan metadata ReplayGain trek atau album bila tersedia. Penyeimbang pintar mengukur setiap lagu dan mengecilkan yang keras.",
-    "transitionSettings": "Transisi Folia",
+    "transitionSettings": "Transisi ok唱歌",
     "transitionEnable": "Campur",
     "transitionMode": "Mode transisi",
-    "transitionCrossfade": "Folia Crossfade",
+    "transitionCrossfade": "ok唱歌 Crossfade",
     "transitionCrossfadeDesc": "Satu fade out ke satu fade in.",
-    "transitionAutomix": "Folia Automix",
+    "transitionAutomix": "ok唱歌 Automix",
     "transitionAutomixDesc": "Menganalisis kedua trek dan mencampurnya secara otomatis.",
     "transitionFellBack": "Memakai crossfade",
     "crossfadeMaxSeconds": "Durasi transisi maksimum",
@@ -2197,9 +2198,9 @@ export default {
     "transitionEngineFull": "Penuh",
     "transitionEngineLite": "Kompatibel",
     "transitionEngineLiteDesc": "Di peramban hasil campuran sekitar setengah dari versi desktop.",
-    "transitionEngineNeedsModels": "Model analisis tidak ada di instalasi ini. Instal ulang Folia untuk menjalankan mesin penuh.",
+    "transitionEngineNeedsModels": "Model analisis tidak ada di instalasi ini. Instal ulang ok唱歌 untuk menjalankan mesin penuh.",
     "legacyModelsTitle": "Bersihkan model automix lama",
-    "legacyModelsDesc": "Model analisis automix kini sudah disertakan di Folia, jadi model dan runtime yang diunduh versi sebelumnya tidak dipakai lagi. Folder model yang Anda pilih masih berisi {{files}} item, total {{size}}: {{dir}}. Menghapus hanya membuang file lama tersebut, isi folder lainnya tidak disentuh.",
+    "legacyModelsDesc": "Model analisis automix kini sudah disertakan di ok唱歌, jadi model dan runtime yang diunduh versi sebelumnya tidak dipakai lagi. Folder model yang Anda pilih masih berisi {{files}} item, total {{size}}: {{dir}}. Menghapus hanya membuang file lama tersebut, isi folder lainnya tidak disentuh.",
     "legacyModelsDelete": "Hapus",
     "legacyModelsOpen": "Buka folder",
     "legacyModelsKeep": "Simpan, jangan tanya lagi",
@@ -2207,7 +2208,7 @@ export default {
     "transitionPerformance": "Mode performa",
     "transitionPerformanceDesc": "Transisi yang lebih agresif.",
     "transitionPerformanceNeedsStems": "Tidak tersedia di versi peramban.",
-    "transitionPerformanceNeedsModel": "Model pemisahan stem tidak ada di instalasi ini. Instal ulang Folia untuk menggunakannya.",
+    "transitionPerformanceNeedsModel": "Model pemisahan stem tidak ada di instalasi ini. Instal ulang ok唱歌 untuk menggunakannya.",
     "transitionAnimation": "Animasi transisi",
     "transitionAnimationDesc": "Menggambar campuran saat berjalan. Tidak ditampilkan untuk transisi di bawah 5 detik.",
     "transitionAnimationRing": "Cincin layar",
@@ -2403,7 +2404,7 @@ export default {
     "memoryByProcess": "Per proses",
     "memorySeriesUnavailable": "Tidak dilaporkan di platform ini",
     "reduceMotionSection": "Kurangi gerakan",
-    "reduceMotionSectionDesc": "Folia memutar animasi penuh secara bawaan. Aktifkan satu butir untuk mengurangi gerakan di bagian itu.",
+    "reduceMotionSectionDesc": "ok唱歌 memutar animasi penuh secara bawaan. Aktifkan satu butir untuk mengurangi gerakan di bagian itu.",
     "reduceMotionFollowSystem": "Ikuti pengaturan sistem",
     "reduceMotionFollowSystemDesc": "Pengaturan animasi sistem menentukan semua gerakan",
     "reduceMotionForcedBySystem": "Saat ini dikurangi oleh pengaturan sistem di atas.",
@@ -2495,7 +2496,7 @@ export default {
     "enablePlayerPageNativeBlurHint": "Blur sistem menggantikan latar pemutar; memakai lebih banyak sumber daya",
     "enablePlayerPageNativeBlurDesc": "Hanya berlaku di aplikasi desktop dalam mode non-transparan; memindahkan jendela mungkin tersendat.",
     "nativeBlurConfirmTitle": "Efek kaca sistem",
-    "nativeBlurConfirmDesc": "Ini mengubah jendela menjadi latar belakang tembus pandang menggunakan efek kaca sistem. Latar belakang Folia tidak akan ditampilkan.",
+    "nativeBlurConfirmDesc": "Ini mengubah jendela menjadi latar belakang tembus pandang menggunakan efek kaca sistem. Latar belakang ok唱歌 tidak akan ditampilkan.",
     "nativeBlurConfirmAction": "Saya mengerti",
     "nativeBlurBackgroundNotice": "Blur glassmorphism asli diaktifkan; pengaturan latar belakang animasi lirik saat ini ditimpa.",
     "autoHidePlayerChrome": "Sembunyikan otomatis kontrol pemutar",
@@ -2550,7 +2551,7 @@ export default {
     "closeToTrayDesc": "Tombol tutup menyembunyikan jendela ke tray, aplikasi tidak keluar",
     "hideTaskbarIcon": "Sembunyikan ikon taskbar",
     "hideTaskbarIconDesc": "Sembunyikan aplikasi dari taskbar meskipun jendela utama masih terbuka. Ikon tray tetap menjadi cara utama untuk kembali ke aplikasi.",
-    "hideTaskbarIconNotice": "Jendela hanya bisa dibuka kembali dari ikon Folia di system tray",
+    "hideTaskbarIconNotice": "Jendela hanya bisa dibuka kembali dari ikon ok唱歌 di system tray",
     "remoteControlGroup": "Remote Control",
     "remoteControlGroupDefault": "Bawaan",
     "remoteControlGroupOn": "{{count}} diubah",
@@ -2569,9 +2570,9 @@ export default {
     "openPlayerOnLaunchDesc": "Membuka tampilan pemutaran saat aplikasi dimulai. Mengikuti \"Tampilan yang dibuka Putar\": jika Lattice dipilih, peluncuran membuka kolase antrean.",
     "wallpaperMode": "Mode wallpaper",
     "wallpaperModeDesc": "Jendela diturunkan ke dasar desktop sebagai wallpaper lirik. Keyboard tidak tersedia",
-    "wallpaperModeMacPermissionHint": "Mode wallpaper Mac memerlukan Input Monitoring: aktifkan Folia di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu mulai ulang aplikasi.",
+    "wallpaperModeMacPermissionHint": "Mode wallpaper Mac memerlukan Input Monitoring: aktifkan ok唱歌 di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu mulai ulang aplikasi.",
     "wallpaperEnterConfirmTitle": "Masuk ke mode wallpaper?",
-    "wallpaperEnterConfirmDesc": "Jendela akan turun ke dasar desktop dan tetap di sana sebagai wallpaper lirik. Jendela tidak dapat lagi ditutup, diminimalkan, atau dipindahkan, dan keyboard tidak dapat menjangkau aplikasi.\n\nUntuk keluar, buka menu Folia di system tray (bilah menu di macOS) lalu klik \"Mode Wallpaper\" lagi.",
+    "wallpaperEnterConfirmDesc": "Jendela akan turun ke dasar desktop dan tetap di sana sebagai wallpaper lirik. Jendela tidak dapat lagi ditutup, diminimalkan, atau dipindahkan, dan keyboard tidak dapat menjangkau aplikasi.\n\nUntuk keluar, buka menu ok唱歌 di system tray (bilah menu di macOS) lalu klik \"Mode Wallpaper\" lagi.",
     "wallpaperEnterConfirmAction": "Masuk ke mode wallpaper",
     "wallpaperDisplay": "Layar wallpaper",
     "wallpaperDisplayDesc": "Layar yang dipakai mode wallpaper",
@@ -2624,7 +2625,7 @@ export default {
     "stageConnectionError": "Tidak dapat terhubung ke ws://localhost:9863/api/ws/lyric. Pastikan layanan now-playing sedang berjalan.",
     "stageNotRunning": "Silakan jalankan layanan now-playing di mesin ini dan pastikan pemutar sedang memutar.",
     "discordRichPresence": "Discord Rich Presence",
-    "discordRichPresenceDesc": "Tampilkan trek Folia saat ini di Discord desktop.",
+    "discordRichPresenceDesc": "Tampilkan trek ok唱歌 saat ini di Discord desktop.",
     "discordPresenceDisabled": "Dinonaktifkan",
     "discordPresenceConnected": "Terhubung",
     "discordPresenceDisconnected": "Terputus",
@@ -2636,7 +2637,7 @@ export default {
     "obsBrowserSourceGuideStep1": "Di OBS, tambahkan sumber Browser pada bagian Sources.",
     "obsBrowserSourceGuideStep2": "Tempel URL OBS di atas ke kolom URL.",
     "obsBrowserSourceGuideStep3": "Atur ukuran ke 1920x1080 (1080x1920 untuk potret). Ukuran lebih besar seperti 3840x2160 memperbesar tata letak secara proporsional agar teks lebih tajam.",
-    "obsBrowserSourceGuideStep4": "Sumber browser hanya merender gambar dan tidak memutar suara. Untuk merekam audio, gunakan Desktop Audio atau Application Audio Capture di OBS untuk Folia.",
+    "obsBrowserSourceGuideStep4": "Sumber browser hanya merender gambar dan tidak memutar suara. Untuk merekam audio, gunakan Desktop Audio atau Application Audio Capture di OBS untuk ok唱歌.",
     "obsBrowserSourceGuideStep5": "Pengaturan visual seperti tema, font, dan animasi disinkronkan ke OBS. Latar di OBS menjadi transparan jika jendela utama memakai latar pemutar transparan atau latar blur native pada halaman pemutar.",
     "obsBrowserSourceGuideStep6": "Jumlah klien di atas 0 berarti OBS sudah terhubung. Membuat ulang token membatalkan URL lama, jadi perbarui URL di OBS.",
     "obsBrowserSourceAddress": "URL OBS",
@@ -3050,8 +3051,8 @@ export default {
     "beatEffectsNeedSmartBeat": "Aktifkan mode ketukan pintar di tab Global agar efek ini berjalan.",
     "beatEffectsOpenSmartBeat": "Buka Global",
     "beatEffectStrength": "Kekuatan",
-    "beatEffectNeedsDrums": "Model HTDemucs tidak ada di instalasi ini; instal ulang Folia. Pada lagu tanpa drum juga tidak ada efek.",
-    "beatEffectNeedsStems": "Model HTDemucs tidak ada di instalasi ini; instal ulang Folia.",
+    "beatEffectNeedsDrums": "Model HTDemucs tidak ada di instalasi ini; instal ulang ok唱歌. Pada lagu tanpa drum juga tidak ada efek.",
+    "beatEffectNeedsStems": "Model HTDemucs tidak ada di instalasi ini; instal ulang ok唱歌.",
     "beatEffect_sonnetLensTear": "Robekan Lensa",
     "beatEffect_sonnetLensTearDesc": "Mengikuti ketukan yang dideteksi beat_this: setiap ketukan mendorong kamera; ketukan pertama tiap birama memberi efek sobek dan kilau.",
     "beatEffect_dioramaRipple": "Riak Cermin",
@@ -3310,15 +3311,15 @@ export default {
     "glowBlurQuantizeDesc": "Mengubah cara beberapa animasi lirik menggambar glow.",
     "glowBlurQuantizeDocs": "Dokumentasi",
     "backgroundThrottling": "Pembatasan latar belakang",
-    "backgroundThrottlingHint": "Batasi rendering dan hentikan animasi lirik saat Folia diminimalkan atau disembunyikan",
-    "backgroundThrottlingDesc": "Saat jendela diminimalkan atau disembunyikan ke baki, Chromium boleh membatasinya dan animasi lirik berhenti, lalu lanjut dari posisi saat ini ketika Anda kembali. Jendela yang hanya kehilangan fokus tetapi masih terlihat tetap bergerak. Musik tetap diputar. Nonaktif secara bawaan karena streamer yang menangkap jendela Folia di OBS membutuhkannya tetap tergambar di latar belakang. Tidak berlaku dalam mode wallpaper, saat mengekspor video, atau saat sumber browser OBS terhubung.",
+    "backgroundThrottlingHint": "Batasi rendering dan hentikan animasi lirik saat ok唱歌 diminimalkan atau disembunyikan",
+    "backgroundThrottlingDesc": "Saat jendela diminimalkan atau disembunyikan ke baki, Chromium boleh membatasinya dan animasi lirik berhenti, lalu lanjut dari posisi saat ini ketika Anda kembali. Jendela yang hanya kehilangan fokus tetapi masih terlihat tetap bergerak. Musik tetap diputar. Nonaktif secara bawaan karena streamer yang menangkap jendela ok唱歌 di OBS membutuhkannya tetap tergambar di latar belakang. Tidak berlaku dalam mode wallpaper, saat mengekspor video, atau saat sumber browser OBS terhubung.",
     "gpuPreference": "GPU render",
     "gpuPreferenceHint": "Pilih kartu grafis yang menggambar aplikasi di PC dengan dua GPU; berlaku setelah dimulai ulang",
-    "gpuPreferenceDesc": "Otomatis: Windows yang memilih; di laptop biasanya GPU terintegrasi yang terhubung ke layar dan lebih hemat daya. Performa tinggi: GPU diskrit, animasi lebih mulus tetapi lebih boros daya, juga saat musik diputar di latar belakang. Hemat daya: GPU terintegrasi. GPU yang dipilih untuk Folia di Pengaturan Grafis Windows lebih diutamakan.",
+    "gpuPreferenceDesc": "Otomatis: Windows yang memilih; di laptop biasanya GPU terintegrasi yang terhubung ke layar dan lebih hemat daya. Performa tinggi: GPU diskrit, animasi lebih mulus tetapi lebih boros daya, juga saat musik diputar di latar belakang. Hemat daya: GPU terintegrasi. GPU yang dipilih untuk ok唱歌 di Pengaturan Grafis Windows lebih diutamakan.",
     "gpuPreferenceAuto": "Otomatis",
     "gpuPreferenceHighPerformance": "Performa tinggi",
     "gpuPreferenceLowPower": "Hemat daya",
-    "gpuPreferenceRestartNotice": "Berlaku setelah Folia dimulai ulang",
+    "gpuPreferenceRestartNotice": "Berlaku setelah ok唱歌 dimulai ulang",
     "gpuPreferenceCommandLineNotice": "Peluncuran ini memakai parameter GPU di baris perintah, yang lebih diutamakan",
     "gpuPreferenceActive": "Sedang dipakai",
     "visualizerFrameRateValue": "Batas",
@@ -3627,10 +3628,10 @@ export default {
     "goToGithubRelease": "Buka halaman rilis GitHub",
     "chinaDownloadHint": "Catatan: Unduhan GitHub mungkin lambat di Tiongkok. Gunakan Quark Drive atau Baidu Drive sebagai gantinya.",
     "macManualUpdateNotice": "Catatan: macOS memerlukan pengunduhan installer lengkap secara manual untuk memperbarui.",
-    "linuxManualUpdateNotice": "Linux tidak mendukung pembaruan otomatis. Unduh paket deb, rpm, atau tar.gz lengkap untuk memperbarui secara manual; hanya instalasi AUR stabil yang boleh memperbarui folia-major-bin melalui pengelola paket.",
+    "linuxManualUpdateNotice": "Linux tidak mendukung pembaruan otomatis. Unduh paket deb, rpm, atau tar.gz lengkap untuk memperbarui secara manual; hanya instalasi AUR stabil yang boleh memperbarui paket yang terpasang melalui pengelola paket.",
     "manualUpdateNotice": "Catatan: Pembaruan otomatis tidak didukung di platform ini. Silakan unduh paket secara manual.",
-    "unofficialBuildNotice": "Build tidak resmi: versi ini tidak dibangun oleh CI repositori Folia maupun di-deploy lewat cara self-hosting yang terdokumentasi (Docker, Vercel, Cloudflare), dan mungkin telah dimodifikasi atau tidak memiliki layanan backend. Hubungi pihak yang menyediakannya terlebih dahulu; build resmi ada di GitHub Releases.",
-    "selfHostedBuildNotice": "Self-hosted: dibangun dan di-hosting oleh pihak yang men-deploy, termasuk layanan backend platform musik. Hubungi pihak tersebut terlebih dahulu, dan laporkan di GitHub jika memang masalah Folia.",
+    "unofficialBuildNotice": "Build tidak resmi: versi ini tidak dibangun oleh CI repositori ok唱歌 maupun di-deploy lewat cara self-hosting yang terdokumentasi (Docker, Vercel, Cloudflare), dan mungkin telah dimodifikasi atau tidak memiliki layanan backend. Hubungi pihak yang menyediakannya terlebih dahulu; build resmi ada di GitHub Releases.",
+    "selfHostedBuildNotice": "Self-hosted: dibangun dan di-hosting oleh pihak yang men-deploy, termasuk layanan backend platform musik. Hubungi pihak tersebut terlebih dahulu, dan laporkan di GitHub jika memang masalah ok唱歌.",
     "nowPlayingStatusHint": "Terhubung ke ws://localhost:9863/api/ws/lyric. Jalankan layanan now-playing terlebih dahulu.",
     "globalLyricTimelineOffset": "Offset Waktu Global",
     "settingsHeadingLyricTiming": "Waktu & filter",
@@ -3663,8 +3664,8 @@ export default {
     "v0_7_1": {
       "intro": "Selamat datang di 0.7.1, Pleiades Update—rilis besar untuk pemutaran, ekstensi, integrasi desktop, dan visual.",
       "pleiadesAutomix": {
-        "title": "Transisi Cerdas Folia Automix",
-        "description": "Folia menganalisis ketukan, tempo, nada dasar, kelantangan, dan bagian lagu untuk memilih beat cut, pertukaran bass, tail ride, atau blend. Pengguna desktop dapat mengunduh model opsional untuk beat grid yang presisi, perpindahan stem, dan mode Performance."
+        "title": "Transisi Cerdas ok唱歌 Automix",
+        "description": "ok唱歌 menganalisis ketukan, tempo, nada dasar, kelantangan, dan bagian lagu untuk memilih beat cut, pertukaran bass, tail ride, atau blend. Pengguna desktop dapat mengunduh model opsional untuk beat grid yang presisi, perpindahan stem, dan mode Performance."
       },
       "modsPlatform": {
         "title": "Sistem Mod Bergaya Forge (Eksperimental)",
@@ -3672,7 +3673,7 @@ export default {
       },
       "windowsWallpaper": {
         "title": "Mode Wallpaper Desktop Windows",
-        "description": "Folia kini dapat berada di bawah ikon desktop Windows sebagai wallpaper lirik permanen, dengan kontrol tray dan palet perintah, penerusan tetikus, serta pemulihan kegagalan otomatis. Input papan ketik tidak tersedia dalam mode ini."
+        "description": "ok唱歌 kini dapat berada di bawah ikon desktop Windows sebagai wallpaper lirik permanen, dengan kontrol tray dan palet perintah, penerusan tetikus, serta pemulihan kegagalan otomatis. Input papan ketik tidak tersedia dalam mode ini."
       },
       "sleepTimer": {
         "title": "Timer Tidur yang Tahan Restart",
@@ -3741,7 +3742,7 @@ export default {
       },
       "macWallpaperMode": {
         "title": "Mode Wallpaper di macOS",
-        "description": "Mac kini dapat menenggelamkan Folia di bawah ikon desktop sebagai wallpaper lirik, beralih langsung tanpa memulai ulang aplikasi, dengan opsi menyembunyikan Dock secara otomatis selama mode aktif. Penerusan mouse membutuhkan Folia dicentang di Pengaturan Sistem → Privasi & Keamanan → Pemantauan Input; papan ketik tetap tidak tersedia dalam mode ini."
+        "description": "Mac kini dapat menenggelamkan ok唱歌 di bawah ikon desktop sebagai wallpaper lirik, beralih langsung tanpa memulai ulang aplikasi, dengan opsi menyembunyikan Dock secara otomatis selama mode aktif. Penerusan mouse membutuhkan ok唱歌 dicentang di Pengaturan Sistem → Privasi & Keamanan → Pemantauan Input; papan ketik tetap tidak tersedia dalam mode ini."
       },
       "transcodeFallback": {
         "title": "Audio yang Tak Terdekode Tetap Diputar",
@@ -3749,7 +3750,7 @@ export default {
       },
       "localFolderAutoScan": {
         "title": "Folder Impor Memindai Ulang Sendiri",
-        "description": "Setelah diaktifkan, Folia memantau folder lokal yang sudah diimpor dan menjalankan pemindaian bertahap setiap kali berkas ditambah, diubah, atau dihapus — tanpa impor ulang manual. Fitur ini mati secara bawaan, dan pengaturan penyimpanan menampilkan status pemantauan tiap folder; sebagian lingkungan hanya bisa memantau lapisan teratas folder."
+        "description": "Setelah diaktifkan, ok唱歌 memantau folder lokal yang sudah diimpor dan menjalankan pemindaian bertahap setiap kali berkas ditambah, diubah, atau dihapus — tanpa impor ulang manual. Fitur ini mati secara bawaan, dan pengaturan penyimpanan menampilkan status pemantauan tiap folder; sebagian lingkungan hanya bisa memantau lapisan teratas folder."
       },
       "lyricFilterPersistence": {
         "title": "Pola Filter Lirik Tidak Hilang",
@@ -3764,7 +3765,7 @@ export default {
       "intro": "Versi 0.7.5 memberi Anda kendali lebih besar atas tampilan tujuan pemutaran, menghadirkan tindakan kisi dan pengaturan ke panel perintah, serta meningkatkan keandalan desktop.",
       "playbackEntryChoice": {
         "title": "Pilih Tampilan Tujuan Pemutaran",
-        "description": "Pilih apakah tombol Putar membuka pemutar visualizer atau kolase antrean Lattice. Folia menanyakannya sekali setelah catatan rilis, dan pilihan tetap dapat diubah di pengaturan Antarmuka. Personal FM tetap membuka pemutar standar karena tidak dapat berjalan di Lattice."
+        "description": "Pilih apakah tombol Putar membuka pemutar visualizer atau kolase antrean Lattice. ok唱歌 menanyakannya sekali setelah catatan rilis, dan pilihan tetap dapat diubah di pengaturan Antarmuka. Personal FM tetap membuka pemutar standar karena tidak dapat berjalan di Lattice."
       },
       "commandPaletteGridActions": {
         "title": "Tindakan Kisi di Panel Perintah",
@@ -3780,7 +3781,7 @@ export default {
       },
       "desktopReliability": {
         "title": "Pembaruan dan Laporan Crash yang Lebih Jelas",
-        "description": "Versi macOS dan Linux kini dapat memeriksa rilis baru lalu membuka installer lengkap atau AUR, sedangkan Windows tetap mendukung pembaruan otomatis. Saat Folia crash, log diagnostik disimpan dan foldernya dapat dibuka; uninstaller Windows juga dapat menghapus data pengguna jika diminta."
+        "description": "Versi macOS dan Linux kini dapat memeriksa rilis baru lalu membuka installer lengkap atau AUR, sedangkan Windows tetap mendukung pembaruan otomatis. Saat ok唱歌 crash, log diagnostik disimpan dan foldernya dapat dibuka; uninstaller Windows juga dapat menghapus data pengguna jika diminta."
       },
       "visualizerRefinements": {
         "title": "Visualizer yang Lebih Ringan dan Jelas",
@@ -3818,7 +3819,7 @@ export default {
       },
       "motionControls": {
         "title": "Kontrol Gerakan per Bagian",
-        "description": "Folia kini memutar animasi penuh secara bawaan, alih-alih mengubahnya menjadi lompatan instan saat animasi sistem dimatikan. Bagian Kurangi gerakan yang baru di pengaturan Lab memungkinkan Anda meredam lattice antrean, transisi automix, transisi pembukaan koleksi, pergerakan latar Monet, gerakan mikro antarmuka, dan gulir halus di Pengaturan secara terpisah. Aktifkan Ikuti pengaturan sistem jika Anda lebih suka perilaku sebelumnya."
+        "description": "ok唱歌 kini memutar animasi penuh secara bawaan, alih-alih mengubahnya menjadi lompatan instan saat animasi sistem dimatikan. Bagian Kurangi gerakan yang baru di pengaturan Lab memungkinkan Anda meredam lattice antrean, transisi automix, transisi pembukaan koleksi, pergerakan latar Monet, gerakan mikro antarmuka, dan gulir halus di Pengaturan secara terpisah. Aktifkan Ikuti pengaturan sistem jika Anda lebih suka perilaku sebelumnya."
       },
       "wallpaperMultiMonitor": {
         "title": "Mode Wallpaper di Monitor Mana Pun",
@@ -3895,7 +3896,7 @@ export default {
       },
       "vietnamese": {
         "title": "Antarmuka Bahasa Vietnam",
-        "description": "Antarmuka kini tersedia dalam bahasa Vietnam (Tiếng Việt), diterjemahkan oleh kontributor komunitas; beralih lewat pengaturan bahasa atau palet perintah. Ikuti sistem kini memilih bahasa sistem saat ini setiap kali aplikasi dibuka, jadi perubahan bahasa sistem berlaku saat Folia dibuka berikutnya, dan aplikasi macOS tidak lagi tampil dalam bahasa Inggris di sistem berbahasa Tionghoa."
+        "description": "Antarmuka kini tersedia dalam bahasa Vietnam (Tiếng Việt), diterjemahkan oleh kontributor komunitas; beralih lewat pengaturan bahasa atau palet perintah. Ikuti sistem kini memilih bahasa sistem saat ini setiap kali aplikasi dibuka, jadi perubahan bahasa sistem berlaku saat ok唱歌 dibuka berikutnya, dan aplikasi macOS tidak lagi tampil dalam bahasa Inggris di sistem berbahasa Tionghoa."
       },
       "moreDetails": {
         "title": "Peningkatan Lainnya",
@@ -3918,7 +3919,7 @@ export default {
       },
       "globalShortcuts": {
         "title": "Pintasan Pemutaran Global",
-        "description": "Desktop mendapat Pintasan → Pintasan global: kendalikan pemutaran meski Folia tidak di depan, dengan Ctrl+Alt+Shift (Control+Option+Shift di macOS) ditambah satu huruf atau angka. Ikat putar/jeda, sebelumnya, berikutnya, volume naik dan turun, bisukan, ulangi, dan acak, juga perintah yang disediakan mod; kombinasi yang sudah dipakai aplikasi lain ditandai. Di Wayland asli, satu tombol mendaftarkannya ke lingkungan desktop Anda, tempat Anda menetapkan tombolnya. Palet perintah juga mendapat putar/jeda serta volume naik/turun."
+        "description": "Desktop mendapat Pintasan → Pintasan global: kendalikan pemutaran meski ok唱歌 tidak di depan, dengan Ctrl+Alt+Shift (Control+Option+Shift di macOS) ditambah satu huruf atau angka. Ikat putar/jeda, sebelumnya, berikutnya, volume naik dan turun, bisukan, ulangi, dan acak, juga perintah yang disediakan mod; kombinasi yang sudah dipakai aplikasi lain ditandai. Di Wayland asli, satu tombol mendaftarkannya ke lingkungan desktop Anda, tempat Anda menetapkan tombolnya. Palet perintah juga mendapat putar/jeda serta volume naik/turun."
       },
       "aiProviders": {
         "title": "Penyedia dan Model AI",
@@ -3926,14 +3927,14 @@ export default {
       },
       "moreDetails": {
         "title": "Peningkatan Lainnya",
-        "description": "Login di setiap platform tidak lagi terhapus setelah mulai ulang hanya karena jaringan atau server sedang bermasalah. Mode ketukan pintar mendapat pilihan \"Hanya yang sudah dianalisis\", dan sakelar utamanya pindah ke halaman Global baru di jendela gaya lirik; lagu lokal dan Navidrome kini juga mendapat analisis transisi automix; pemindaian lokal mendukung DSD (.dsf dan .dff). Windows mendapat pengaturan GPU render, dan Performa & gerakan menambahkan Pembatasan latar belakang (nonaktif secara bawaan), yang menahan animasi lirik saat jendela diminimalkan atau disembunyikan. Bilah info Bravais bisa otomatis, vertikal, atau horizontal, dan dinding Jelajahi-nya kini menyertakan putaran terakhir. API mod naik ke Folium 1.7."
+        "description": "Login di setiap platform tidak lagi terhapus setelah mulai ulang hanya karena jaringan atau server sedang bermasalah. Mode ketukan pintar mendapat pilihan \"Hanya yang sudah dianalisis\", dan sakelar utamanya pindah ke halaman Global baru di jendela gaya lirik; lagu lokal dan Navidrome kini juga mendapat analisis transisi automix; pemindaian lokal mendukung DSD (.dsf dan .dff). Windows mendapat pengaturan GPU render, dan Performa & gerakan menambahkan Pembatasan latar belakang (nonaktif secara bawaan), yang menahan animasi lirik saat jendela diminimalkan atau disembunyikan. Bilah info Bravais bisa otomatis, vertikal, atau horizontal, dan dinding Jelajahi-nya kini menyertakan putaran terakhir. API mod naik ke Mod 1.7."
       }
     },
     "v0_7_21": {
       "intro": "Selamat datang di 0.7.21, Sabbat-of-the-witch Update—sebuah rilis besar. Aplikasi desktop menambahkan Spotify dan YouTube Music, dan semua platform kini masuk lewat satu jendela login; beranda mendapat tab Jelajahi; Sonnet, Diorama, dan Pendolo mendapat Mode ketukan pintar yang bergerak mengikuti ketukan dan drum; QQ Music bisa masuk dengan aplikasi QQ Music, dan antarmuka kini tersedia dalam bahasa Tionghoa Tradisional.",
       "newPlatforms": {
         "title": "Spotify dan YouTube Music",
-        "description": "Dua platform baru di desktop. Masuk ke Spotify lewat browser sistem untuk mencari, menjelajah, menyukai, menyimpan, dan mengedit playlist; pemutaran memerlukan Spotify Premium, kualitas hingga 320k, dan belum tersedia di Mac Intel. YouTube Music bisa mencari dan memutar tanpa masuk; untuk masuk, Folia membuka Chrome, Edge, Chromium, atau Brave di komputer Anda untuk akun Google, dan anggota Premium bisa memilih kualitas lebih tinggi. Lirik bawaan kedua platform hanya tersinkron per baris, dan keduanya belum tersedia di versi web."
+        "description": "Dua platform baru di desktop. Masuk ke Spotify lewat browser sistem untuk mencari, menjelajah, menyukai, menyimpan, dan mengedit playlist; pemutaran memerlukan Spotify Premium, kualitas hingga 320k, dan belum tersedia di Mac Intel. YouTube Music bisa mencari dan memutar tanpa masuk; untuk masuk, ok唱歌 membuka Chrome, Edge, Chromium, atau Brave di komputer Anda untuk akun Google, dan anggota Premium bisa memilih kualitas lebih tinggi. Lirik bawaan kedua platform hanya tersinkron per baris, dan keduanya belum tersedia di versi web."
       },
       "loginWindow": {
         "title": "Satu Jendela Login",
@@ -3949,18 +3950,18 @@ export default {
       },
       "qqMusic": {
         "title": "QQ Music: Masuk dengan Aplikasi dan Lainnya",
-        "description": "QQ Music kini bisa masuk dengan memindai memakai aplikasi QQ Music (di desktop, Docker, dan Node, kode yang sama juga bisa dipindai dengan QQ seluler dan WeChat); di versi web dengan backend Serverless, login diperpanjang otomatis hingga 30 hari. Pencarian saat masuk lebih stabil, dan saat platform menolak pencarian Anda melihat pesan galat, bukan \"tidak ada hasil\". Baru: cloud drive musik (hanya lagu yang bisa diputar), tingkat keanggotaan, jumlah putar playlist, dan membuat playlist kosong; jika sumber lagu penuh tidak tersedia, Folia memutar pratinjau dan memberi tahu. Semua ini memerlukan backend qq-music-api 3.3.3."
+        "description": "QQ Music kini bisa masuk dengan memindai memakai aplikasi QQ Music (di desktop, Docker, dan Node, kode yang sama juga bisa dipindai dengan QQ seluler dan WeChat); di versi web dengan backend Serverless, login diperpanjang otomatis hingga 30 hari. Pencarian saat masuk lebih stabil, dan saat platform menolak pencarian Anda melihat pesan galat, bukan \"tidak ada hasil\". Baru: cloud drive musik (hanya lagu yang bisa diputar), tingkat keanggotaan, jumlah putar playlist, dan membuat playlist kosong; jika sumber lagu penuh tidak tersedia, ok唱歌 memutar pratinjau dan memberi tahu. Semua ini memerlukan backend qq-music-api 3.3.3."
       },
       "moreDetails": {
         "title": "Peningkatan Lainnya",
-        "description": "Antarmuka bisa beralih ke bahasa Tionghoa Tradisional; Pengaturan dikelompokkan ulang menjadi Antarmuka, Musik, Aplikasi, dan Lanjutan, dan sinkronisasi pindah ke Koneksi & integrasi. Baru: \"Sembunyikan kursor saat diam\", dan \"Temukan lagu yang diputar\" di palet perintah; jendela kendali jarak jauh didesain ulang dan bisa menahan sampul agar tidak membesar saat diam; selama transisi automix, Monet dan jendela kendali jarak jauh berganti lagu mengikuti mix. Dengan beberapa layar, Anda bisa memilih layar untuk mode wallpaper, dan menyeret di mode wallpaper Windows kini lebih mengikuti mouse. Paket Linux ARM64 kini tersedia, dan API mod naik ke Folium 1.6."
+        "description": "Antarmuka bisa beralih ke bahasa Tionghoa Tradisional; Pengaturan dikelompokkan ulang menjadi Antarmuka, Musik, Aplikasi, dan Lanjutan, dan sinkronisasi pindah ke Koneksi & integrasi. Baru: \"Sembunyikan kursor saat diam\", dan \"Temukan lagu yang diputar\" di palet perintah; jendela kendali jarak jauh didesain ulang dan bisa menahan sampul agar tidak membesar saat diam; selama transisi automix, Monet dan jendela kendali jarak jauh berganti lagu mengikuti mix. Dengan beberapa layar, Anda bisa memilih layar untuk mode wallpaper, dan menyeret di mode wallpaper Windows kini lebih mengikuti mouse. Paket Linux ARM64 kini tersedia, dan API mod naik ke Mod 1.6."
       }
     },
     "v0_7_20": {
       "intro": "0.7.20 melengkapi QQ Music dengan rekomendasi, suka, simpan, dan pengeditan playlist; menambahkan \"Lewati lagu yang tidak dapat diputar\"; membuat ekspor video desktop andal untuk file besar dan di Linux; menghadirkan pemisahan stem di Mac Intel; dan memungkinkan mod menambahkan halaman sendiri di beranda.",
       "qqMusic": {
         "title": "QQ Music Kian Lengkap",
-        "description": "Setelah masuk ke QQ Music, kini tersedia rekomendasi harian, FM Pribadi, dan playlist rekomendasi (playlist rekomendasi juga bisa dilihat tanpa masuk). Anda bisa menyukai lagu, menyimpan playlist dan album, serta menambah atau menghapus lagu di playlist buatan sendiri; menghapus lagu dari \"Disukai\" berarti batal menyukainya. Jika lagu yang gagal diputar mungkin terhalang keanggotaan atau wilayah, Folia menyebutkannya sebagai kemungkinan penyebab. QQ belum mendukung \"tidak suka\", jadi tombol tempat sampah di FM Pribadi dinonaktifkan."
+        "description": "Setelah masuk ke QQ Music, kini tersedia rekomendasi harian, FM Pribadi, dan playlist rekomendasi (playlist rekomendasi juga bisa dilihat tanpa masuk). Anda bisa menyukai lagu, menyimpan playlist dan album, serta menambah atau menghapus lagu di playlist buatan sendiri; menghapus lagu dari \"Disukai\" berarti batal menyukainya. Jika lagu yang gagal diputar mungkin terhalang keanggotaan atau wilayah, ok唱歌 menyebutkannya sebagai kemungkinan penyebab. QQ belum mendukung \"tidak suka\", jadi tombol tempat sampah di FM Pribadi dinonaktifkan."
       },
       "autoSkip": {
         "title": "Lewati Lagu yang Tidak Dapat Diputar",
@@ -3968,7 +3969,7 @@ export default {
       },
       "videoExport": {
         "title": "Ekspor Video Lebih Andal",
-        "description": "Ekspor video di desktop kini menulis ke disk selama merekam, sehingga file besar seperti 4K tidak lagi gagal di langkah terakhir. Folia juga merekam halamannya sendiri secara langsung: di Linux (termasuk Wayland) sumber rekaman tidak lagi gagal ditemukan, jendela yang tertutup tetap terekam dengan benar, dan perekaman 4K berjalan dengan frame rate jauh lebih tinggi. File MP4 hasil ekspor kini menampilkan durasi yang benar."
+        "description": "Ekspor video di desktop kini menulis ke disk selama merekam, sehingga file besar seperti 4K tidak lagi gagal di langkah terakhir. ok唱歌 juga merekam halamannya sendiri secara langsung: di Linux (termasuk Wayland) sumber rekaman tidak lagi gagal ditemukan, jendela yang tertutup tetap terekam dengan benar, dan perekaman 4K berjalan dengan frame rate jauh lebih tinggi. File MP4 hasil ekspor kini menampilkan durasi yang benar."
       },
       "automixIntelMac": {
         "title": "Pemisahan Stem di Mac Intel",
@@ -3976,7 +3977,7 @@ export default {
       },
       "modHomePages": {
         "title": "Mod Bisa Menambah Halaman Beranda",
-        "description": "Folium 1.5: mod bisa menambahkan halaman sendiri di beranda, berdampingan dengan tab bawaan. Mod dapat membaca dan mengubah volume, bisu, dan mode ulang, melihat dan memutar dari antrean, serta menanggapi kegagalan pemutaran. Panel mod menampilkan ruang yang dipakai tiap mod dan bisa mengosongkan cache-nya; dropdown di pengaturan mod kini seragam dengan bagian lain Folia. Mod dari kanal Beta komunitas ditandai ungu dan memberi peringatan sebelum diaktifkan."
+        "description": "Mod 1.5: mod bisa menambahkan halaman sendiri di beranda, berdampingan dengan tab bawaan. Mod dapat membaca dan mengubah volume, bisu, dan mode ulang, melihat dan memutar dari antrean, serta menanggapi kegagalan pemutaran. Panel mod menampilkan ruang yang dipakai tiap mod dan bisa mengosongkan cache-nya; dropdown di pengaturan mod kini seragam dengan bagian lain ok唱歌. Mod dari kanal Beta komunitas ditandai ungu dan memberi peringatan sebelum diaktifkan."
       },
       "stabilityFixes": {
         "title": "Penyempurnaan dan Perbaikan",
@@ -3984,7 +3985,7 @@ export default {
       }
     },
     "v0_7_19": {
-      "intro": "0.7.19 mengubah halaman artis dan album di Bravais menjadi poster bergaya Tempera. Saat lagu online gagal diputar, Folia kini menyebutkan alasan sebenarnya, tidak lagi selalu menyebutnya dihapus; visualizer per kata seperti Tempera memotong lirik Tionghoa dan Jepang dengan lebih wajar; dan versi web kembali bisa dibuka tanpa jaringan.",
+      "intro": "0.7.19 mengubah halaman artis dan album di Bravais menjadi poster bergaya Tempera. Saat lagu online gagal diputar, ok唱歌 kini menyebutkan alasan sebenarnya, tidak lagi selalu menyebutnya dihapus; visualizer per kata seperti Tempera memotong lirik Tionghoa dan Jepang dengan lebih wajar; dan versi web kembali bisa dibuka tanpa jaringan.",
       "artistPoster": {
         "title": "Halaman Artis Menjadi Poster",
         "description": "Strip info lengkap di halaman artis Bravais kini digambar sebagai poster bergaya Tempera yang tersemat di kiri dinding. Tata letaknya tetap untuk tiap artis, warnanya diambil dari tiga album terpopuler artis tersebut, dan nama menyesuaikan lebar tanpa meluap. Dinding album di kanan ikut miring, dan Anda tetap bisa menyeret dan menggulir saat dinding miring."
@@ -3995,11 +3996,11 @@ export default {
       },
       "playbackFailure": {
         "title": "Kegagalan Putar Kini Ada Alasannya",
-        "description": "Lagu online yang gagal diputar tidak lagi selalu ditandai \"lagu dihapus\". Folia kini membedakan lagu yang dihapus, jaringan terputus atau waktu habis, gangguan layanan atau batas permintaan, lagu yang memerlukan login, keanggotaan, atau pembelian, serta pembatasan wilayah. Hanya lagu yang benar-benar dihapus yang menghitung mundur ke lagu berikutnya dan mencari versi lain; saat jaringan terputus, pemutaran berhenti dan antrean tetap utuh sehingga Anda bisa mencoba lagi atau melewati; kasus login, keanggotaan, dan pembelian hanya ditampilkan tanpa dicoba berulang kali. Berlaku untuk NetEase, QQ Music, KuGou, dan Bodian."
+        "description": "Lagu online yang gagal diputar tidak lagi selalu ditandai \"lagu dihapus\". ok唱歌 kini membedakan lagu yang dihapus, jaringan terputus atau waktu habis, gangguan layanan atau batas permintaan, lagu yang memerlukan login, keanggotaan, atau pembelian, serta pembatasan wilayah. Hanya lagu yang benar-benar dihapus yang menghitung mundur ke lagu berikutnya dan mencari versi lain; saat jaringan terputus, pemutaran berhenti dan antrean tetap utuh sehingga Anda bisa mencoba lagi atau melewati; kasus login, keanggotaan, dan pembelian hanya ditampilkan tanpa dicoba berulang kali. Berlaku untuk NetEase, QQ Music, KuGou, dan Bodian."
       },
       "lyricSegmenter": {
         "title": "Pemotongan Kata Tionghoa dan Jepang Lebih Wajar",
-        "description": "Tempera, Sonnet, dan mode lain yang menata lirik per kata kini memakai pemotong kata bawaan baru, icu-folia. Bahasa Tionghoa tidak lagi terpotong-potong (idiom dan kata tetap utuh, partikel seperti 的 dan 了 menempel pada kata sebelumnya), dan bahasa Jepang dipotong per frasa yang wajar. Tempera juga tidak lagi menyebar kata pendek yang seharusnya bersama ke bidikan yang berbeda. Pemotongan kata yang Anda simpan sendiri tetap diutamakan, dan kamusnya hanya dimuat saat diperlukan."
+        "description": "Tempera, Sonnet, dan mode lain yang menata lirik per kata kini memakai pemotong kata bawaan baru. Bahasa Tionghoa tidak lagi terpotong-potong (idiom dan kata tetap utuh, partikel seperti 的 dan 了 menempel pada kata sebelumnya), dan bahasa Jepang dipotong per frasa yang wajar. Tempera juga tidak lagi menyebar kata pendek yang seharusnya bersama ke bidikan yang berbeda. Pemotongan kata yang Anda simpan sendiri tetap diutamakan, dan kamusnya hanya dimuat saat diperlukan."
       },
       "offlineStartup": {
         "title": "Versi Web Bisa Dibuka Tanpa Jaringan",
@@ -4038,14 +4039,14 @@ export default {
       }
     },
     "v0_7_17": {
-      "intro": "Selamat datang di 0.7.17, Spica Update—sebuah rilis besar. Pustaka mendapat antarmuka baru bernama Bravais: dinding poster yang bisa digeser. Setelah pembaruan, Folia menanyakan sekali apakah Anda memakai Bravais atau grid klasik; tampilan yang dibuka Putar mendapat opsi \"Tetap di sini\", dan lagu lokal kini bisa ditandai sebagai instrumental.",
+      "intro": "Selamat datang di 0.7.17, Spica Update—sebuah rilis besar. Pustaka mendapat antarmuka baru bernama Bravais: dinding poster yang bisa digeser. Setelah pembaruan, ok唱歌 menanyakan sekali apakah Anda memakai Bravais atau grid klasik; tampilan yang dibuka Putar mendapat opsi \"Tetap di sini\", dan lagu lokal kini bisa ditandai sebagai instrumental.",
       "bravais": {
         "title": "Bravais, Antarmuka Pustaka Baru",
         "description": "Pustaka menjadi dinding poster: saat membuka playlist, album, atau artis, poster di dinding berbalik menampilkan isi baru, sementara info halaman dan tindakannya ada di sebuah strip yang terbuka di dinding. Geser untuk menjelajah, pakai tombol panah, atau langsung ketik untuk menyaring halaman saat ini. Grid klasik tetap tersedia di Opsi → Antarmuka → Antarmuka pustaka."
       },
       "chooseLibrary": {
         "title": "Pilih Antarmuka, Tetap di Tempat",
-        "description": "Setelah pembaruan, Folia menanyakan sekali apakah Anda memakai Bravais atau grid klasik (instalasi baru juga ditanya tampilan mana yang dibuka Putar). Opsi baru \"Tetap di sini\" membuat Anda tetap di tempat saat menekan Putar, dan kartu yang sedang diputar berubah menjadi jeda / lanjutkan."
+        "description": "Setelah pembaruan, ok唱歌 menanyakan sekali apakah Anda memakai Bravais atau grid klasik (instalasi baru juga ditanya tampilan mana yang dibuka Putar). Opsi baru \"Tetap di sini\" membuat Anda tetap di tempat saat menekan Putar, dan kartu yang sedang diputar berubah menjadi jeda / lanjutkan."
       },
       "wallLook": {
         "title": "Dinding yang Bisa Diatur",
@@ -4053,7 +4054,7 @@ export default {
       },
       "pureMusic": {
         "title": "Tandai Lagu Lokal sebagai Instrumental",
-        "description": "Di jendela pencocokan lirik (Cocokkan Online di tab lokal panel pemutar, atau Kecocokan Online Manual di pustaka), pilih \"Tandai sebagai instrumental\" dan Folia berhenti mencocokkan lirik lagu itu secara otomatis; pilih lagi untuk membatalkan. Palet perintah juga bisa mengubahnya."
+        "description": "Di jendela pencocokan lirik (Cocokkan Online di tab lokal panel pemutar, atau Kecocokan Online Manual di pustaka), pilih \"Tandai sebagai instrumental\" dan ok唱歌 berhenti mencocokkan lirik lagu itu secara otomatis; pilih lagi untuk membatalkan. Palet perintah juga bisa mengubahnya."
       },
       "navidromePreset": {
         "title": "Akun Navidrome Bawaan untuk Docker",
@@ -4087,7 +4088,7 @@ export default {
       "intro": "0.7.15 meningkatkan penanganan teks Tionghoa pada lirik lokal dan tag MP3, membuat login QR lebih stabil dengan bantuan yang lebih jelas saat gagal, mendukung pintasan dari input simulasi, serta memperbaiki riwayat kembali yang terus memanjang antara halaman artis dan album dan transkode di Apple Silicon.",
       "localLyrics": {
         "title": "File Lirik Lokal Lebih Kompatibel",
-        "description": "Lirik KRC kini didekripsi, encoding GBK dikenali, dan akhir baris diseragamkan, sehingga lirik dari alat lama tidak lagi terbaca kosong. Baris kosong tidak lagi mendorong lirik asli ke jalur terjemahan. Jika LRC dwibahasa menaruh terjemahan pada waktu yang salah, Folia memberi tahu saat diputar dan menjelaskan cara memperbaikinya di tab Lokal pada panel pemutaran."
+        "description": "Lirik KRC kini didekripsi, encoding GBK dikenali, dan akhir baris diseragamkan, sehingga lirik dari alat lama tidak lagi terbaca kosong. Baris kosong tidak lagi mendorong lirik asli ke jalur terjemahan. Jika LRC dwibahasa menaruh terjemahan pada waktu yang salah, ok唱歌 memberi tahu saat diputar dan menjelaskan cara memperbaikinya di tab Lokal pada panel pemutaran."
       },
       "mp3Tags": {
         "title": "Tag MP3 Tionghoa Tidak Lagi Rusak",
@@ -4095,7 +4096,7 @@ export default {
       },
       "qrLogin": {
         "title": "Login QR Lebih Stabil dan Bantuan Lebih Jelas",
-        "description": "Login QR NetEase mencoba lagi dengan identitas baru saat koneksi terputus di tengah login dan menampilkan penyebab sebenarnya saat gagal. Setelah gagal, langkah sederhana seperti memulai ulang Folia atau berganti jaringan muncul di samping kode QR, dengan diagnostik di bawahnya. Diagnostik QQ Music kembali tersedia, dan setelah Anda membatalkan di ponsel, coba lagi menunggu masa jeda backend selesai."
+        "description": "Login QR NetEase mencoba lagi dengan identitas baru saat koneksi terputus di tengah login dan menampilkan penyebab sebenarnya saat gagal. Setelah gagal, langkah sederhana seperti memulai ulang ok唱歌 atau berganti jaringan muncul di samping kode QR, dengan diagnostik di bawahnya. Diagnostik QQ Music kembali tersedia, dan setelah Anda membatalkan di ponsel, coba lagi menunggu masa jeda backend selesai."
       },
       "injectedShortcuts": {
         "title": "Pintasan Mendukung Input Simulasi",
@@ -4190,7 +4191,7 @@ export default {
         "description": "Putar video tanpa suara di belakang lirik, selaras dengan musik. Aktifkan di pengaturan Tampilan."
       },
       "modPlatform": {
-        "title": "Platform Mod: Folium 1.3",
+        "title": "Platform Mod: Mod 1.3",
         "description": "Mod bisa berbuat lebih banyak, dan mod terverifikasi resmi menampilkan perisai hijau. Mod lama mungkin perlu diperbarui."
       },
       "settingsSearch": {
@@ -4352,7 +4353,7 @@ export default {
     "exportPlaylist": "Ekspor M3U8",
     "playlistImportSuccess": "Diimpor “{{name}}” dengan {{count}} trek.",
     "playlistImportPartial": "Diimpor {{count}} trek ke “{{name}}”; {{skipped}} path tidak ditemukan atau ambigu.",
-    "playlistImportNoMatches": "Tidak ada path playlist yang cocok dengan lagu lokal yang saat ini diimpor ke Folia.",
+    "playlistImportNoMatches": "Tidak ada path playlist yang cocok dengan lagu lokal yang saat ini diimpor ke ok唱歌.",
     "playlistImportFailed": "Impor playlist gagal. Pastikan file adalah playlist M3U atau M3U8 yang valid.",
     "playlistExportSuccess": "Diekspor “{{name}}”.",
     "entityInfo": "Info {{kind}}",
@@ -4452,7 +4453,7 @@ export default {
     "posterChecking": "Mencari poster.png di folder…",
     "posterFound": "{{name}} ditemukan di folder",
     "posterMissing": "Tidak ada poster.png di folder ini",
-    "posterNoAccess": "Izinkan Folia membaca folder ini untuk memakai poster.png-nya",
+    "posterNoAccess": "Izinkan ok唱歌 membaca folder ini untuk memakai poster.png-nya",
     "posterUnavailable": "Folder ini tidak dapat dibaca",
     "upload": "Unggah gambar",
     "restore": "Kembalikan bawaan",
@@ -4464,7 +4465,7 @@ export default {
     "saved": "Sampul diatur",
     "restored": "Sampul otomatis dikembalikan",
     "failed": "Sampul tidak diatur: {{error}}",
-    "notImage": "Berkas itu bukan gambar yang dapat dibaca Folia"
+    "notImage": "Berkas itu bukan gambar yang dapat dibaca ok唱歌"
   },
   "navidrome": {
     "title": "Navi",
@@ -4538,9 +4539,9 @@ export default {
       "engineWeb": "Web Audio",
       "engineMpv": "mpv · HiFi bit-perfect",
       "engineMpvNotice": "mpv melewati Web Audio: selama lagu-lagu ini diputar, equalizer, efek, ReplayGain, fade, transisi pintar, spektrum, dan ekspor video lirik tidak aktif, dan secara bawaan DAC atau amplifier Anda yang mengatur volume.",
-      "unsupported": "Versi Folia ini tidak memiliki mesin HiFi.",
+      "unsupported": "Versi ok唱歌 ini tidak memiliki mesin HiFi.",
       "confirmTitle": "mpv diputar dengan volume penuh",
-      "confirmDesc": "mpv mengirim sinyal pada volume 100%. Penggeser volume di Folia tidak lagi mengubah kerasnya suara: DAC atau amplifier Anda yang mengaturnya. Kecilkan volume di sana sebelum memutar.",
+      "confirmDesc": "mpv mengirim sinyal pada volume 100%. Penggeser volume di ok唱歌 tidak lagi mengubah kerasnya suara: DAC atau amplifier Anda yang mengaturnya. Kecilkan volume di sana sebelum memutar.",
       "confirmAction": "Pakai mpv",
       "runtime": "Pemutar mpv",
       "runtimeChecking": "Mencari mpv...",
@@ -4552,7 +4553,7 @@ export default {
       "linuxInstallHint": "Pasang mpv 0.39 atau lebih baru dengan manajer paket Anda, lalu deteksi ulang. Beberapa rilis jangka panjang menyertakan mpv yang lebih lama.",
       "manualPathRejected": "Berkas yang dipilih tidak dapat dipakai: berkas itu tidak ada, bukan mpv, atau lebih lama dari 0.39.",
       "sourceManual": "berkas pilihan",
-      "sourceDownloaded": "diunduh oleh Folia",
+      "sourceDownloaded": "diunduh oleh ok唱歌",
       "sourceSystem": "terpasang di sistem",
       "download": "Unduh mpv {{version}}",
       "update": "Perbarui ke mpv {{version}}",
@@ -4572,14 +4573,14 @@ export default {
       "device": "Perangkat output",
       "deviceAuto": "Bawaan sistem",
       "deviceDirect": "Langsung",
-      "deviceDirectNote": "Perangkat bertanda Langsung dibuka sendiri oleh mpv, melewati PipeWire dan PulseAudio; selama Folia memutar ke perangkat itu, aplikasi lain tidak bisa memakai kartu suara tersebut.",
+      "deviceDirectNote": "Perangkat bertanda Langsung dibuka sendiri oleh mpv, melewati PipeWire dan PulseAudio; selama ok唱歌 memutar ke perangkat itu, aplikasi lain tidak bisa memakai kartu suara tersebut.",
       "deviceLinuxHint": "Untuk output bit-perfect, pilih perangkat bertanda Langsung.",
       "devicesRefresh": "Segarkan daftar perangkat",
       "devicesLoading": "Membaca perangkat dari mpv...",
       "devicesEmpty": "Tidak ada perangkat output yang ditemukan.",
       "devicesNeedMpv": "Daftar perangkat memerlukan mpv.",
       "exclusive": "Mode eksklusif",
-      "exclusiveDesc": "Folia memakai perangkat sendirian sehingga mixer sistem tidak dapat mengubah sample rate atau mencampur suara. Selama itu, aplikasi lain tidak bisa bersuara di perangkat tersebut, dan kontrol media sistem tidak tersedia.",
+      "exclusiveDesc": "ok唱歌 memakai perangkat sendirian sehingga mixer sistem tidak dapat mengubah sample rate atau mencampur suara. Selama itu, aplikasi lain tidak bisa bersuara di perangkat tersebut, dan kontrol media sistem tidak tersedia.",
       "dsdMode": "Output DSD",
       "dsdModeDesc": "DoP mengirim DSD tanpa diubah, dikemas dalam frame PCM.",
       "dsdPcm": "Ubah ke PCM",
@@ -4592,7 +4593,7 @@ export default {
       "navidrome": "Lagu Navidrome juga memakai mpv",
       "navidromeDesc": "Mengambil berkas asli dari server tanpa transkode. Jika mati, lagu Navidrome memakai Web Audio.",
       "softwareVolume": "Volume perangkat lunak",
-      "softwareVolumeDesc": "Biarkan penggeser volume di Folia mengatur volume mpv. Jalur sinyal lalu tidak lagi bit-perfect.",
+      "softwareVolumeDesc": "Biarkan penggeser volume di ok唱歌 mengatur volume mpv. Jalur sinyal lalu tidak lagi bit-perfect.",
     },
     "player": {
       "badge": "HiFi · {{verdict}}",
@@ -4622,7 +4623,7 @@ export default {
       "noSource": "Belum ada audio dimuat",
       "outputLabel": "Keluaran",
       "outputDesc": "Volume, equalizer, dan efek berlaku seperti biasa; tidak bit-perfect.",
-      "note": "Hanya mencakup transkode Folia sendiri; transkode server dan format perangkat yang sebenarnya tidak terlihat di sini."
+      "note": "Hanya mencakup transkode ok唱歌 sendiri; transkode server dan format perangkat yang sebenarnya tidak terlihat di sini."
     },
     "signal": {
       "title": "Jalur sinyal HiFi",
@@ -4702,7 +4703,7 @@ export default {
         "filter": "Diubah oleh filter di PipeWire: {{names}}",
         "filterPlain": "Diubah oleh filter di PipeWire"
       },
-      "transportLocal": "Dibaca byte demi byte dari pustaka lewat jembatan lokal Folia",
+      "transportLocal": "Dibaca byte demi byte dari pustaka lewat jembatan lokal ok唱歌",
       "transportNavidrome": "Berkas asli dari Navidrome, tanpa transkode",
       "processBypassed": "Tanpa equalizer, efek, ReplayGain, atau perubahan volume",
       "outputExclusive": "Mode eksklusif",
@@ -4717,25 +4718,25 @@ export default {
         "rateVirtual": "Suara masuk ke perangkat virtual {{name}} (aplikasi efek seperti EasyEffects, atau filter yang tidak tersambung ke kartu suara). Laporan PipeWire berhenti di sini: kartu suara tujuan akhirnya dan laju sampelnya tidak diketahui",
         "filtersOk": "Tidak ada filter (equalizer, remap) antara mpv dan perangkat",
         "filtersWarn": "Filter mengubah suara di tengah jalan: {{names}}",
-        "streamVolumeOk": "Aliran Folia berada di 100% di PipeWire",
-        "streamVolumeWarn": "Aliran Folia berada di {{volume}} di PipeWire, yang menskalakan setiap sampel",
+        "streamVolumeOk": "Aliran ok唱歌 berada di 100% di PipeWire",
+        "streamVolumeWarn": "Aliran ok唱歌 berada di {{volume}} di PipeWire, yang menskalakan setiap sampel",
         "deviceVolumeOk": "Tidak ada volume perangkat lunak pada perangkat",
         "deviceVolumeWarn": "PipeWire menerapkan sebagian volume perangkat secara perangkat lunak ({{volume}}), yang menskalakan setiap sampel",
         "otherStreamsOk": "Tidak ada suara lain yang diputar di perangkat ini",
         "otherStreamsWarn": "Juga diputar di perangkat ini: {{names}}",
-        "ownStream": "{{name}} (dari Folia sendiri)",
+        "ownStream": "{{name}} (dari ok唱歌 sendiri)",
         "channelsOk": "Perangkat menerima kanal yang dikirim mpv",
         "channelsWarn": "mpv mengirim {{from}}, perangkat menerima {{to}}: PipeWire mencampur ulang kanal",
         "channelsWarnPlain": "Kanal perangkat berbeda dari yang dikirim mpv: PipeWire mencampurnya ulang",
         "hintForced": "clock.force-rate di PipeWire menahan laju sampel di {{forced}}, jadi perangkat tidak beralih ke {{rate}}. Untuk membatalkannya, jalankan perintah ini di terminal:",
         "hintNotAllowed": "PipeWire tidak diizinkan beralih ke {{rate}}: tambahkan ke default.clock.allowed-rates. Simpan baris di bawah sebagai berkas .conf di ~/.config/pipewire/pipewire.conf.d/, lalu mulai ulang PipeWire.",
         "hintBusy": "PipeWire hanya mengganti laju sampel saat perangkat menganggur; aliran lain sedang diputar di perangkat itu: {{names}}.",
-        "hintBusyOwn": "Salah satunya berasal dari Folia sendiri: mesin web Folia masih membuka suara.",
+        "hintBusyOwn": "Salah satunya berasal dari ok唱歌 sendiri: mesin web ok唱歌 masih membuka suara.",
         "hintJoin": "{{first}} {{second}}",
         "hintNoSwitch": "PipeWire tidak mengalihkan perangkat ke {{rate}}. PipeWire hanya beralih ke laju yang tercantum di default.clock.allowed-rates dan didukung perangkat, dan hanya saat tidak ada suara lain di perangkat.",
         "snippetLabel": "Konfigurasi PipeWire",
         "commandLabel": "Perintah terminal",
-        "footnote": "Ini yang dilaporkan PipeWire. Folia hanya bisa membaca laporan PipeWire dan tidak bisa memastikan apa yang diterima DAC Anda: periksa indikator laju sampel DAC, atau dengarkan."
+        "footnote": "Ini yang dilaporkan PipeWire. ok唱歌 hanya bisa membaca laporan PipeWire dan tidak bisa memastikan apa yang diterima DAC Anda: periksa indikator laju sampel DAC, atau dengarkan."
       }
     },
     "notice": {
@@ -4750,7 +4751,7 @@ export default {
       "MPV_SPAWN_FAILED": "mpv tidak dapat dijalankan.",
       "MPV_CRASHED": "mpv berhenti secara tak terduga.",
       "IPC_TIMEOUT": "mpv berhenti merespons.",
-      "CIRCUIT_OPEN": "mpv terus gagal, jadi HiFi nonaktif sampai Folia dimulai ulang. Lagu diputar dengan mesin biasa.",
+      "CIRCUIT_OPEN": "mpv terus gagal, jadi HiFi nonaktif sampai ok唱歌 dimulai ulang. Lagu diputar dengan mesin biasa.",
       "DEVICE_BUSY": "Aplikasi lain atau server suara sistem sedang memakai perangkat output. Tutup aplikasi itu, atau pilih perangkat lain di pengaturan mesin pemutaran.",
       "DEVICE_UNAVAILABLE": "Perangkat output tidak dapat dibuka.",
       "SOURCE_UNREACHABLE": "Berkas lagu tidak dapat dibaca.",
@@ -4767,8 +4768,8 @@ export default {
     "videoExportUnavailable": "Ekspor video tidak tersedia di mesin HiFi: suaranya langsung ke perangkat output dan tidak dapat direkam."
   },
   "unifiedPanel": {
-    "nowPlayingStageDescription": "Now Playing dikendalikan oleh pemutar eksternal. Folia hanya bertanggung jawab menampilkan lirik dan efek visual.",
-    "stageLocalInputDescription": "Stage dalam mode input tunggal lokal. Perangkat eksternal dapat mengirim lirik atau media, tetapi pemutaran dan tampilan dikendalikan oleh Folia itu sendiri."
+    "nowPlayingStageDescription": "Now Playing dikendalikan oleh pemutar eksternal. ok唱歌 hanya bertanggung jawab menampilkan lirik dan efek visual.",
+    "stageLocalInputDescription": "Stage dalam mode input tunggal lokal. Perangkat eksternal dapat mengirim lirik atau media, tetapi pemutaran dan tampilan dikendalikan oleh ok唱歌 itu sendiri."
   },
   "libraryBravaisArtist": {
     "playTopSongs": "Putar lagu populer",
@@ -4802,8 +4803,8 @@ export default {
     "noTopSongsToQueue": "Tidak ada lagu teratas yang bisa diantrekan",
   },
   "obs": {
-    "connecting": "Menghubungkan ke Folia",
-    "waitingForPlayback": "Menunggu pemutaran Folia"
+    "connecting": "Menghubungkan ke ok唱歌",
+    "waitingForPlayback": "Menunggu pemutaran ok唱歌"
   },
   "queue": {
     "remove": "Hapus dari antrean",
@@ -4899,7 +4900,7 @@ export default {
     }
   },
   "userGuide": {
-    "title": "Selamat datang di Folia",
+    "title": "Selamat datang di ok唱歌",
     "subtitle": "Berikut beberapa tips untuk membantu Anda menavigasi.",
     "commandPalette": {
       "title": "Palette Perintah",
@@ -4921,15 +4922,15 @@ export default {
     },
     "theme": {
       "title": "Tema warna",
-      "desc": "Sesuaikan Folia dengan tema warna terang dan gelap Anda sendiri, atau hasilkan tema AI dari lagu saat ini.",
+      "desc": "Sesuaikan ok唱歌 dengan tema warna terang dan gelap Anda sendiri, atau hasilkan tema AI dari lagu saat ini.",
       "customDesc": "Buka Taman Tema dari pengaturan visual atau palette perintah untuk mengedit dan menyimpan warna terang dan gelap kustom.",
-      "aiDesc": "Saat pengaturan tema AI dikonfigurasi, Folia dapat membuat warna yang peka lagu dan secara opsional menerapkan otomatis tema lagu yang di-cache."
+      "aiDesc": "Saat pengaturan tema AI dikonfigurasi, ok唱歌 dapat membuat warna yang peka lagu dan secara opsional menerapkan otomatis tema lagu yang di-cache."
     },
     "clickThrough": {
       "title": "Pemulihan klik-tembus",
       "desc": "Saat klik-tembus diaktifkan, Anda dapat menggunakan ikon tray sistem untuk mengalihkannya jika kontrol jendela disembunyikan atau sulit dijangkau.",
       "trayTitle": "Gunakan ikon tray",
-      "trayDesc": "Klik kanan ikon tray sistem Folia, lalu pilih opsi klik-tembus untuk mengaktifkan atau menonaktifkannya.",
+      "trayDesc": "Klik kanan ikon tray sistem ok唱歌, lalu pilih opsi klik-tembus untuk mengaktifkan atau menonaktifkannya.",
       "lockTitle": "Gunakan tombol kunci",
       "lockDesc": "Anda juga dapat bergerak ke hotspot titlebar atas untuk mengungkap tombol kunci, lalu klik untuk menonaktifkan klik-tembus."
     },
@@ -4948,7 +4949,7 @@ export default {
     "commandsDesc": "Anda dapat memicu perintah dengan mengetik bahasa Inggris, karakter Tionghoa, atau Pinyin.",
     "ready": {
       "title": "Siap Digunakan",
-      "subtitle": "Nikmati perjalanan musik Anda bersama Folia."
+      "subtitle": "Nikmati perjalanan musik Anda bersama ok唱歌."
     }
   },
   "remote": {
@@ -5021,7 +5022,7 @@ export default {
   "aiHelp": {
     "openButton": "Butuh bantuan?",
     "title": "Butuh bantuan?",
-    "docsTitle": "Baca dokumentasi Folia",
+    "docsTitle": "Baca dokumentasi ok唱歌",
     "openDocs": "Buka dokumen",
     "discordTitle": "Tanya di komunitas Discord",
     "openDiscord": "Gabung",
@@ -5030,7 +5031,7 @@ export default {
     "copyPrompt": "Salin prompt",
     "copyPromptTitle": "1. Salin Prompt AI",
     "importJsonTitle": "2. Tempel Hasil JSON",
-    "prompt": "Saya menggunakan pemutar musik folia-major di GitHub dan perlu bantuan untuk masalah.\n\nPanduan Folia: {{guideUrl}}\nRepositori Folia: {{repoUrl}}\n\nHarap gunakan referensi ini sebagai konteks, lalu bantu saya memahami dan menyelesaikan masalah yang saya jelaskan berikutnya. Jika ada informasi yang kurang, tanyakan apa yang harus saya berikan sebelum membuat asumsi yang tidak pasti."
+    "prompt": "Saya menggunakan ok唱歌 dan perlu bantuan untuk masalah.\n\nPanduan ok唱歌: {{guideUrl}}\nRepositori ok唱歌: {{repoUrl}}\n\nHarap gunakan referensi ini sebagai konteks, lalu bantu saya memahami dan menyelesaikan masalah yang saya jelaskan berikutnya. Jika ada informasi yang kurang, tanyakan apa yang harus saya berikan sebelum membuat asumsi yang tidak pasti."
   },
   "ponder": {
     "openPage": "Ponder halaman ini",
@@ -5045,7 +5046,7 @@ export default {
     },
     "summaries": {
       "bravais_seam": "Celah di tengah dinding: tiga lebarnya, tab dan alat di beranda, serta beda menyaring dan mencari.",
-      "queue_shuffle": "Folia tidak punya mode acak; yang ada adalah mengacak antrean. Ini empat cara melakukannya.",
+      "queue_shuffle": "ok唱歌 tidak punya mode acak; yang ada adalah mengacak antrean. Ini empat cara melakukannya.",
       "audio_equalizer": "Sepuluh pita dan satu rantai efek \u2014 dan satu tarikan menimpa slot kustom.",
       "vis_playground": "Ada tiga area klik tak terlihat di atas pratinjau.",
       "lyric_style": "Pengaturan khusus tiap gaya, menyembunyikan elemen Monet, memadukan latar, dan subtitel bersama.",
@@ -5364,8 +5365,8 @@ export default {
       "transition": {
         "panel": "Pengaturan \u00b7 Transisi",
         "enable": "Sakelar transisi",
-        "crossfade": "Folia Crossfade",
-        "automix": "Folia Automix",
+        "crossfade": "ok唱歌 Crossfade",
+        "automix": "ok唱歌 Automix",
         "badge": "Status berjalan",
         "detail": "Pengaturan mode ini",
         "notice": "Pemberitahuan syarat tak terpenuhi"
@@ -5566,7 +5567,7 @@ export default {
         "palette": "Command palette"
       },
       "grid": {
-        "help": "Folia dan Bantuan",
+        "help": "ok唱歌 dan Bantuan",
         "tabs": "Tab sumber konten",
         "search": "Pencarian lagu",
         "map": "Peta semua koleksi",
@@ -5679,7 +5680,7 @@ export default {
       "panelAccountTab": "Panel · tab Kualitas",
       "latticePage": "Halaman Lattice",
       "bravaisWall": "Dinding Bravais",
-      "helpPage": "Mengenal Folia",
+      "helpPage": "Mengenal ok唱歌",
       "ponderBasics": "Cara kerja Ponder",
       "foliaTransport": "Pemutaran dan tombol media",
       "foliaShortcuts": "Pintasan yang akan kamu pakai",
@@ -5880,7 +5881,7 @@ export default {
         "toolsAppearance": "Paling bawah adalah tampilan dinding: transparansi bergiliran di tiga tingkat, ditambah warna poster dan lampu nyala / mati. Geser tombol ini ke kiri untuk langsung membuka palet perintah."
       },
       "queueShuffle": {
-        "noMode": "Folia tidak menyediakan mode putar acak tradisional, dan tombol ulang tidak akan beralih ke acak. Untuk mendengar secara acak, acak antrean saat ini.",
+        "noMode": "ok唱歌 tidak menyediakan mode putar acak tradisional, dan tombol ulang tidak akan beralih ke acak. Untuk mendengar secara acak, acak antrean saat ini.",
         "once": "Mengacak adalah satu tindakan: antrean saat ini diacak di tempat lalu diputar dengan urutan baru. Acak lagi untuk urutan lain.",
         "command": "Cara tercepat adalah perintah: saat jendela perintah tertutup dan tidak ada kolom teks yang fokus, tekan titik dua untuk masuk mode eksekusi, lalu tekan r. Kamu juga bisa mencari “Acak antrean” di jendela perintah.",
         "slot": "Kalau sering dipakai, pilih “Acak antrean” di “Tombol bilah progres” pada Pengaturan · Halaman pemutar, maka bilah kontrol mendapat tombol acak.",
@@ -5946,7 +5947,7 @@ export default {
       "customShortcut": {
         "alt": "Separuh kiri baris ini adalah dua tuts, dan hanya yang kedua milikmu. Alt digambar sudah tertekan karena memang tidak bisa diubah: pintasan ini selalu Alt plus satu huruf, jadi kombinasi seperti Ctrl+Shift+X tidak bisa direkam di sini.",
         "capture": "Klik tuts kedua dan ia mulai mendengarkan; tombol berikutnya yang kamu tekan menjadi hurufnya. Tombol pengubah yang ditahan di tengah jalan diabaikan, dan Esc keluar tanpa merekam apa pun.",
-        "taken": "Huruf yang sudah dipakai untuk membuka sesuatu langsung ditolak, dengan alasannya dalam warna merah di bawah tuts. S dan Ctrl+K milik jendela perintah itu sendiri, dan setiap hotkey di registri memesan hurufnya sendiri \u2014 jadi daftar huruf terpakai ini tumbuh sendiri seiring Folia menambah pintasan.",
+        "taken": "Huruf yang sudah dipakai untuk membuka sesuatu langsung ditolak, dengan alasannya dalam warna merah di bawah tuts. S dan Ctrl+K milik jendela perintah itu sendiri, dan setiap hotkey di registri memesan hurufnya sendiri \u2014 jadi daftar huruf terpakai ini tumbuh sendiri seiring ok唱歌 menambah pintasan.",
         "clear": "Begitu satu huruf terekam, muncul \u2715 kecil di sebelah tuts. Itu menghapus ikatannya, dan pintasan itu lalu tidak menjalankan apa pun sampai kamu merekam huruf baru.",
         "filtered": "Pilihan di kanan tidak memuat semua perintah. Pintasan bisa ditekan dari mana saja, jadi hanya perintah yang berlaku di mana saja yang boleh diikat \u2014 apa pun yang menuntut halaman atau panel tertentu ditinggalkan. Karena itu perintah yang kamu temukan di jendela perintah bisa saja tidak ada di sini, dan layar tidak menjelaskan selisihnya.",
         "goesQuiet": "Pemeriksaan yang sama juga berjalan saat tombolnya ditekan, bukan hanya saat memilih. Kalau sebuah perintah kemudian menuntut syarat tertentu, atau hurufmu diambil registri, ikatannya diam saja alih-alih menjalankan sesuatu yang lain \u2014 jadi pintasan yang berhenti bekerja layak dipilih ulang di sini."
@@ -5959,14 +5960,14 @@ export default {
         "empty": "Jadi keduanya berguna untuk hal yang berbeda: daftar untuk apa pun yang kebetulan kamu butuhkan, tiga tombol itu untuk yang ingin selalu ada di tempat yang sama."
       },
       "replayGain": {
-        "off": "ReplayGain adalah tag kenyaringan yang ditulis di dalam berkasnya sendiri. Dengan ini mati, Folia mengabaikannya dan memutar setiap lagu pada level masteringnya \u2014 itu sebabnya satu album bisa jauh lebih keras daripada album berikutnya.",
+        "off": "ReplayGain adalah tag kenyaringan yang ditulis di dalam berkasnya sendiri. Dengan ini mati, ok唱歌 mengabaikannya dan memutar setiap lagu pada level masteringnya \u2014 itu sebabnya satu album bisa jauh lebih keras daripada album berikutnya.",
         "trackAlbum": "“Trek” meratakan setiap lagu terhadap semua lagu lain, jadi antrean acak tetap rata. “Album” memakai satu angka untuk seluruh album, sehingga lagu yang pelan tetap pelan dan yang keras tetap keras seperti saat dicampur. Keduanya tidak mengodekan ulang apa pun — yang berubah hanya volume pemutaran.",
         "sameValue": "Tab sumber di panel kontrol punya tombol yang sama, dan itu bukan pengaturan kedua: keduanya membaca dan menulis satu nilai, jadi mengubahnya di salah satu tempat mengubahnya di mana-mana. Tidak ada satu pun dari keduanya yang menyebutkan hal ini.",
         "summary": "Tab sumber juga menampilkan nilai gain trek dan album bawaan lagu; tanpa tag tertulis “Tidak ada ReplayGain terdeteksi”."
       },
       "importExport": {
-        "scope": "Bagian ini membawa tampilan Folia: tema warna, animasi lirik beserta penyetelan tiap perender, subtitel dan fon, latar, dan kartu lagu. Hanya itu daftarnya.",
-        "notBackup": "Jadi meski namanya cadangan, ini bukan cadangan Folia. Daftar putar, pustaka lokal, pengaturan pemutaran, pintasan, dan akun semuanya di luar itu \u2014 memulihkan dari salah satu ini sambil berharap musikmu kembali adalah kesalahan yang diundang nama tersebut.",
+        "scope": "Bagian ini membawa tampilan ok唱歌: tema warna, animasi lirik beserta penyetelan tiap perender, subtitel dan fon, latar, dan kartu lagu. Hanya itu daftarnya.",
+        "notBackup": "Jadi meski namanya cadangan, ini bukan cadangan ok唱歌. Daftar putar, pustaka lokal, pengaturan pemutaran, pintasan, dan akun semuanya di luar itu \u2014 memulihkan dari salah satu ini sambil berharap musikmu kembali adalah kesalahan yang diundang nama tersebut.",
         "themeChoice": "Sebelum mengekspor, pilih tema mana yang ikut: yang dari AI, yang kamu racik sendiri, atau tidak sama sekali. “Tidak Ada Tema” tetap membawa pengaturan visual dan meninggalkan warnamu, yang cocok ketika kamu membagikan setelan animasi lirik dan bukan sebuah palet.",
         "clipboard": "Tombolnya menyalin, bukan menyimpan berkas: satu memberi kode pendek, satu lagi hal yang sama dalam JSON yang bisa dibaca. Tempel ke mana saja \u2014 pesan, catatan \u2014 dan itulah seluruh konfigurasinya.",
         "paste": "Impor berjalan ke arah sebaliknya lewat kotak yang sama: tempel kode orang lain di sini dan tombol impor di kanan menyala.",
@@ -5989,13 +5990,13 @@ export default {
         "hold": "Tetap tahan dan sapuannya memenuhi kapsul dari kiri ke kanan; begitu sampai ujung kamu sudah berada di dalam tutorial komponen itu \u2014 satu layar penuh seperti ini. Lepas terlalu cepat dan ia batal tanpa terjadi apa-apa.",
         "wholePage": "Kamu tidak harus mencari komponen: tahan Ctrl + G di mana saja dan kamu dapat seluruh halaman \u2014 apa yang ada di sana, letak tiap bagian, dan apa yang bisa dilakukan.",
         "touchBulb": "Layar sentuh tidak punya hover, jadi seluruh jalur itu tidak tersedia. Gantinya adalah bohlam di sudut kanan atas ini, dan ia hanya muncul di perangkat sentuh \u2014 wajar kalau kamu tidak menemukannya dengan tetikus. Ia menampakkan diri beberapa detik saat kamu tiba atau berganti halaman lalu melipat pergi agar tidak menghalangi; ketuk sudut kanan atas untuk memanggilnya kembali.",
-        "mediaKeys": "Pemutaran melewati sesi media sistem \u2014 SMTC di Windows, MPRIS di Linux. Artinya tombol putar / sebelumnya / berikutnya di keyboardmu langsung berfungsi, jadi kamu tak perlu kembali ke Folia saat sedang bekerja di jendela lain. Popup media sistem juga menampilkan lagu yang sedang diputar.",
+        "mediaKeys": "Pemutaran melewati sesi media sistem \u2014 SMTC di Windows, MPRIS di Linux. Artinya tombol putar / sebelumnya / berikutnya di keyboardmu langsung berfungsi, jadi kamu tak perlu kembali ke ok唱歌 saat sedang bekerja di jendela lain. Popup media sistem juga menampilkan lagu yang sedang diputar.",
         "inAppTransport": "Di dalam aplikasi: Space memutar dan menjeda, {{mod}} + \u2190 / \u2192 berpindah lagu. Di halaman pemutar, tombol panah polos memindai lima detik. Selebihnya ada di jendela perintah, atau satu titik dua menuju mode eksekusi.",
-        "shortcutK": "{{mod}} + K membuka jendela perintah. Folia menaruh seluruh urusan \u201cmencari fitur\u201d di sini \u2014 perintah dan pengaturan sama-sama bisa dicari lewat nama, jadi kamu tak perlu ingat sesuatu diarsipkan di level mana.",
+        "shortcutK": "{{mod}} + K membuka jendela perintah. ok唱歌 menaruh seluruh urusan \u201cmencari fitur\u201d di sini \u2014 perintah dan pengaturan sama-sama bisa dicari lewat nama, jadi kamu tak perlu ingat sesuatu diarsipkan di level mana.",
         "shortcutP": "{{mod}} + P membuka antrean putar. Ia juga jendela perintah: baris masukannya adalah kotak pencarian antrean, dan hal seperti @artist: mempersempitnya sebelum aksi massal.",
         "shortcutB": "{{mod}} + B menuju Lattice, yang membentangkan seluruh antrean putar sebagai dinding poster. Tekan di dalam Lattice dan ia kembali.",
         "shortcutG": "Ctrl + G adalah yang baru saja kamu lakukan: membuka tutorial untuk halaman saat ini. Kapan pun kamu tersesat, tekan ini dulu.",
-        "hintSettings": "Sudah paham betul cara pakai Folia? Kamu bisa mematikan petunjuk Ponder di pengaturan, atau menyisakannya hanya di tempat yang belum kamu lihat \u2014 sakelarnya ada di Pengaturan \u00b7 Umum, \u201cPetunjuk tutorial Ponder\u201d, dengan tiga posisi: selalu tampil, hanya yang belum dilihat, dan mati. Tombol di bawah membawamu langsung ke sana.",
+        "hintSettings": "Sudah paham betul cara pakai ok唱歌? Kamu bisa mematikan petunjuk Ponder di pengaturan, atau menyisakannya hanya di tempat yang belum kamu lihat \u2014 sakelarnya ada di Pengaturan \u00b7 Umum, \u201cPetunjuk tutorial Ponder\u201d, dengan tiga posisi: selalu tampil, hanya yang belum dilihat, dan mati. Tombol di bawah membawamu langsung ke sana.",
         "docs": "Empat bab ini baru pembuka. Perintah, pintasan, sumber daring, pustaka lokal, visualizer dan tema semuanya punya penjelasan lebih lengkap di situs dokumentasi \u2014 tombol di bawah membukanya."
       },
       "pages": {
@@ -6036,7 +6037,7 @@ export default {
         "playerCommandArgument": "Perintah yang butuh argumen tidak langsung jalan. Ketik namanya, tekan spasi, dan ia melipat jadi satu label di baris masukan sementara kursor menunggu di belakangnya. Isi argumennya, lalu Enter.",
         "playerExecuteCloseFirst": "Mode eksekusi dimasuki saat jendela perintah tertutup. Tekan Esc untuk menutupnya dulu: saat jendela terbuka, titik dua hanya masuk ke baris masukan.",
         "playerExecuteMode": "Kembali di halaman pemutar, dengan fokus di luar kotak teks, tekan tombol titik dua: jendela perintah langsung terbuka di mode eksekusi. Di dalamnya satu tombol menjalankan satu perintah: r mengacak antrean, v volume, o pengaturan, h bantuan.",
-        "playerShuffleNoSwitch": "Folia tidak punya sakelar acak. Kamu tidak menemukannya di bilah kontrol karena acak bukan mode yang menyala terus \u2014 ia satu tindakan: mengocok ulang antrean saat ini di tempat.",
+        "playerShuffleNoSwitch": "ok唱歌 tidak punya sakelar acak. Kamu tidak menemukannya di bilah kontrol karena acak bukan mode yang menyala terus \u2014 ia satu tindakan: mengocok ulang antrean saat ini di tempat.",
         "playerShuffleHow": "Cara tercepat justru tanpa membuka apa pun: tekan tombol titik dua di halaman pemutar \u2014 jendelanya terbuka di mode eksekusi \u2014 lalu tekan r. Urutan barunya langsung berlaku; jalankan lagi untuk urutan lain.",
         "playerShuffleSlot": "Kalau sering dipakai, taruh \u201cAcak antrean\u201d di salah satu dari dua posisi kanan bilah kontrol, dan ia jadi satu tekanan saja.",
         "lattice": "Lattice menyusun seluruh antrean putar sebagai satu bidang poster. Bergeraklah di bidang itu untuk melihat antrean dan pilih poster untuk bertindak pada lagu tersebut. Jika dibuka dari tab Jelajahi, yang disusun adalah album, playlist, artis, dan lagu dari tab itu.",
@@ -6050,15 +6051,15 @@ export default {
         "latticeLights": "Lampu mati meredupkan dinding namun mempertahankan strukturnya. Ini hanya tampilan; pemutaran dan urutan antrean tidak berubah.",
         "latticePosterKeys": "Enter atau Spasi memperluas poster tertutup. Setelah terbuka, Enter memutar atau menjeda, Spasi mengubah kontrol, dan Escape menutup serta membersihkan fokus.",
         "latticePageKeys": ": + C menemukan lagu yang diputar, {{mod}} + P membuka antrean, {{mod}} + B kembali, {{mod}} + K membuka jendela perintah; tombol panah memindahkan fokus poster.",
-        "help": "Folia memisahkan penelusuran, pemutaran, perintah, dan opsi. Ctrl+G menjelaskan halaman terdepan; panduan komponen tersedia terpisah saat suatu komponen memiliki perilaku khusus.",
+        "help": "ok唱歌 memisahkan penelusuran, pemutaran, perintah, dan opsi. Ctrl+G menjelaskan halaman terdepan; panduan komponen tersedia terpisah saat suatu komponen memiliki perilaku khusus.",
         "helpCommands": "{{mod}} + K mencari semua perintah dan pengaturan. Untuk opsi yang tersembunyi jauh, mencari namanya biasanya lebih cepat daripada mengingat letaknya.",
         "helpOperatingModel": "Pilih musik di kisi, lalu pemutaran berlanjut secara mandiri di Player atau Lattice. Bilah bawah mengontrol pemutaran di semua halaman; Bantuan dan Opsi adalah lapisan di atas halaman saat ini.",
         "settings": "Sisi kiri mencantumkan kategori di bawah Antarmuka, Musik, Aplikasi, dan Lanjutan. Sisi kanan berisi pengaturan kategori terpilih.",
-        "settingsDirectNavigation": "Anda tidak perlu menelusuri setiap kategori: cari nama pengaturan di palette perintah dan Folia membuka bagian serta jangkar yang tepat."
+        "settingsDirectNavigation": "Anda tidak perlu menelusuri setiap kategori: cari nama pengaturan di palette perintah dan ok唱歌 membuka bagian serta jangkar yang tepat."
       },
       "playerBar": {
         "basicsAutoExpand": "Bukan hanya menggantung penunjuk yang membukanya. Selama pemutaran dijeda dan kamu sedang tidak di layar beranda, kapsulnya tetap terbentang sendiri \u2014 saat kamu paling mungkin ingin menjangkau kontrolnya, justru saat itu ia berhenti menyembunyikannya. Putar lagi, atau kembali ke beranda, dan ia mengurus lagi.",
-        "basicsIntro": "Kontrol pemutaran Folia hanya kapsul ini. Deretan tombol permanen yang dipasang pemutar lain di bawah — sebelumnya, berikutnya, acak, ulang, volume — tidak punya tempat tetap di sini.",
+        "basicsIntro": "Kontrol pemutaran ok唱歌 hanya kapsul ini. Deretan tombol permanen yang dipasang pemutar lain di bawah — sebelumnya, berikutnya, acak, ulang, volume — tidak punya tempat tetap di sini.",
         "basicsPlay": "Satu-satunya tombol yang selalu ada adalah putar / jeda. Pada jendela lebar ia di paling kiri; saat barisnya terlalu sempit untuk satu baris, ia pindah ke tengah baris kedua, dengan dua slot di kedua sisinya.",
         "basicsTitle": "Ganti lagu lewat judul, bukan tombol. Arahkan penunjuk ke judul, panah muncul di kedua sisi dan mempratinjau nama lagu sebelumnya dan berikutnya — kamu memilih sambil membaca, bukan menekan buta.",
         "basicsProgress": "Seret atau klik bilah kemajuan untuk melompat. Mengklik bagian kapsul yang lain bukan jeda: biasanya itu membuka halaman pemutar, atau Lattice bila pemutaran diatur dibuka di sana (FM Pribadi tetap ke halaman pemutar); kalau kamu sudah di halaman pemutar dan klik itu tidak menuju Lattice, ia membuka jendela perintah; di Lattice itu menarik tampilan kembali ke lagu saat ini.",
@@ -6069,7 +6070,7 @@ export default {
         "heightDrag": "Setelah mode atur posisi aktif, tahan kapsul di mana saja lalu seret ke atas atau bawah. Lepaskan untuk menerapkan, dan pengaturannya diingat.",
         "slotsIntro": "Dua tombol di kanan bilah progres ini tidak tetap, dan tiap slot berdiri sendiri.",
         "shuffleIntro": "Acak di sini tidak seperti di tempat lain - ia bukan mode yang terus menyala.",
-        "shuffleOnce": "Tekan dan Folia mengacak antrean saat ini di tempat, sekali; urutan itulah yang berlaku. Ingin lain? Tekan lagi.",
+        "shuffleOnce": "Tekan dan ok唱歌 mengacak antrean saat ini di tempat, sekali; urutan itulah yang berlaku. Ingin lain? Tekan lagi.",
         "volumeIntro": "Bilah kontrol bawah tidak punya penggeser volume permanen.",
         "volumeOpens": "Menekan di sini membuka panel volume di dalam command palette, bukan penggeser kecil di tempat.",
         "slotsHold": "Tekan lama sebuah tombol sampai lingkaran di sekelilingnya penuh, atau langsung klik kanan.",
@@ -6142,7 +6143,7 @@ export default {
         "sourceLyrics": "Ujung kanan baris Lirik memuat lirik yang dimiliki lagu ini; klik satu segmen untuk berganti. Bila hanya ada satu, baris itu hanya menampilkan namanya.",
         "sourceOffset": "“Offset Timeline” melangkah 250ms, atau menerima angka yang diketik; nilai positif membuat lirik muncul lebih lambat. Ia hanya sementara untuk pemutaran ini — untuk perubahan permanen ada offset global di pengaturan, dan keduanya dijumlahkan.",
         "sourceLyricsFile": "“Impor / ekspor lirik” menyatukan dua pekerjaan dalam satu jendela: buka, lalu pilih. “Cocokkan Online” di sebelah kirinya membuka jendela pencocokan lirik.",
-        "sourceExportFormats": "Bagian atas jendela untuk impor: lrc, vtt, ttml, qrc, yrc, krc, txt, dan berkas .fia hasil ekspor Folia. Lagu Navidrome tidak bisa diimpor, jadi jendelanya hanya untuk ekspor. Dua kotak di bawahnya menyimpan lagu ini: .fia mempertahankan timing per kata, terjemahan, vokal latar, dan segmentasi yang kamu simpan, serta bisa diimpor kembali apa adanya; .lrc adalah LRC enhanced yang bisa dibaca pemutar lain, tetapi detail khusus Folia itu hilang.",
+        "sourceExportFormats": "Bagian atas jendela untuk impor: lrc, vtt, ttml, qrc, yrc, krc, txt, dan berkas .fia hasil ekspor ok唱歌. Lagu Navidrome tidak bisa diimpor, jadi jendelanya hanya untuk ekspor. Dua kotak di bawahnya menyimpan lagu ini: .fia mempertahankan timing per kata, terjemahan, vokal latar, dan segmentasi yang kamu simpan, serta bisa diimpor kembali apa adanya; .lrc adalah LRC enhanced yang bisa dibaca pemutar lain, tetapi detail khusus ok唱歌 itu hilang.",
         "sourceExportBatch": "Baris paling bawah adalah ekspor massal: membuka halaman ekspor di palet perintah dan menyimpan semua lirik tersimpan sekaligus. Baris Lirik di bawah Detail Cache pada Pengaturan · Penyimpanan & cadangan punya pintu masuk yang sama.",
         "coverTab": "Tab Sampul adalah lagu itu sendiri: sampul besar, judul, artis, dan album di bawahnya, lalu sebaris tindakan. Tidak ada isi lain di tab ini.",
         "coverTabDetail": "Artis dan album keduanya tautan ke koleksinya. Mengklik judul menyalin \u201cjudul - artis - album\u201d beserta tautan halaman sumbernya; Ctrl+klik malah membuka halaman lagu ini di platform sumbernya.",
@@ -6155,12 +6156,12 @@ export default {
       },
       "transition": {
         "enable": "Grup ini tentang bagaimana satu lagu menyambung ke lagu berikutnya. Sakelar di atas adalah nilai yang sama dengan petak “Transisi pintar” di tab Kontrol — dua tempat, satu pengaturan.",
-        "modes": "Mode transisi punya dua segmen: Folia Crossfade memudar dari satu lagu ke lagu berikutnya, Folia Automix menganalisis audio lalu memilih titik sambungnya.",
+        "modes": "Mode transisi punya dua segmen: ok唱歌 Crossfade memudar dari satu lagu ke lagu berikutnya, ok唱歌 Automix menganalisis audio lalu memilih titik sambungnya.",
         "badge": "Tanda kecil di kiri dua segmen itu adalah status berjalan: “Penuh” atau “Kompatibel” berarti Automix sedang berjalan; “Memakai crossfade” berarti ada syarat yang kurang dan aplikasi kembali memakai crossfade.",
         "notice": "Automix butuh cache lagu; “Aktifkan cache lagu” di ujung kanan catatan menyalakannya saat itu juga."
       },
       "libraryWatch": {
-        "enable": "Dengan ini menyala, Folia mengawasi folder lokal yang kamu impor dan menjalankan pemindaian inkremental setiap kali berkasnya berubah \u2014 tak perlu kembali memindai manual setiap menambah musik.",
+        "enable": "Dengan ini menyala, ok唱歌 mengawasi folder lokal yang kamu impor dan menjalankan pemindaian inkremental setiap kali berkasnya berubah \u2014 tak perlu kembali memindai manual setiap menambah musik.",
         "roots": "Daftarnya baru terbuka di bawah sakelar, satu baris per folder akar yang dipantau, dengan jalur aslinya di baris kecil di bawahnya.",
         "warning": "Perhatikan ikon di kiri tiap baris: mata berarti sedang mengawasi; segitiga kuning berarti pantauan folder itu sudah berhenti bekerja \u2014 jalur yang hilang, izin yang berubah. Setelah itu pemindaiannya sekadar berhenti terjadi, dan ikon ini satu-satunya tanda.",
         "recheck": "Saat melihat segitiga, tekan “Periksa ulang folder” di kanan: ia menyambungkan lagi semua folder yang pernah diimpor. Baris kecil di sampingnya adalah waktu pemindaian otomatis terakhir."
@@ -6170,7 +6171,7 @@ export default {
         "next": "Ubah ke “Tambahkan ke berikutnya” dan yang kamu tambahkan menyelip tepat di belakang lagu yang sedang berjalan, jadi ia berikutnya. Ini mengubah semua pintu tambah-ke-antrean di aplikasi — tombol di kartu, yang muncul di baris antrean, perintah di palette."
       },
       "lyricsSource": {
-        "autoBest": "Dengan “Gunakan Lirik Terbaik Otomatis” menyala, Folia mencari lagu ini di NetEase, AMLLDB, QQ dan KuGou lalu mengambil versi per-kata yang cocok sempurna bila ada. Harganya, ia menimpa sumber yang kamu pilih manual di tab sumber — kalau pilihan manualmu tidak bertahan, biasanya inilah sebabnya.",
+        "autoBest": "Dengan “Gunakan Lirik Terbaik Otomatis” menyala, ok唱歌 mencari lagu ini di NetEase, AMLLDB, QQ dan KuGou lalu mengambil versi per-kata yang cocok sempurna bila ada. Harganya, ia menimpa sumber yang kamu pilih manual di tab sumber — kalau pilihan manualmu tidak bertahan, biasanya inilah sebabnya.",
         "priority": "Dua segmen “Prioritas lirik lagu lokal” menentukan lirik lokal atau online yang menang. Saat lirik bawaan berkas dan lirik hasil pencarian online sama-sama ada, inilah yang memutuskan.",
         "globalOffset": "“Offset Waktu Global” membuka penggaris satu layar penuh yang memajukan atau memundurkan lirik semua lagu sekaligus — biasanya untuk menutup jeda tetap kartu suara atau Bluetooth.",
         "offsetSum": "Tab sumber punya offset sendiri, “Offset Timeline”, dan itu bukan hal yang sama: yang itu hanya untuk lagu saat ini dan hilang saat kamu berganti lagu, yang ini global dan bertahan. Keduanya dijumlahkan, jadi ketika satu lagu meleset jauh, periksa keduanya."
@@ -6182,7 +6183,7 @@ export default {
       "lyricExport": {
         "whatItIs": "Halaman ini mengemas lirik yang sudah ada di perangkat ini menjadi satu zip. Ia tidak mengunduh lirik baru.",
         "effective": "Cache online mencakup lagu online yang pernah diputar, diekspor seperti yang tampil saat diputar, jadi lirik yang kamu impor atau cocokkan sendiri diutamakan. Pustaka lokal hanya mengekspor lirik hasil pencocokan online: tiap berkas dinamai sesuai berkas audionya dan ditaruh di folder local dalam zip mengikuti susunan folder pustaka, jadi mengekstraknya ke folder yang berisi pustakamu menaruh setiap berkas di sebelah lagunya. Instrumental dan lagu tanpa lirik dilewati dan dicatat di manifest.json.",
-        "formats": ".fia lossless dan bisa langsung diimpor kembali ke Folia; LRC bisa dipakai di mana saja tetapi kehilangan vokal latar dan segmentasi. Centang keduanya dan zip berisi dua folder.",
+        "formats": ".fia lossless dan bisa langsung diimpor kembali ke ok唱歌; LRC bisa dipakai di mana saja tetapi kehilangan vokal latar dan segmentasi. Centang keduanya dan zip berisi dua folder.",
         "names": "Cache lirik online tidak menyimpan judul lagu sendiri. Lagu yang diputar mencatat judulnya saat diputar, dan itu dipakai lebih dulu; setelah itu nama diambil dari playlist dan antrean yang tersimpan di perangkat ini, lalu baru dari layanan musik secara online, dan jawabannya diingat untuk lain kali. Jika pencarian dimatikan, lagu tanpa judul diberi nama ID.",
         "running": "Setelah dimulai, progres tampil di sini dan tombolnya berubah menjadi Batal. Menutup palet juga membatalkan: ekspor tidak berlanjut di latar belakang."
       },
@@ -6198,7 +6199,7 @@ export default {
         "windowNormal": "Perbedaan terbesar antara versi desktop dan peramban ada pada tiga hal ini, dan tak satu pun berada di dalam aplikasi: satu mengubah posisi jendela di desktop, satu tinggal di system tray, satu lagi jendela kedua. Mulai dari jendela utama biasa ini.",
         "wallpaper": "Mode wallpaper menenggelamkannya ke dasar desktop: bingkai dan bilah judul hilang, lirik terhampar langsung di desktop, dengan ikon dan jendela lain menumpuk di atasnya seperti biasa. Harganya tertulis di pengaturan \u2014 keyboard tidak lagi menjangkaunya dalam mode ini.",
         "wallpaperExit": "Artinya kamu tidak bisa keluar dari mode wallpaper dengan mengklik jendelanya. Gunakan \u201cMode Wallpaper\u201d di menu tray, atau cari perintah yang sama di jendela perintah.",
-        "trayIcon": "Yang di sudut bilah tugas ini adalah ikon tray Folia. Pengaturan \u00b7 Desktop bisa membuat minimize langsung masuk ke tray \u2014 jendela utamanya meninggalkan bilah tugas, tetapi pemutaran tidak berhenti dan tombol media sistem tetap bekerja.",
+        "trayIcon": "Yang di sudut bilah tugas ini adalah ikon tray ok唱歌. Pengaturan \u00b7 Desktop bisa membuat minimize langsung masuk ke tray \u2014 jendela utamanya meninggalkan bilah tugas, tetapi pemutaran tidak berhenti dan tombol media sistem tetap bekerja.",
         "trayMenu": "Mengklik ikon tray membuka kolom ini: semua yang bisa dilakukan tanpa membuka jendela utama \u2014 tampilkan/sembunyikan jendela, buka jendela remote, latar transparan, klik tembus, selalu di atas, sembunyikan ikon bilah tugas, lirik desktop, mode wallpaper, reset jendela, keluar. Dalam mode wallpaper, inilah satu-satunya jalan keluar.",
         "remote": "Jendela remote adalah jendela kecil kedua; jalankan “Alihkan jendela remote control” di jendela perintah untuk membukanya, atau pakai “Jendela Remote” di menu tray. Ia tetap di atas bahkan saat jendela utama diminimalkan, atau tenggelam jadi wallpaper.",
         "remoteChrome": "Ia membawa set sakelar jendelanya sendiri: selalu di atas, latar transparan, klik tembus (tetikus menembus langsung ke apa pun di bawahnya), sembunyikan ikon bilah tugas, dan UI yang menyembunyikan diri. Dibuat sebagai jendela terpisah alih-alih sudut jendela utama justru supaya sakelar-sakelar itu bisa berdiri sendiri."
@@ -6225,8 +6226,8 @@ export default {
       },
       "localGridControls": {
         "sources": "Baris ini mengganti pustaka lokal antara folder, album, artis, dan playlist lokal. Ini mengubah isi rel Grid3D, bukan berpindah ke penyedia daring.",
-        "foldersAndPlaylists": "Folder mempertahankan struktur direktori impor. Playlist lokal disimpan oleh Folia dan terpisah dari playlist daring maupun Navidrome.",
-        "imports": "Impor folder menambahkan musik dari direktori. Impor playlist membaca M3U atau M3U8 dan membuat playlist lokal dari lagu yang bisa ditemukan Folia.",
+        "foldersAndPlaylists": "Folder mempertahankan struktur direktori impor. Playlist lokal disimpan oleh ok唱歌 dan terpisah dari playlist daring maupun Navidrome.",
+        "imports": "Impor folder menambahkan musik dari direktori. Impor playlist membaca M3U atau M3U8 dan membuat playlist lokal dari lagu yang bisa ditemukan ok唱歌.",
         "refresh": "Segarkan memindai ulang akar impor untuk berkas baru, berubah, atau hilang. Ini tidak membuat salinan pustaka baru."
       },
       "onlineCollectionActions": {

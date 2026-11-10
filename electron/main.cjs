@@ -276,7 +276,7 @@ if (process.platform === 'darwin' && process.arch === 'x64') {
   app.commandLine.appendSwitch('enable-gpu-rasterization');
 }
 
-const store = new Store({ projectName: 'Folia' });
+const store = new Store({ projectName: 'ok唱歌' });
 // Before ready: the GPU process reads its switches when it starts.
 const gpuPreferenceApplied = applyGpuPreference({ app, store });
 const readActiveGpu = createActiveGpuReader(app);
@@ -2226,7 +2226,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接导入系统目录或常用用户目录。\n请选择一个专门存放音乐的文件夹。',
     dialogChooseOther: '选择其他文件夹',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了问题',
+    crashTitle: 'ok唱歌 遇到了问题',
     crashMessage: '程序发生了一次崩溃，日志已保存。把它发给开发者能帮助定位问题。',
     crashOpenFolder: '打开日志所在文件夹',
     crashClose: '关闭',
@@ -2252,7 +2252,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接匯入系統目錄或常用使用者目錄。\n請選擇一個專門存放音樂的資料夾。',
     dialogChooseOther: '選擇其他資料夾',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了問題',
+    crashTitle: 'ok唱歌 遇到了問題',
     crashMessage: '程式發生了一次崩潰，日誌已儲存。把它發給開發者能幫助定位問題。',
     crashOpenFolder: '開啟日誌所在資料夾',
     crashClose: '關閉',
@@ -2278,7 +2278,7 @@ const mainLocale = {
     dialogImportMessage: 'Cannot directly import system or common user directories.\nPlease choose a dedicated music folder.',
     dialogChooseOther: 'Choose Another Folder',
     dialogCancel: 'Cancel',
-    crashTitle: 'Folia ran into a problem',
+    crashTitle: 'ok唱歌 ran into a problem',
     crashMessage: 'The app crashed and a log has been saved. Sending it to the developer helps track the problem down.',
     crashOpenFolder: 'Open Log Folder',
     crashClose: 'Close',
@@ -2304,7 +2304,7 @@ const mainLocale = {
     dialogImportMessage: 'Folder sistem atau folder pengguna umum tidak dapat diimpor langsung.\nPilih folder khusus untuk menyimpan musik.',
     dialogChooseOther: 'Pilih Folder Lain',
     dialogCancel: 'Batal',
-    crashTitle: 'Folia mengalami masalah',
+    crashTitle: 'ok唱歌 mengalami masalah',
     crashMessage: 'Aplikasi mengalami crash dan log telah disimpan. Mengirimkannya ke pengembang membantu menemukan masalahnya.',
     crashOpenFolder: 'Buka Folder Log',
     crashClose: 'Tutup',
@@ -2330,7 +2330,7 @@ const mainLocale = {
     dialogImportMessage: 'Không thể nhập trực tiếp thư mục hệ thống hoặc thư mục người dùng thông thường.\nVui lòng chọn một thư mục chuyên lưu nhạc.',
     dialogChooseOther: 'Chọn thư mục khác',
     dialogCancel: 'Hủy',
-    crashTitle: 'Folia đã gặp sự cố',
+    crashTitle: 'ok唱歌 đã gặp sự cố',
     crashMessage: 'Ứng dụng đã gặp sự cố và tệp nhật ký đã được lưu. Gửi nhật ký cho nhà phát triển sẽ giúp giải quyết vấn đề.',
     crashOpenFolder: 'Mở thư mục nhật ký',
     crashClose: 'Đóng',
@@ -2635,7 +2635,7 @@ const FOLIA_GITHUB_REPOSITORY = {
   repo: 'folia-major',
 };
 const WINDOWS_APP_USER_MODEL_ID = 'top.izuna.foliamajor';
-const REMOTE_CONTROL_WINDOW_TITLE = 'Folia Remote';
+const REMOTE_CONTROL_WINDOW_TITLE = 'ok唱歌 Remote';
 const WINDOW_PLAYBACK_HANDOFF_REQUEST_TIMEOUT_MS = 800;
 const bundledAppIconPath = path.join(__dirname, '../build/icon.png');
 const extraResourceIconPath = path.join(process.resourcesPath, 'icon.png');
@@ -3513,7 +3513,7 @@ function refreshTrayMenu() {
   ]);
 
   appTray.setContextMenu(menu);
-  appTray.setToolTip('Folia');
+  appTray.setToolTip('ok唱歌');
 }
 
 function ensureTray() {
@@ -4262,7 +4262,7 @@ async function checkForManualUpdateAvailability() {
     const response = await ses.fetch(discovery.url, {
       headers: {
         Accept: 'text/yaml, text/plain',
-        'User-Agent': `Folia/${app.getVersion()}`,
+        'User-Agent': `ok唱歌/${app.getVersion()}`,
       },
       signal: controller.signal,
     });
@@ -6328,23 +6328,29 @@ app.whenReady().then(async () => {
   scheduleStartupUpdateCheck();
   voiceInputPauseMonitor.syncState();
 
-  try {
-    modSystem = createModSystem({
-      app,
-      BrowserWindow,
-      getMainWindow: () => mainWindow,
-      getLocaleKey: getMainLocaleKey,
-      isFeatureEnabled: () => readStoredBoolean(MOD_SYSTEM_ENABLED_SETTING_KEY, false),
-    });
-    modSystem.registerIpc();
-    // Loads the enabled mods. If the last start never got to its end, it asks first whether to
-    // start without mods this time, and loads once the answer is in (modSystem.cjs `start`).
-    modSystem.start();
-    if (readStoredBoolean(MOD_SYSTEM_ENABLED_SETTING_KEY, false)) {
-      void modSystem.probeFfmpeg();
+  // D3：ok唱歌 不加载 Folium。OKCHANG_FOLIUM=1 时恢复（测试用）。代码留在 modSystem/。
+  const okChangFoliumEnabled = process.env.OKCHANG_FOLIUM === '1' || process.env.VITE_OKCHANG_FOLIUM === '1';
+  if (okChangFoliumEnabled) {
+    try {
+      modSystem = createModSystem({
+        app,
+        BrowserWindow,
+        getMainWindow: () => mainWindow,
+        getLocaleKey: getMainLocaleKey,
+        isFeatureEnabled: () => readStoredBoolean(MOD_SYSTEM_ENABLED_SETTING_KEY, false),
+      });
+      modSystem.registerIpc();
+      // Loads the enabled mods. If the last start never got to its end, it asks first whether to
+      // start without mods this time, and loads once the answer is in (modSystem.cjs `start`).
+      modSystem.start();
+      if (readStoredBoolean(MOD_SYSTEM_ENABLED_SETTING_KEY, false)) {
+        void modSystem.probeFfmpeg();
+      }
+    } catch (error) {
+      console.error('[Mods] Failed to initialize the mod system', error);
     }
-  } catch (error) {
-    console.error('[Mods] Failed to initialize the mod system', error);
+  } else {
+    console.info('[Mods] Folium is disabled for ok唱歌');
   }
 
   app.on('activate', () => {

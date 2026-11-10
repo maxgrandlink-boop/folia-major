@@ -1,9 +1,16 @@
 import type { CommandPaletteCommand } from '../types';
 import { defineCommand, createToggleCommand, createHomeTabCommand } from '../commandFactories';
 import { omni } from '../../../services/onlineMusic/omni';
+import { onlineCatalogUiEnabled } from '../../../product/okChang';
 
 // src/components/command-palette/commands/navigationCommands.ts
 // Commands in the `navigation` group: moving between home tabs, the player, and window-level views.
+
+/** D2：在线曲库页签的命令跟着首页一起藏起来。本地和 Navidrome 不动。没有调用方时仍算在册。 */
+const hideOnlineHomeTab = (command: CommandPaletteCommand): CommandPaletteCommand => ({
+    ...command,
+    isAvailable: context => !context || (onlineCatalogUiEnabled && (command.isAvailable?.(context) ?? true)),
+});
 
 export const navigationCommands: CommandPaletteCommand[] = [
     defineCommand({
@@ -40,16 +47,16 @@ export const navigationCommands: CommandPaletteCommand[] = [
         isAvailable: (context) => !context?.navigation.isWallpaperMode,
         execute: (_input, context) => context.navigation.toggleBrowserFullscreen(),
     },
-    createHomeTabCommand('playlist', 'Open playlists', 'Open playlist home tab', ['playlist', 'playlists', '歌单']),
+    hideOnlineHomeTab(createHomeTabCommand('playlist', 'Open playlists', 'Open playlist home tab', ['playlist', 'playlists', '歌单'])),
     createHomeTabCommand('local', 'Open local music', 'Open local music tab', ['local music', 'local', '本地', '本地音乐']),
-    createHomeTabCommand('albums', 'Open albums', 'Open albums tab', ['albums', 'album', '专辑']),
+    hideOnlineHomeTab(createHomeTabCommand('albums', 'Open albums', 'Open albums tab', ['albums', 'album', '专辑'])),
     createHomeTabCommand('navidrome', 'Open Navidrome', 'Open Navidrome tab', ['navidrome', 'navi', '服务器']),
-    createHomeTabCommand('radio', 'Open radio', 'Open radio tab', ['radio', 'fm', '电台']),
-    {
+    hideOnlineHomeTab(createHomeTabCommand('radio', 'Open radio', 'Open radio tab', ['radio', 'fm', '电台'])),
+    hideOnlineHomeTab({
         ...createHomeTabCommand('explore', 'Open explore', 'Open explore tab', ['explore', 'discover', 'recommendations', '探索', '推荐']),
         // Only a provider with a recommendation page of its own has the tab.
         isAvailable: () => omni.getActiveCapabilities().explore === true,
-    },
+    }),
     {
         id: 'desktop-toggle-remote-control',
         platform: ['electron'],

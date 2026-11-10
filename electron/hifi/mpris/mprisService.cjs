@@ -16,7 +16,7 @@ const INTROSPECTABLE_INTERFACE = 'org.freedesktop.DBus.Introspectable';
 const PEER_INTERFACE = 'org.freedesktop.DBus.Peer';
 const BUS_NAME_BASE = 'org.mpris.MediaPlayer2.folia';
 const NO_TRACK_PATH = '/org/mpris/MediaPlayer2/TrackList/NoTrack';
-const IDENTITY = 'Folia';
+const IDENTITY = 'ok唱歌';
 // package.json 的 desktopName 去掉 .desktop。
 const DESKTOP_ENTRY = 'folia-major';
 const REQUEST_NAME_DO_NOT_QUEUE = 4;

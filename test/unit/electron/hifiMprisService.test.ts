@@ -238,7 +238,7 @@ describe('createMprisService', () => {
             CanQuit: false,
             CanRaise: true,
             HasTrackList: false,
-            Identity: 'Folia',
+            Identity: 'ok唱歌',
             DesktopEntry: 'folia-major',
             SupportedUriSchemes: [],
             SupportedMimeTypes: [],

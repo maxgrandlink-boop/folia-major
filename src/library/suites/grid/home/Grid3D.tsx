@@ -12,6 +12,7 @@ import DesktopGrid3DSurface from './DesktopGrid3DSurface';
 import OnlineProviderAccountlessPanel from '../account/OnlineProviderAccountlessPanel';
 import HomeLoginPanel from '../../../../components/login/HomeLoginPanel';
 import SwitcherPill from '../../../../components/login/SwitcherPill';
+import { onlineCatalogUiEnabled, PRODUCT_NAME } from '../../../../product/okChang';
 import ExploreSurface from '../../../../components/app/home/explore/ExploreSurface';
 import { createOnlineGridViewCollection } from '../../../../components/app/home/gridViewCollectionAdapters';
 import { hasExploreWallEntries } from '../../../../components/app/lattice/exploreWall';
@@ -306,7 +307,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
                     {/* Left title and settings */}
                     <div className="flex items-center justify-start order-1 md:order-none">
                         <h1 className="text-2xl font-bold tracking-tight opacity-90 flex items-center gap-3">
-                            Folia
+                            {PRODUCT_NAME}
                         </h1>
                         <button
                             onClick={() => onOpenSettings?.('help')}
@@ -577,7 +578,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
             </div>
 
             {/* The active account and the way back to the player; the sign-in window opens from it. */}
-            <SwitcherPill account={account} onBackToPlayer={onBackToPlayer} />
+            <SwitcherPill account={account} onBackToPlayer={onBackToPlayer} showPlatform={onlineCatalogUiEnabled} />
 
         </div>
     );

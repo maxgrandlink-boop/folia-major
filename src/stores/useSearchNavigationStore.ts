@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { getNavidromeConfig, navidromeApi } from '../services/navidromeService';
+import { onlineCatalogUiEnabled } from '../product/okChang';
 import type { HomeViewTab, LocalSong, SongResult, UnifiedSong } from '../types';
 import { DEFAULT_ONLINE_PROVIDER_ID } from '../types/onlineMusic';
 import type { OmniCollection, OmniSearchKind, OnlineProviderId } from '../types/onlineMusic';
@@ -218,14 +219,18 @@ const executeSearch = async (
         : searchOnlineProviderCollections(sourceTab, kind, query, limit, offset);
 };
 
+const ONLINE_HOME_TABS: ReadonlySet<string> = new Set(['playlist', 'albums', 'radio', 'explore']);
+
 const getInitialHomeViewTab = (): HomeViewTab => {
+    const fallback: HomeViewTab = onlineCatalogUiEnabled ? 'playlist' : 'local';
     if (typeof window === 'undefined') {
-        return 'playlist';
+        return fallback;
     }
     const savedTab = localStorage.getItem(LAST_HOME_VIEW_TAB_KEY);
-    return savedTab === 'playlist' || savedTab === 'local' || savedTab === 'albums' || savedTab === 'navidrome' || savedTab === 'radio' || savedTab === 'explore'
-        ? savedTab
-        : 'playlist';
+    const known = savedTab === 'playlist' || savedTab === 'local' || savedTab === 'albums' || savedTab === 'navidrome' || savedTab === 'radio' || savedTab === 'explore';
+    if (!known) return fallback;
+    if (!onlineCatalogUiEnabled && ONLINE_HOME_TABS.has(savedTab)) return 'local';
+    return savedTab;
 };
 
 export const useSearchNavigationStore = create<SearchNavigationState>((set, get) => ({

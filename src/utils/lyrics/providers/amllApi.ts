@@ -73,7 +73,7 @@ function getAmllApiUserAgent(): string | null {
     }
     const commit = typeof __BUILD_COMMIT__ === 'undefined' ? 'dev' : __BUILD_COMMIT__;
     const repo = typeof __BUILD_REPO__ === 'undefined' ? 'unknown' : __BUILD_REPO__;
-    return `Folia/${__APP_VERSION__}-${commit} (${repo})`;
+    return `ok唱歌/${__APP_VERSION__}-${commit} (${repo})`;
 }
 
 async function requestAmllApi(url: string): Promise<{ status: number; bodyText: string }> {

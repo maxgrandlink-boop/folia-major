@@ -327,7 +327,7 @@ const failureHelpEntry = (page: Page) => (foldsDiagnostics
 const anyFailureHelpEntry = (page: Page) => (foldsDiagnostics
     ? loginDialog(page).getByRole('button', { name: /^Still not working\?/ })
     : diagnosticsButton(page));
-const tipsList = (page: Page) => loginDialog(page).getByText('Restart Folia, then scan again.');
+const tipsList = (page: Page) => loginDialog(page).getByText('Restart ok唱歌, then scan again.');
 
 test.describe(`[${suite}] switching`, () => {
     test.beforeEach(async ({ page, mount }) => {
@@ -627,7 +627,7 @@ test.describe(`[${suite}] QQ diagnostics`, () => {
 
         // 先给简单办法（重启；换网络再重启），自检结论在它后面。
         await expect(tipsList(page)).toBeVisible();
-        await expect(loginDialog(page).getByText('Switch to another network (for example a phone hotspot), then restart Folia.')).toBeVisible();
+        await expect(loginDialog(page).getByText('Switch to another network (for example a phone hotspot), then restart ok唱歌.')).toBeVisible();
         const verdict = loginDialog(page).getByText(/The connection to the Gamma servers was cut during the encryption handshake \(probe\.example 203\.0\.113\.7 \(IPv4\): ECONNRESET\)/);
         await expect(verdict).toBeVisible();
         await expect(loginDialog(page).getByText(/IPv4 connection: probe\.example: ECONNRESET \(tls\)/)).toBeVisible();

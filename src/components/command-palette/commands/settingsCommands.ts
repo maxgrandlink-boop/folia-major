@@ -17,6 +17,7 @@ import { librarySuitePickerSurface } from '../surfaces/librarySuitePickerSurface
 import { libraryWallLookCommands } from './libraryWallLookCommands';
 import { openCurrentPagePonder } from '../../../services/ponder/pagePonderTarget';
 import { copyText } from '../../../utils/system/clipboard';
+import { foliumEnabled, onlineCatalogUiEnabled } from '../../../product/okChang';
 
 // src/components/command-palette/commands/settingsCommands.ts
 // Commands in the `settings` group: settings subviews, app toggles, theme, sync, and desktop-only switches.
@@ -153,7 +154,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
     createSettingsAnchorCommand('settings-grid-action-button', 'Grid action button', 'Jump to what the grid action button slides to', ['grid button', 'action button', '海报墙按钮'], 'gridActionButton', GRID_ONLY),
     createSettingsCommand('settings-playback', 'Playback settings', 'Open playback behavior settings', ['playback', '播放', '播放设置'], 'options', 'playback'),
     createSettingsAnchorCommand('settings-queue-behavior', 'Queue behavior', 'Jump to how the play queue is built and kept', ['queue settings', 'queue behaviour', '队列行为'], 'queueSettings'),
-    createSettingsAnchorCommand('settings-netease-scrobble', 'NetEase listening report', 'Jump to whether finished plays are reported to NetEase Cloud Music', ['scrobble', 'netease scrobble', 'listening report', 'play count', '听歌打卡', '打卡', '听歌排行'], 'scrobbleSettings'),
+    createSettingsAnchorCommand('settings-netease-scrobble', 'NetEase listening report', 'Jump to whether finished plays are reported to NetEase Cloud Music', ['scrobble', 'netease scrobble', 'listening report', 'play count', '听歌打卡', '打卡', '听歌排行'], 'scrobbleSettings', { isAvailable: context => !context || onlineCatalogUiEnabled }),
     createToggleCommand(
         'netease-scrobble-toggle',
         'settings',
@@ -163,7 +164,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         context => context.settings.togglePlaybackReport(),
         // Same predicate the settings panel greys the toggle out with, and a function because
         // signing out has to close the command off while the palette is already open.
-        { isAvailable: context => context?.settings.canReportPlayback() ?? true },
+        { isAvailable: context => !context || (onlineCatalogUiEnabled && (context.settings.canReportPlayback() ?? true)) },
     ),
     createSettingsAnchorCommand('settings-audio-output', 'Audio output', 'Jump to the audio output device and format settings', ['output device', 'audio device', 'sound card', '输出设备'], 'audioOutputSettings'),
     createSettingsAnchorCommand('settings-transition', 'Smart transition', 'Jump to the FOLIA transition settings', ['automix', 'crossfade', 'transition', '智能过渡', '转场'], 'transitionSettings'),
@@ -187,7 +188,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-crossfade',
         isAvailable: context => (context ? context.settings.transitionMode !== 'crossfade' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Crossfade',
+        title: 'Transition mode: Crossfade',
         description: 'Use the simple one-out one-in crossfade',
         keywords: ['crossfade', 'folia crossfade', 'transition mode crossfade', '交叉淡化', '过渡模式交叉淡化', 'gdmscf'],
         execute: (_input, context) => {
@@ -200,7 +201,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-automix',
         isAvailable: context => (context ? context.settings.transitionMode !== 'automix' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Automix',
+        title: 'Transition mode: Automix',
         description: 'Analyse both tracks and mix them automatically',
         keywords: ['automix', 'folia automix', 'transition mode automix', '自动混音', '过渡模式自动混音', 'gdmsauto'],
         execute: (_input, context) => {
@@ -375,7 +376,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         'desktop-toggle-background-throttling',
         'settings',
         'Background throttling',
-        'Toggle throttling rendering and holding the lyric animation while Folia is minimised or hidden',
+        'Toggle throttling rendering and holding the lyric animation while ok唱歌 is minimised or hidden',
         ['throttle when hidden', 'pause lyrics when minimized', 'stop animation in background', 'power saving', '后台节流', '后台暂停歌词', '最小化停止动画', '省电'],
         context => context.settings.toggleBackgroundThrottling(),
         { platform: ['electron'] },
@@ -461,7 +462,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
     gpuPreferenceCommand('auto', 'Render GPU: Auto', 'Let Windows choose the graphics card; applies after a restart', ['render gpu auto', 'default gpu', '渲染显卡自动', '显卡自动']),
     gpuPreferenceCommand('high-performance', 'Render GPU: High performance', 'Render on the discrete GPU; applies after a restart', ['render gpu high performance', 'discrete gpu', 'dedicated gpu', 'dgpu', 'nvidia', '渲染显卡高性能', '独显', '独立显卡']),
     gpuPreferenceCommand('low-power', 'Render GPU: Power saving', 'Render on the integrated GPU; applies after a restart', ['render gpu power saving', 'integrated gpu', 'igpu', 'battery', '渲染显卡省电', '核显', '集成显卡']),
-    createSettingsCommand('settings-mods', 'Mod settings', 'Open the mod system switch and the installed mods', ['mod manager', 'mod system', 'plugins', '模组设置', '模组系统', '插件'], 'options', 'mods', { platform: ['electron'] }),
+    createSettingsCommand('settings-mods', 'Mod settings', 'Open the mod system switch and the installed mods', ['mod manager', 'mod system', 'plugins', '模组设置', '模组系统', '插件'], 'options', 'mods', { platform: ['electron'], isAvailable: context => !context || foliumEnabled }),
     // The lab category is gone; its largest group, the player page switches, keeps the command.
     createSettingsAnchorCommand('settings-lab', 'Player page interface', 'Jump to the switches that hide or pin parts of the player page', ['player interface', 'hide player controls', 'lab', 'experimental', '播放页界面', '实验', '实验室'], 'labPlayerUi'),
     createSettingsAnchorCommand(

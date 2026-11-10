@@ -5,6 +5,7 @@ import type { HomeViewTab } from '../../../types';
 import type { ProviderCollection, ProviderUser } from '../../../types/onlineMusic';
 import type { LibraryHomeOnlineSource, LibraryHomeTabView } from './homeModel.contract';
 import type { LibraryAccountController } from '../account/account.contract';
+import { onlineCatalogUiEnabled } from '../../../product/okChang';
 import { isOnlineHomeTab, resolveHomeOnlineSource, resolveHomeTabs, translateHomeTabs } from './homeSources';
 import { resolveActiveProviderSummary } from '../account/accountRules';
 import { readOnlineProviderCapabilities, readOnlineProviderLabel } from './online/onlineHomeProvider.service';
@@ -51,13 +52,21 @@ export const useLibraryHomeSources = ({
         tab: state.homeViewTab,
         setTab: state.setHomeViewTab,
     })));
-    const visibility = useHomeLayoutSettingsStore(useShallow(state => ({
+    const storedVisibility = useHomeLayoutSettingsStore(useShallow(state => ({
         playlist: state.showHomeTabPlaylist,
         radio: state.showHomeTabRadio,
         explore: state.showHomeTabExplore,
         albums: state.showHomeTabAlbums,
         local: state.showHomeTabLocal,
     })));
+    // D2：在线曲库的页签不进首页。开关在 product/okChang，测试可把 VITE_OKCHANG_ONLINE_CATALOG 设成 1。
+    const visibility = onlineCatalogUiEnabled ? storedVisibility : {
+        ...storedVisibility,
+        playlist: false,
+        radio: false,
+        explore: false,
+        albums: false,
+    };
     // The FM card doubles as the mode readout: the card is the only place the current mode shows
     // up outside the player, and the picker can change it while this grid stays mounted.
     const { providers, activeProviderId: providerId } = useLibraryAccountProviders(account);
@@ -84,6 +93,10 @@ export const useLibraryHomeSources = ({
     // The explore tab is gone after a switch to a provider without one, and a stored choice of it
     // may be older than the switch.
     useEffect(() => {
+        if (!onlineCatalogUiEnabled) {
+            if (isOnlineHomeTab(tab)) setTab('local');
+            return;
+        }
         if (tab === 'explore' && !online.canUseExplore) setTab('playlist');
     }, [online.canUseExplore, setTab, tab]);
 

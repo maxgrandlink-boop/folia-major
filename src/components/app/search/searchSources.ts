@@ -3,6 +3,7 @@ import type { OnlineProviderId, ProviderAccountSummary } from '../../../types/on
 import type { SearchSource } from '../../../stores/useSearchNavigationStore';
 import { canSwitchToProviderDirectly } from '../../../library/core/account/onlineProviderAccountView';
 import { resolveActiveProviderId } from '../../../library/core/account/accountRules';
+import { onlineCatalogUiEnabled } from '../../../product/okChang';
 import { omni } from '../../../services/onlineMusic/omni';
 import { getNavidromeConfig } from '../../../services/navidromeService';
 import { useOnlineProviderAccountStore } from '../../../stores/useOnlineProviderAccountStore';
@@ -66,14 +67,17 @@ export const useSearchSources = (hasLocalSongs: boolean): { sources: SearchSourc
     return useMemo(() => {
         const providers = omni.getProviderSummaries();
         const activeProviderId = resolveActiveProviderId(providers, storedProviderId);
+        const resolved = resolveSearchSources({
+            providers,
+            activeProviderId,
+            hasLocalSongs,
+            navidromeReady,
+        });
         return {
             activeProviderId,
-            sources: resolveSearchSources({
-                providers,
-                activeProviderId,
-                hasLocalSongs,
-                navidromeReady,
-            }),
+            sources: onlineCatalogUiEnabled
+                ? resolved
+                : resolved.filter(source => source === 'local' || source === 'navidrome'),
         };
     // signIns 与 registryVersion 只为在它们变了时重读摘要。
     // eslint-disable-next-line react-hooks/exhaustive-deps

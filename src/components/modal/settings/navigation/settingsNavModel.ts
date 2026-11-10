@@ -1,4 +1,5 @@
 import { Boxes, Contrast, Database, Gauge, Keyboard, LayoutGrid, Link2, Monitor, MonitorPlay, PlayCircle, SlidersHorizontal, Terminal, TextAlignStart, type LucideIcon } from 'lucide-react';
+import { foliumEnabled } from '../../../../product/okChang';
 // src/components/modal/settings/navigation/settingsNavModel.ts
 // Single source of truth for the settings categories: their order in the side list, their grouping,
 // icons and names. A category is cut by what the listener is looking at or doing, so each page holds
@@ -39,6 +40,8 @@ interface SectionSpec {
     labelKey: string;
     /** Sections that only exist on the desktop build. */
     electronOnly?: boolean;
+    /** When this returns false the section is left out (ok唱歌 hides Mods while Folium is off). */
+    enabled?: () => boolean;
 }
 
 interface GroupSpec {
@@ -82,7 +85,7 @@ export const SETTINGS_NAV_GROUP_SPECS: GroupSpec[] = [
         labelKey: 'options.settingsGroupAdvanced',
         sections: [
             // The loader only exists in the desktop main process; on web there is nothing to switch on.
-            { id: 'mods', icon: Boxes, labelKey: 'options.settingsPageMods', electronOnly: true },
+            { id: 'mods', icon: Boxes, labelKey: 'options.settingsPageMods', electronOnly: true, enabled: () => foliumEnabled },
             { id: 'developer', icon: Terminal, labelKey: 'options.settingsPageDeveloper' },
         ],
     },
@@ -95,7 +98,7 @@ export const buildSettingsNavGroups = (t: Translate, options: { isElectron: bool
             id: group.id,
             label: t(group.labelKey),
             items: group.sections
-                .filter(section => !section.electronOnly || options.isElectron)
+                .filter(section => (!section.electronOnly || options.isElectron) && (section.enabled?.() ?? true))
                 .map(section => ({
                     id: section.id,
                     icon: section.icon,

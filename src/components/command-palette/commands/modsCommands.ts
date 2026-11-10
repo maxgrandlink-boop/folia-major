@@ -2,6 +2,7 @@ import { Boxes } from 'lucide-react';
 import type { CommandPaletteCommand } from '../types';
 import { defineCommand } from '../commandFactories';
 import { modsSurface } from '../surfaces/modsSurface';
+import { foliumEnabled } from '../../../product/okChang';
 
 // src/components/command-palette/commands/modsCommands.ts
 // The mods command is a surface takeover (not a one-shot action): selecting it opens
@@ -18,7 +19,7 @@ export const modsCommands: CommandPaletteCommand[] = [
         icon: Boxes,
         // Behind the mod system switch (Settings → Mods): with it off the main
         // process loads no mod at all, so the entry would open a manager over nothing.
-        isAvailable: context => context?.settings.modSystemEnabled ?? true,
+        isAvailable: context => (!context || foliumEnabled) && (context?.settings.modSystemEnabled ?? true),
         requiresInput: true,
         surface: modsSurface,
         execute: () => false,

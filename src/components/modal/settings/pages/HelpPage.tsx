@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, CircleHelp, ExternalLink, Lightbulb, MessageCircle, Sparkles, Users, type LucideIcon } from 'lucide-react';
+import { ChevronRight, CircleHelp, Lightbulb, MessageCircle, Sparkles, Users, type LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { openPonderNavigation } from '../../../../services/ponder/pagePonderTarget';
 import { BUILD_KIND_TAGS, getBuildKind } from '../../../../utils/buildProvenance';
@@ -7,8 +7,7 @@ import { PRIMARY_MODIFIER_LABEL } from '../../../../utils/platform';
 import { openDiscordInvite } from '../../../shared/discordCommunity';
 import { QQ_COMMUNITY_GROUP_NUMBER } from '../../../shared/qqCommunity';
 import { HELP_TAB_PLAYER_CONTROLS, HELP_TAB_PRIMARY_SHORTCUTS } from '../../userGuideContent';
-import { Button, CopyButton, CopyValue, Group, Keys, Row, type SettingsGroupDef } from '../kit';
-import { openOutsideLink } from '../../../../utils/system/outsideLink';
+import { CopyButton, CopyValue, Group, Keys, Row, type SettingsGroupDef } from '../kit';
 import { FoundUpdateRow } from './FoundUpdateRow';
 import { iconLabel } from './iconLabel';
 
@@ -20,8 +19,6 @@ import { iconLabel } from './iconLabel';
 // is not in pages/index.ts and the search does not list it; the settings window mounts it itself
 // and hands it the two dialogs it opens.
 
-const REPOSITORY_URL = 'https://github.com/chthollyphile/folia-major';
-const REPOSITORY_NAME = 'chthollyphile/folia-major';
 const BUILD_KIND = getBuildKind();
 const VERSION_INFO = (__DOCKER_STACK_VERSION__
     ? `${__APP_VERSION_LABEL__} v${__APP_VERSION__} · Stack ${__DOCKER_STACK_VERSION__} · ${__COMMIT_HASH__}`
@@ -34,6 +31,20 @@ const SHORTCUTS: SettingsGroupDef = { id: 'helpShortcuts', titleKey: 'help.keybo
 const PLAYER_KEYS: SettingsGroupDef = { id: 'helpPlayerControls', titleKey: 'help.playerControls' };
 const SUPPORT: SettingsGroupDef = { id: 'helpSupport', titleKey: 'aiHelp.title' };
 const ABOUT: SettingsGroupDef = { id: 'helpAbout', titleKey: 'help.version' };
+
+// The one place the product name Folia is allowed: the author credit. It stays out of the locale
+// bundles so those values can be checked for the old name.
+const FOLIA_CREDIT: Record<string, string> = {
+    'zh-CN': '基于 Folia，已获原作者授权',
+    'zh-TW': '基於 Folia，已獲原作者授權',
+    en: "Based on Folia, with the original author's permission",
+    in: 'Berdasarkan Folia, dengan izin penulis aslinya',
+    vi: 'Dựa trên Folia, đã được tác giả gốc cho phép',
+};
+
+const foliaCredit = (language: string): string => (
+    FOLIA_CREDIT[language] ?? FOLIA_CREDIT[language.split('-')[0]] ?? FOLIA_CREDIT.en
+);
 
 /** Two columns that become one where a column would be narrower than 280px. */
 const COLUMNS_CLASS = 'grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-x-3';
@@ -97,7 +108,7 @@ type HelpPageProps = {
 };
 
 const HelpPage: React.FC<HelpPageProps> = ({ onOpenReleaseNotes, onOpenAiHelp, onProjectLabelClick }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     return (
         <>
@@ -166,13 +177,10 @@ const HelpPage: React.FC<HelpPageProps> = ({ onOpenReleaseNotes, onOpenAiHelp, o
                 <Row
                     label={(
                         // The settings window counts the clicks and shows the cat at the seventh.
-                        <button type="button" onClick={onProjectLabelClick} className="cursor-default">{t('help.madeBy')}</button>
+                        <button type="button" onClick={onProjectLabelClick} className="cursor-default">{t('help.credit')}</button>
                     )}
                 >
-                    <Button variant="quiet" onClick={() => openOutsideLink(REPOSITORY_URL)}>
-                        {REPOSITORY_NAME}
-                        <ExternalLink size={12} />
-                    </Button>
+                    <span className="min-w-0 text-right text-xs leading-5 text-[color:var(--st-t2)]">{foliaCredit(i18n.language)}</span>
                 </Row>
             </Group>
         </>
