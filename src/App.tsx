@@ -102,6 +102,7 @@ import { useHifiMediaSessionKeepAlive } from './components/hifi/useHifiMediaSess
 import { useHifiMpris } from './components/hifi/useHifiMpris';
 import { useHifiWebRouteNotice } from './components/hifi/useHifiWebRouteNotice';
 import { isHifiRoute, useHifiTrackStore } from './services/hifi/hifiPlayback';
+import { deckSrcForRoute } from './services/playbackRoute';
 import { hifiEngine } from './services/hifi/hifiEngine';
 import { selectHifiEngineConfig, useHifiSettingsStore } from './stores/useHifiSettingsStore';
 import { useElectronDisplaySleepBlocker } from './hooks/useElectronDisplaySleepBlocker';
@@ -2470,7 +2471,7 @@ export default function App() {
             key={deck}
             ref={register}
             data-playback-deck={deck}
-            src={playbackRoute === 'hifi' ? undefined : automix.deckSrc(deck)}
+            src={deckSrcForRoute(playbackRoute, automix.deckSrc(deck))}
             preload="auto"
             crossOrigin="anonymous"
             loop={effectiveLoopMode === 'one' && automix.activeDeck === deck}

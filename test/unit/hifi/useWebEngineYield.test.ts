@@ -11,6 +11,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { installWebEngineYield, findPlaybackDecks, useWebEngineYield, PLAYBACK_DECK_ATTRIBUTE } = await import('@/components/hifi/useWebEngineYield');
 const { usePlaybackStore, setAudioSrc, setPlaybackRoute } = await import('@/stores/usePlaybackStore');
+const { deckSrcForRoute } = await import('@/services/playbackRoute');
 
 type FakeContext = { state: AudioContextState; suspend: ReturnType<typeof vi.fn>; resume: ReturnType<typeof vi.fn> };
 
@@ -215,8 +216,30 @@ describe('the decks in App', () => {
     it('mounts the yield with the decks it unloads, and marks each deck so it can be found', () => {
         expect(app).toMatch(/useWebEngineYield\(\{ audioRef, audioContextRef, automix \}\);/);
         expect(deck).toContain(`${PLAYBACK_DECK_ATTRIBUTE}={deck}`);
-        // No deck is handed a source while mpv plays the song.
-        expect(deck).toContain("src={playbackRoute === 'hifi' ? undefined : automix.deckSrc(deck)}");
+    });
+
+    it('puts no source on the deck while a native engine sounds, and keeps one on web and external', () => {
+        const host = document.createElement('div');
+        document.body.appendChild(host);
+        const view = createRoot(host);
+        const warmed = 'blob:warmed';
+        const renderAt = (route: 'web' | 'hifi' | 'external') => {
+            act(() => {
+                view.render(React.createElement('audio', {
+                    [PLAYBACK_DECK_ATTRIBUTE]: 'A',
+                    src: deckSrcForRoute(route, warmed),
+                }));
+            });
+            return host.querySelector('audio') as HTMLAudioElement;
+        };
+
+        try {
+            expect(renderAt('hifi').hasAttribute('src')).toBe(false);
+            expect(renderAt('web').getAttribute('src')).toBe(warmed);
+            expect(renderAt('external').getAttribute('src')).toBe(warmed);
+        } finally {
+            act(() => view.unmount());
+        }
     });
 
     it.each(['onPlay', 'onPlaying', 'onPause', 'onTimeUpdate', 'onSeeked', 'onEnded', 'onLoadedMetadata', 'onError'])(
