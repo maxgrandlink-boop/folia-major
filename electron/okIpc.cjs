@@ -40,6 +40,7 @@ const OK_INVOKE_CHANNELS = Object.freeze([
     'ok-cover:get-component',
     'ok-cover:pick-install-dir',
     'ok-cover:install-component',
+    'ok-cover:locate-component',
     'ok-cover:cancel-install',
     'ok-cover:remove-component',
     'ok-cover:list-models',

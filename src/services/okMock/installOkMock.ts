@@ -4,7 +4,8 @@ import type {
     EngineLooped, EngineState, EngineStatus, OutputDevice, OutputDevicesEvent, OutputRoute, Result,
     TrackRole, Work, WorkMix, WorkSettings, WorkTrack, WorksChangedEvent, WorksErrorCode,
 } from '../../types/multitrack';
-import type { CoverComponentStatus, CoverErrorCode, CoverInstallProgress, CoverJobEvent, CoverJobPhase, CoverJobRequest, RvcModel } from '../../types/cover';
+import type { CoverComponentStatus, CoverErrorCode, CoverInstallProgress, CoverJobEvent, CoverJobPhase, CoverJobRequest, CoverMode, CoverPartId, CoverSeparator, RvcModel } from '../../types/cover';
+import { COVER_MODE_TRACKS } from '../../types/cover';
 import type { FollowConfig, LiveMode, LiveModeSource, LiveStatus, PluginConnection, PluginGains, SmartReverbConfig } from '../../types/live';
 import { OK_CONTRACT_VERSION, DEFAULT_WORK_MIX } from '../../types/multitrack';
 import { DEFAULT_LIVE_SETTINGS, PLUGIN_TRACK_VOLUME_DB_MAX, PLUGIN_TRACK_VOLUME_DB_MIN } from '../../types/live';
@@ -17,6 +18,8 @@ export interface OkMockOptions {
     latencyMs?: number;
     pluginConnected?: boolean;
     componentInstalled?: boolean;
+    enhanceInstalled?: boolean;
+    msstNativeInstalled?: boolean;
     works?: Work[];
 }
 
@@ -40,7 +43,22 @@ declare global {
     }
 }
 
-const DOWNLOAD_BYTES = 9_800_000_000;
+const PART_ORDER: readonly CoverPartId[] = ['torch-cuda', 'runtime', 'base-models', 'enhance-models', 'msst-native'];
+const REQUIRED_PARTS: readonly CoverPartId[] = ['torch-cuda', 'runtime', 'base-models'];
+const PART_BYTES: Record<CoverPartId, number> = {
+    'torch-cuda': 5_814_173_571,
+    runtime: 1_994_686_114,
+    'base-models': 1_283_799_081,
+    'enhance-models': 1_826_204_379,
+    'msst-native': 1_902_601_117,
+};
+const REQUIRED_BYTES = REQUIRED_PARTS.reduce((sum, id) => sum + PART_BYTES[id], 0);
+const ENCRYPTED_EXTENSIONS = ['.ncm', '.qmc0', '.qmc3', '.qmcflac', '.qmcogg', '.mflac', '.mgg', '.kgm', '.kgma', '.kwm', '.m4p'];
+const TRACK_LABEL: Record<'vocal' | 'instrumental' | 'original', string> = {
+    vocal: '人声',
+    instrumental: '伴奏',
+    original: '原声',
+};
 const DEFAULT_INSTALL_ROOT = 'C:\\Users\\demo\\AppData\\Local\\okchang\\cover-runtime';
 const PICKED_INSTALL_DIR = 'D:\\ok唱歌翻唱组件';
 const PLUGIN_INSTALL_DIR = 'C:\\Program Files\\Common Files\\VST3';
@@ -80,6 +98,9 @@ interface MockJob {
     settled: boolean;
     token: number;
     latest: CoverJobEvent;
+    mode: CoverMode;
+    separator: CoverSeparator;
+    reachedSeparating: boolean;
 }
 
 interface EngineRuntime {
@@ -195,6 +216,19 @@ function validKey(value: number): boolean {
     return Number.isInteger(value) && value >= -12 && value <= 12;
 }
 
+function isCoverMode(value: CoverMode | undefined): boolean {
+    return value === undefined || value === 'library' || value === 'normal' || value === 'aggressive';
+}
+
+function isCoverSeparator(value: CoverSeparator | undefined): boolean {
+    return value === undefined || value === 'builtin' || value === 'msst-native';
+}
+
+function isEncryptedSource(fileName: string): boolean {
+    const lower = fileName.toLowerCase();
+    return ENCRYPTED_EXTENSIONS.some(ext => lower.endsWith(ext));
+}
+
 function isSubmitRequest(value: unknown): value is CoverJobRequest {
     if (!value || typeof value !== 'object') return false;
     const req = value as CoverJobRequest;
@@ -285,14 +319,16 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
     const models: RvcModel[] = MOCK_MODELS.map(model => ({ ...model }));
     const queue: MockJob[] = [];
     const jobs: MockJob[] = [];
-    const component: CoverComponentStatus = {
-        state: options?.componentInstalled ? 'installed' : 'absent',
-        version: options?.componentInstalled ? '1.0.0' : null,
-        downloadBytes: DOWNLOAD_BYTES,
-        installedBytes: options?.componentInstalled ? DOWNLOAD_BYTES : 0,
-        installRoot: options?.componentInstalled ? DEFAULT_INSTALL_ROOT : null,
-        gpu: { ok: true, name: 'NVIDIA 示例显卡' },
+    const partInstalled: Record<CoverPartId, boolean> = {
+        'torch-cuda': options?.componentInstalled === true,
+        runtime: options?.componentInstalled === true,
+        'base-models': options?.componentInstalled === true,
+        'enhance-models': options?.enhanceInstalled !== false,
+        'msst-native': options?.msstNativeInstalled === true,
     };
+    let installRoot: string | null = options?.componentInstalled === true ? DEFAULT_INSTALL_ROOT : null;
+    let verifying = false;
+    let locateSettle: ((result: Result<CoverComponentStatus, CoverErrorCode>) => void) | null = null;
     const engine: EngineRuntime = {
         loaded: false,
         attempt: 0,
@@ -539,12 +575,72 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
         emit('works.changed', event);
     }
 
+    function requiredReady(): boolean {
+        return REQUIRED_PARTS.every(id => partInstalled[id]);
+    }
+
+    function neededParts(mode: CoverMode, separator: CoverSeparator): CoverPartId[] {
+        const parts: CoverPartId[] = [...REQUIRED_PARTS];
+        if (mode === 'normal' || mode === 'aggressive') parts.push('enhance-models');
+        if (separator === 'msst-native') parts.push('msst-native');
+        return parts;
+    }
+
+    function buildComponent(): CoverComponentStatus {
+        const ready = requiredReady();
+        const parts = PART_ORDER.map(id => ({
+            id,
+            required: REQUIRED_PARTS.includes(id),
+            state: partInstalled[id] ? 'installed' as const : 'absent' as const,
+            downloadBytes: PART_BYTES[id],
+            installedBytes: PART_BYTES[id],
+        }));
+        const modes = (['library', 'normal', 'aggressive'] as const).flatMap(mode => (
+            (['builtin', 'msst-native'] as const).map(separator => {
+                const tracks = COVER_MODE_TRACKS[mode];
+                if (mode === 'aggressive') {
+                    return { mode, separator, available: false, reason: 'not-in-v1' as const, missingParts: [], tracks };
+                }
+                const missing = neededParts(mode, separator).filter(id => !partInstalled[id]);
+                if (!ready || missing.length > 0) {
+                    return {
+                        mode,
+                        separator,
+                        available: false,
+                        reason: 'missing-part' as const,
+                        missingParts: missing.length > 0 ? missing : [...REQUIRED_PARTS],
+                        tracks,
+                    };
+                }
+                return { mode, separator, available: true, missingParts: [], tracks };
+            })
+        ));
+        return {
+            state: ready ? 'installed' : 'absent',
+            version: ready ? '1.0.0' : null,
+            downloadBytes: REQUIRED_BYTES,
+            installedBytes: ready ? REQUIRED_BYTES : 0,
+            installRoot: ready ? installRoot : null,
+            gpu: { ok: true, name: 'NVIDIA 示例显卡' },
+            parts,
+            modes,
+            defaultMode: partInstalled['enhance-models'] ? 'normal' : 'library',
+            defaultSeparator: 'builtin',
+        };
+    }
+
     function jobEvent(job: MockJob, patch: Partial<CoverJobEvent> & Pick<CoverJobEvent, 'phase' | 'progress'>): void {
+        if (patch.phase === 'separating') job.reachedSeparating = true;
+        const withSeparator = job.reachedSeparating && (
+            patch.phase === 'separating' || patch.phase === 'converting' || patch.phase === 'ingesting'
+            || patch.phase === 'done' || patch.phase === 'failed' || patch.phase === 'cancelled'
+        );
         const event: CoverJobEvent = {
             jobId: job.id,
             indeterminate: false,
             title: job.title,
             ...patch,
+            ...(withSeparator ? { separator: job.separator } : {}),
         };
         job.phase = event.phase;
         job.progress = event.progress;
@@ -585,7 +681,7 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
             baseName: job.title,
             title: job.title,
             artist: job.artist,
-            tracks: [track('vocal', '人声'), track('instrumental', '伴奏'), track('original', '原声'), track('harmony', '和声')],
+            tracks: COVER_MODE_TRACKS[job.mode].map(role => track(role, TRACK_LABEL[role])),
             lyrics: job.lyrics ? { fileName: 'lyrics.lrc', format: job.lyrics.format, content: job.lyrics.content } : null,
             hasCover: false,
             completedAtMs: 1793900000000 + coverSeq,
@@ -636,28 +732,43 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
         schedule(next);
     }
 
-    function beginInstall(root: string): void {
+    function claimParts(): CoverPartId[] {
+        const parts: CoverPartId[] = [...REQUIRED_PARTS, 'enhance-models'];
+        if (partInstalled['msst-native']) parts.push('msst-native');
+        return parts;
+    }
+
+    function finishLocate(result: Result<CoverComponentStatus, CoverErrorCode>): void {
+        const settleLocate = locateSettle;
+        locateSettle = null;
+        verifying = false;
+        settleLocate?.(result);
+    }
+
+    function beginVerify(dir: string): void {
         const token = ++installToken;
-        component.state = 'installing';
-        const total = DOWNLOAD_BYTES;
+        verifying = true;
+        const parts = claimParts();
+        const total = parts.reduce((sum, id) => sum + PART_BYTES[id], 0);
         const scaled = (ms: number) => ms / Math.max(clockRate, 1e-6);
         const send = (progress: CoverInstallProgress) => {
             if (token !== installToken) return;
             emit('cover.install', progress);
         };
         for (let i = 1; i <= 10; i += 1) {
+            const partId = parts[(i - 1) % parts.length];
             const received = total * i / 10;
-            later(scaled(i * 300), () => send({ phase: 'downloading', receivedBytes: received, totalBytes: total, errorCode: null }));
+            later(scaled(i * 200), () => send({
+                phase: 'verifying', receivedBytes: received, totalBytes: total, errorCode: null, partId,
+            }));
         }
-        later(scaled(3000), () => send({ phase: 'verifying', receivedBytes: total, totalBytes: total, errorCode: null }));
-        later(scaled(3500), () => send({ phase: 'extracting', receivedBytes: total, totalBytes: total, errorCode: null }));
-        later(scaled(4000), () => {
+        later(scaled(2000), () => {
             if (token !== installToken) return;
-            component.state = 'installed';
-            component.version = '1.0.0';
-            component.installedBytes = total;
-            component.installRoot = root;
-            emit('cover.install', { phase: 'done', receivedBytes: total, totalBytes: total, errorCode: null });
+            for (const id of REQUIRED_PARTS) partInstalled[id] = true;
+            partInstalled['enhance-models'] = true;
+            installRoot = dir;
+            emit('cover.install', { phase: 'done', receivedBytes: total, totalBytes: total, errorCode: null, partId: null });
+            finishLocate(ok(buildComponent()));
         });
     }
 
@@ -1017,40 +1128,56 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
             onLevels: (cb) => on('live.levels', cb),
         },
         cover: {
-            getComponent: () => run('cover.getComponent', () => ok({
-                state: component.state,
-                version: component.version,
-                downloadBytes: component.downloadBytes,
-                installedBytes: component.installedBytes,
-                installRoot: component.installRoot,
-                gpu: { ...component.gpu },
-            })),
+            getComponent: () => run('cover.getComponent', () => ok(buildComponent())),
             pickInstallDir: () => run('cover.pickInstallDir', () => ok({ dir: PICKED_INSTALL_DIR, freeBytes: 50_000_000_000 })),
-            installComponent: (opts) => run('cover.installComponent', () => {
-                const parent = opts?.parentDir;
-                if (parent !== undefined && typeof parent !== 'string') return fail('INVALID_REQUEST');
-                if (typeof parent === 'string' && parent.startsWith('X:')) return fail('DISK_FULL');
-                if (component.state === 'installed' || component.state === 'installing') return done();
-                beginInstall(typeof parent === 'string' && parent.length > 0 ? parent : DEFAULT_INSTALL_ROOT);
-                return done();
+            installComponent: () => run('cover.installComponent', () => fail('DOWNLOAD_UNAVAILABLE')),
+            locateComponent: (dir) => new Promise(resolve => {
+                later(latencyMs, () => {
+                    const armed = failNext.get('cover.locateComponent');
+                    if (armed !== undefined) {
+                        failNext.delete('cover.locateComponent');
+                        resolve({ ok: false, code: armed as CoverErrorCode });
+                        return;
+                    }
+                    if (typeof dir !== 'string' || dir.length === 0) {
+                        resolve(fail('INVALID_REQUEST'));
+                        return;
+                    }
+                    if (dir.startsWith('X:')) {
+                        resolve(fail('COMPONENT_MISSING'));
+                        return;
+                    }
+                    if (!dir.startsWith('D:\\okchang-test')) {
+                        resolve(fail('CHECKSUM_MISMATCH'));
+                        return;
+                    }
+                    if (locateSettle) finishLocate(ok(buildComponent()));
+                    locateSettle = resolve;
+                    beginVerify(dir);
+                });
             }),
             cancelInstall: () => run('cover.cancelInstall', () => {
-                if (component.state === 'installing') {
-                    installToken += 1;
-                    component.state = 'absent';
-                    component.version = null;
-                    component.installedBytes = 0;
-                    component.installRoot = null;
-                    emit('cover.install', { phase: 'cancelled', receivedBytes: 0, totalBytes: DOWNLOAD_BYTES, errorCode: null });
-                }
+                if (!verifying) return done();
+                installToken += 1;
+                emit('cover.install', {
+                    phase: 'cancelled', receivedBytes: 0, totalBytes: 0, errorCode: null, partId: null,
+                });
+                finishLocate(ok(buildComponent()));
                 return done();
             }),
-            removeComponent: () => run('cover.removeComponent', () => {
-                installToken += 1;
-                component.state = 'absent';
-                component.version = null;
-                component.installedBytes = 0;
-                component.installRoot = null;
+            removeComponent: (opts) => run('cover.removeComponent', () => {
+                if (verifying) {
+                    installToken += 1;
+                    finishLocate(ok(buildComponent()));
+                }
+                const ids = opts?.parts;
+                if (ids !== undefined) {
+                    if (!Array.isArray(ids) || ids.some(id => !PART_ORDER.includes(id))) return fail('INVALID_REQUEST');
+                    for (const id of ids) partInstalled[id] = false;
+                } else {
+                    for (const id of PART_ORDER) partInstalled[id] = false;
+                }
+                if (!requiredReady()) installRoot = null;
                 return done();
             }),
             listModels: () => run('cover.listModels', () => ok(models.map(model => ({ ...model })))),
@@ -1073,8 +1200,15 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
             }),
             submit: (req) => run('cover.submit', () => {
                 if (!isSubmitRequest(req)) return fail('INVALID_REQUEST');
-                if (component.state !== 'installed') return fail('COMPONENT_MISSING');
+                const status = buildComponent();
+                if (status.state !== 'installed') return fail('COMPONENT_MISSING');
                 if (!models.some(model => model.id === req.modelId)) return fail('MODEL_INVALID');
+                if (isEncryptedSource(req.source.fileName)) return fail('SOURCE_ENCRYPTED');
+                if (!isCoverMode(req.mode) || !isCoverSeparator(req.separator)) return fail('INVALID_REQUEST');
+                const mode = req.mode ?? status.defaultMode;
+                const separator = req.separator ?? 'builtin';
+                const chosen = status.modes.find(item => item.mode === mode && item.separator === separator);
+                if (!chosen?.available) return fail('MODE_UNAVAILABLE');
                 jobSeq += 1;
                 const job: MockJob = {
                     id: `job-${jobSeq}`,
@@ -1087,6 +1221,9 @@ export function installOkMock(options?: OkMockOptions): OkMockHandle {
                     started: false,
                     settled: false,
                     token: 1,
+                    mode,
+                    separator,
+                    reachedSeparating: false,
                     latest: {
                         jobId: `job-${jobSeq}`,
                         phase: 'queued',

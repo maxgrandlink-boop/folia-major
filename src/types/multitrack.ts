@@ -1,5 +1,5 @@
 // src/types/multitrack.ts —— W1 契约 v1.0。主进程（electron/works、electron/okEngine）与渲染端共用。
-export const OK_CONTRACT_VERSION = '1.0';
+export const OK_CONTRACT_VERSION = '1.1';   // v3.5：cover 兼容改动（新错误码、组件分包、可选参数），按第 9 节次版本 +1
 
 /** 所有 ok-* 命令的返回。命令从不 reject；detail 只进日志，界面文案按 code 取 i18n 键 ok.errors.<code>。 */
 export type Result<T, C extends string> =

@@ -462,7 +462,7 @@ contextBridge.exposeInMainWorld('electron', {
     },
     // ok唱歌 W1 桩。契约版本与 src/types/multitrack.ts 的 OK_CONTRACT_VERSION 保持一致（preload 不能引用 TS）。
     ok: {
-        contractVersion: '1.0',
+        contractVersion: '1.1',
         works: {
             listRoots: () => ipcRenderer.invoke('ok-works:list-roots'),
             addRoot: () => ipcRenderer.invoke('ok-works:add-root'),
@@ -549,8 +549,9 @@ contextBridge.exposeInMainWorld('electron', {
             getComponent: () => ipcRenderer.invoke('ok-cover:get-component'),
             pickInstallDir: () => ipcRenderer.invoke('ok-cover:pick-install-dir'),
             installComponent: (opts) => ipcRenderer.invoke('ok-cover:install-component', opts),
+            locateComponent: (dir) => ipcRenderer.invoke('ok-cover:locate-component', dir),
             cancelInstall: () => ipcRenderer.invoke('ok-cover:cancel-install'),
-            removeComponent: () => ipcRenderer.invoke('ok-cover:remove-component'),
+            removeComponent: (opts) => ipcRenderer.invoke('ok-cover:remove-component', opts),
             listModels: () => ipcRenderer.invoke('ok-cover:list-models'),
             addModel: () => ipcRenderer.invoke('ok-cover:add-model'),
             removeModel: (modelId) => ipcRenderer.invoke('ok-cover:remove-model', modelId),

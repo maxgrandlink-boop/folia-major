@@ -5,7 +5,7 @@ import type {
     EngineErrorCode, EngineSnapshot, OutputDevice, OutputDevicesEvent, WorkMix,
 } from './multitrack';
 import type { LiveMode, LiveModeSource, FollowConfig, SmartReverbConfig, PluginGains, LiveStatus, LiveLevels, PluginInfo, LiveErrorCode } from './live';
-import type { CoverComponentStatus, CoverInstallProgress, RvcModel, CoverJobRequest, CoverJobEvent, CoverErrorCode } from './cover';
+import type { CoverComponentStatus, CoverInstallProgress, RvcModel, CoverJobRequest, CoverJobEvent, CoverErrorCode, CoverPartId } from './cover';
 
 export type Unsubscribe = () => void;
 type R<T, C extends string> = Promise<Result<T, C>>;
@@ -65,9 +65,13 @@ export interface OkBridge {
     cover: {
         getComponent(): R<CoverComponentStatus, CoverErrorCode>;                         // ok-cover:get-component
         pickInstallDir(): R<{ dir: string; freeBytes: number }, CoverErrorCode>;          // ok-cover:pick-install-dir（主进程开目录框；取消回 DIALOG_CANCELLED）
-        installComponent(opts?: { parentDir?: string }): R<void, CoverErrorCode>;         // ok-cover:install-component（进度走事件；不给 parentDir 用默认位置；空间不足回 DISK_FULL）
+        installComponent(opts?: { parentDir?: string; parts?: CoverPartId[] }): R<void, CoverErrorCode>;
+                                                                                         // ok-cover:install-component。v3.5：v1 一律回 DOWNLOAD_UNAVAILABLE，签名留给以后的下载
+        locateComponent(dir: string): R<CoverComponentStatus, CoverErrorCode>;          // ok-cover:locate-component（v3.5）：认领本地已装好的组件目录，
+                                                                                         // 按清单逐文件 SHA-256 校验（进度走 install-progress，phase verifying），不复制；
+                                                                                         // dir 来自 pickInstallDir。必装包不全回 COMPONENT_MISSING，哈希不符回 CHECKSUM_MISMATCH
         cancelInstall(): R<void, CoverErrorCode>;                                        // ok-cover:cancel-install
-        removeComponent(): R<void, CoverErrorCode>;                                      // ok-cover:remove-component
+        removeComponent(opts?: { parts?: CoverPartId[] }): R<void, CoverErrorCode>;      // ok-cover:remove-component（v3.5：不给 parts = 全删；['msst-native'] 只删可选包）
         listModels(): R<RvcModel[], CoverErrorCode>;                                     // ok-cover:list-models
         addModel(): R<RvcModel, CoverErrorCode>;                                         // ok-cover:add-model（主进程开文件框）
         removeModel(modelId: string): R<void, CoverErrorCode>;                           // ok-cover:remove-model
