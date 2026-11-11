@@ -1,5 +1,7 @@
+import hashlib
 import json
 import os
+import pickle
 import subprocess
 import sys
 import tempfile
@@ -21,24 +23,27 @@ FAKE = Path(__file__).resolve().parent / 'fake_pb'
 SNAP = Path(__file__).resolve().parent / 'snapshots' / 'p1_happy.jsonl'
 
 
-def _config(path, mode='library', separator='builtin'):
+def _config(path, mode='library', separator='builtin', model='model.pth', sha='a' * 64, src='in.wav', key=0, f0='rmvpe', deep=None, index=None, suffix='.wav'):
+    source = src if suffix == '.wav' else str(Path(src).with_suffix(suffix))
+    if suffix != '.wav':
+        Path(source).write_bytes(Path(src).read_bytes() if Path(src).exists() else b'x')
     body = {
         'schema_version': 2,
-        'input_files': ['in.wav'],
-        'output_dir': 'out',
+        'input_files': [source],
+        'output_dir': str(Path(path).parent / 'pb-out'),
         'device': 'cuda',
         'separate': {'mode': mode, 'separator': separator},
         'convert': {
-            'model_path': 'model.pth',
-            'model_sha256': 'abc',
-            'index_path': None,
-            'key': 0,
-            'f0_method': 'rmvpe',
+            'model_path': model,
+            'model_sha256': sha,
+            'index_path': index,
+            'key': key,
+            'f0_method': f0,
             'rvc': {'index_rate': 0.72, 'rms_mix_rate': 0.5, 'protect': 0.28, 'filter_radius': 4},
-            'deep': None,
+            'deep': deep,
         },
         'finalize': {
-            'work_dir': 'work/示例 - 夜航',
+            'work_dir': str(Path(path).parent / 'work' / '示例 - 夜航'),
             'title': '夜航',
             'artist': '示例',
             'lyrics_path': None,
@@ -47,6 +52,23 @@ def _config(path, mode='library', separator='builtin'):
         },
     }
     path.write_text(json.dumps(body), encoding='utf-8')
+    return body
+
+
+def _ready(tmp, **overrides):
+    root = Path(tmp)
+    model = root / 'model.pth'
+    with open(model, 'wb') as handle:
+        pickle.dump({'weight': {'n': 1}, 'config': [320, 32]}, handle)
+    digest = hashlib.sha256(model.read_bytes()).hexdigest()
+    src = root / 'in.wav'
+    src.write_bytes(b'present')
+    ffmpeg = root / 'ffmpeg' / 'bin' / 'ffmpeg'
+    ffmpeg.parent.mkdir(parents=True, exist_ok=True)
+    ffmpeg.write_bytes(b'')
+    cfg = root / 'okc_config.json'
+    _config(cfg, model=str(model), sha=digest, src=str(src), **overrides)
+    return cfg
 
 
 class EntryProc:
@@ -97,6 +119,7 @@ def _env(job, **extra):
     env = os.environ.copy()
     env['OKCOVER_PB_PATH'] = str(FAKE)
     env['OKCOVER_JOB_DIR'] = job
+    env['OKCOVER_BACKEND_DIR'] = job
     env['PYTHONIOENCODING'] = 'utf-8'
     env.pop('OKCOVER_FIXTURE', None)
     env.pop('OKCOVER_IMPORT_MARKER', None)
@@ -108,9 +131,13 @@ class ProtocolTest(unittest.TestCase):
     def test_happy_path_matches_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             job = tmp
-            cfg = Path(tmp) / 'okc_config.json'
-            _config(cfg)
-            proc = EntryProc(['--config', str(cfg)], _env(job), tmp)
+            cfg = _ready(tmp)
+            marker = os.path.join(tmp, 'prepare-called')
+            proc = EntryProc(
+                ['--config', str(cfg)],
+                _env(job, OKCOVER_PREPARE_MARKER=marker),
+                tmp,
+            )
             code = proc.wait(10)
             self.assertEqual(code, 0, proc.stderr_text())
             text = proc.stdout_text().replace(job, '<job>')
@@ -129,6 +156,7 @@ class ProtocolTest(unittest.TestCase):
                 self.assertIn(leak, err)
                 self.assertNotIn(leak, out)
             self.assertNotIn('API_RESULT_START', out)
+            self.assertFalse(os.path.exists(os.path.join(tmp, 'prepare-called')))
             parsed = [json.loads(line) for line in lines]
             self.assertEqual([item['type'] for item in parsed].count('result'), 1)
             self.assertEqual(parsed[-1]['type'], 'result')
@@ -136,8 +164,7 @@ class ProtocolTest(unittest.TestCase):
 
     def test_cancel_kills_descendants_within_one_second(self):
         with tempfile.TemporaryDirectory() as tmp:
-            cfg = Path(tmp) / 'okc_config.json'
-            _config(cfg)
+            cfg = _ready(tmp)
             proc = EntryProc(
                 ['--config', str(cfg)],
                 _env(tmp, OKCOVER_FIXTURE='spawn-sleep'),
@@ -206,8 +233,7 @@ class ProtocolTest(unittest.TestCase):
 
     def test_pipeline_error_exits_1(self):
         with tempfile.TemporaryDirectory() as tmp:
-            cfg = Path(tmp) / 'okc_config.json'
-            _config(cfg)
+            cfg = _ready(tmp)
             proc = EntryProc(
                 ['--config', str(cfg)],
                 _env(tmp, OKCOVER_FIXTURE='error'),
