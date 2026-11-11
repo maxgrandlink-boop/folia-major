@@ -83,6 +83,9 @@ reference/
 mods/*.zip
 
 
+# ok-engine CMake build tree. The sources live in native/ok-engine.
+native/ok-engine/build/
+
 # Built by packaging/windows/build-wallpaper-helper.mjs (Windows wallpaper mode helper).
 build/folia-wallpaper-helper.exe
 packaging/windows/wallpaper-helper/target/
