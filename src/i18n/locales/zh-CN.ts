@@ -1,6 +1,48 @@
 
 
 export default {
+  "ok": {
+    "brand": "ok唱歌",
+    "stems": "分轨",
+    "close": "关闭",
+    "playSample": "播放「暗号」",
+    "player": {
+      "play": "播放",
+      "pause": "暂停",
+      "seek": "进度",
+      "noLyrics": "这首没有歌词",
+      "loading": "正在载入"
+    },
+    "stem": {
+      "vocal": "人声",
+      "instrumental": "伴奏",
+      "original": "原唱",
+      "harmony": "和声",
+      "mute": "静音",
+      "unmute": "取消静音",
+      "karaoke": "清唱",
+      "karaokeHint": "清唱会把伴奏静音，和声跟着一起静音",
+      "harmonyHint": "和声并进伴奏，没有单独的音量",
+      "missing": "这首没有这条轨"
+    },
+    "errors": {
+      "IPC_TIMEOUT": "没有等到回应",
+      "INVALID_REQUEST": "这个请求不对",
+      "UNKNOWN": "出了点问题",
+      "TRACK_UNREADABLE": "轨道读不了",
+      "WORK_NOT_FOUND": "找不到这首作品",
+      "NOT_LOADED": "还没有载入作品",
+      "SUPERSEDED": "这次播放已经被下一首替换",
+      "ENGINE_CRASHED": "播放引擎停了",
+      "CIRCUIT_OPEN": "播放引擎暂时停用",
+      "FORMAT_UNSUPPORTED": "这个格式播不了",
+      "TRANSCODE_FAILED": "转码失败",
+      "DEVICE_UNAVAILABLE": "这个输出设备不可用",
+      "ENGINE_NOT_FOUND": "找不到播放引擎",
+      "ENGINE_SPAWN_FAILED": "播放引擎没有启动",
+      "ENGINE_NOT_RUNNING": "播放引擎没在运行"
+    }
+  },
   "scratchpad": {
     "title": "速记簿",
     "count_one": "{{count}} 首",
@@ -702,6 +744,7 @@ export default {
       "settings-appearance": { "title": "外观设置", "description": "打开视觉和外观设置" },
       "settings-general": { "title": "通用设置", "description": "打开全局应用偏好" },
       "settings-playback": { "title": "播放设置", "description": "打开播放行为设置" },
+      "ok-stems": { "title": "分轨音量", "description": "打开人声、伴奏、原唱的音量和清唱" },
       "playback-replaygain-off": { "title": "关闭 ReplayGain", "description": "播放音频时不应用 ReplayGain 调整" },
       "playback-replaygain-track": { "title": "ReplayGain：单曲模式", "description": "按每首歌曲的 ReplayGain 数据调整响度" },
       "playback-replaygain-album": { "title": "ReplayGain：专辑模式", "description": "按专辑 ReplayGain 数据调整响度" },

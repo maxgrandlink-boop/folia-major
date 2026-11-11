@@ -1,6 +1,48 @@
 // Vietnamese (vi) interface text, laid out line for line like en.ts.
 
 export default {
+  "ok": {
+    "brand": "ok唱歌",
+    "stems": "Track",
+    "close": "Đóng",
+    "playSample": "Phát 暗号",
+    "player": {
+      "play": "Phát",
+      "pause": "Tạm dừng",
+      "seek": "Vị trí",
+      "noLyrics": "Bài này không có lời",
+      "loading": "Đang tải"
+    },
+    "stem": {
+      "vocal": "Giọng",
+      "instrumental": "Nhạc đệm",
+      "original": "Giọng gốc",
+      "harmony": "Hòa âm",
+      "mute": "Tắt tiếng",
+      "unmute": "Bật tiếng",
+      "karaoke": "A cappella",
+      "karaokeHint": "A cappella tắt nhạc đệm, hòa âm tắt theo",
+      "harmonyHint": "Hòa âm trộn vào nhạc đệm và không có thanh âm lượng riêng",
+      "missing": "Bài này không có track này"
+    },
+    "errors": {
+      "IPC_TIMEOUT": "Không nhận được phản hồi kịp",
+      "INVALID_REQUEST": "Yêu cầu không hợp lệ",
+      "UNKNOWN": "Có lỗi xảy ra",
+      "TRACK_UNREADABLE": "Không đọc được track",
+      "WORK_NOT_FOUND": "Không tìm thấy bài",
+      "NOT_LOADED": "Chưa tải bài",
+      "SUPERSEDED": "Lần phát này đã bị thay",
+      "ENGINE_CRASHED": "Engine phát đã dừng",
+      "CIRCUIT_OPEN": "Engine tạm ngưng sau nhiều lần lỗi",
+      "FORMAT_UNSUPPORTED": "Không phát được định dạng này",
+      "TRANSCODE_FAILED": "Chuyển mã thất bại",
+      "DEVICE_UNAVAILABLE": "Thiết bị xuất không dùng được",
+      "ENGINE_NOT_FOUND": "Không thấy engine phát",
+      "ENGINE_SPAWN_FAILED": "Engine phát không khởi động",
+      "ENGINE_NOT_RUNNING": "Engine phát không chạy"
+    }
+  },
   "scratchpad": {
     "title": "Sổ ghi nhanh",
     "count_one": "{{count}} bài",
@@ -702,6 +744,7 @@ export default {
       "settings-appearance": { "title": "Cài đặt giao diện", "description": "Mở cài đặt thị giác và giao diện" },
       "settings-general": { "title": "Cài đặt chung", "description": "Mở tùy chọn chung của ứng dụng" },
       "settings-playback": { "title": "Cài đặt phát nhạc", "description": "Mở cài đặt hành vi phát nhạc" },
+      "ok-stems": { "title": "Âm lượng track", "description": "Mở âm lượng từng track, tắt tiếng và a cappella" },
       "playback-replaygain-off": { "title": "Tắt ReplayGain", "description": "Phát âm thanh không áp dụng ReplayGain" },
       "playback-replaygain-track": { "title": "ReplayGain: Chế độ bài hát", "description": "Áp dụng cân bằng ReplayGain theo từng bài hát" },
       "playback-replaygain-album": { "title": "ReplayGain: Chế độ album", "description": "Áp dụng cân bằng ReplayGain theo album" },

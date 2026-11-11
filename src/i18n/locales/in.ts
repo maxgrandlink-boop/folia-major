@@ -1,6 +1,48 @@
 
 
 export default {
+  "ok": {
+    "brand": "ok唱歌",
+    "stems": "Stem",
+    "close": "Tutup",
+    "playSample": "Putar 暗号",
+    "player": {
+      "play": "Putar",
+      "pause": "Jeda",
+      "seek": "Posisi",
+      "noLyrics": "Karya ini tidak punya lirik",
+      "loading": "Memuat"
+    },
+    "stem": {
+      "vocal": "Vokal",
+      "instrumental": "Iringan",
+      "original": "Vokal asli",
+      "harmony": "Harmoni",
+      "mute": "Senyap",
+      "unmute": "Bunyi lagi",
+      "karaoke": "A cappella",
+      "karaokeHint": "A cappella mematikan iringan, harmoni ikut mati",
+      "harmonyHint": "Harmoni digabung ke iringan dan tidak punya slider sendiri",
+      "missing": "Karya ini tidak punya trek ini"
+    },
+    "errors": {
+      "IPC_TIMEOUT": "Tidak ada jawaban tepat waktu",
+      "INVALID_REQUEST": "Permintaan ini tidak valid",
+      "UNKNOWN": "Ada yang salah",
+      "TRACK_UNREADABLE": "Trek tidak bisa dibaca",
+      "WORK_NOT_FOUND": "Karya tidak ditemukan",
+      "NOT_LOADED": "Belum ada karya yang dimuat",
+      "SUPERSEDED": "Pemutaran ini sudah diganti",
+      "ENGINE_CRASHED": "Mesin pemutar berhenti",
+      "CIRCUIT_OPEN": "Mesin pemutar dijeda setelah gagal berulang",
+      "FORMAT_UNSUPPORTED": "Format ini tidak bisa diputar",
+      "TRANSCODE_FAILED": "Transkode gagal",
+      "DEVICE_UNAVAILABLE": "Perangkat keluaran tidak tersedia",
+      "ENGINE_NOT_FOUND": "Mesin pemutar tidak ada",
+      "ENGINE_SPAWN_FAILED": "Mesin pemutar tidak mulai",
+      "ENGINE_NOT_RUNNING": "Mesin pemutar tidak berjalan"
+    }
+  },
   "scratchpad": {
     "title": "Buku catatan",
     "count_one": "{{count}} lagu",
@@ -702,6 +744,7 @@ export default {
       "settings-appearance": { "title": "Pengaturan tampilan", "description": "Buka pengaturan visual dan tampilan" },
       "settings-general": { "title": "Pengaturan umum", "description": "Buka preferensi aplikasi umum" },
       "settings-playback": { "title": "Pengaturan pemutaran", "description": "Buka pengaturan perilaku pemutaran" },
+      "ok-stems": { "title": "Volume stem", "description": "Buka volume tiap trek, senyap, dan a cappella" },
       "playback-replaygain-off": { "title": "Nonaktifkan ReplayGain", "description": "Putar audio tanpa penyesuaian ReplayGain" },
       "playback-replaygain-track": { "title": "ReplayGain: Mode Trek", "description": "Terapkan penyesuaian ReplayGain per trek" },
       "playback-replaygain-album": { "title": "ReplayGain: Mode Album", "description": "Terapkan penyesuaian ReplayGain album" },

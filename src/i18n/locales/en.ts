@@ -1,6 +1,48 @@
 
 
 export default {
+  "ok": {
+    "brand": "ok唱歌",
+    "stems": "Stems",
+    "close": "Close",
+    "playSample": "Play 暗号",
+    "player": {
+      "play": "Play",
+      "pause": "Pause",
+      "seek": "Position",
+      "noLyrics": "This work has no lyrics",
+      "loading": "Loading"
+    },
+    "stem": {
+      "vocal": "Vocal",
+      "instrumental": "Instrumental",
+      "original": "Original",
+      "harmony": "Harmony",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "karaoke": "A cappella",
+      "karaokeHint": "A cappella silences the instrumental, and harmony with it",
+      "harmonyHint": "Harmony is mixed into the instrumental and has no slider of its own",
+      "missing": "This work has no track of this kind"
+    },
+    "errors": {
+      "IPC_TIMEOUT": "No response in time",
+      "INVALID_REQUEST": "That request is not valid",
+      "UNKNOWN": "Something went wrong",
+      "TRACK_UNREADABLE": "A track could not be read",
+      "WORK_NOT_FOUND": "That work could not be found",
+      "NOT_LOADED": "No work is loaded",
+      "SUPERSEDED": "This play was replaced by a newer one",
+      "ENGINE_CRASHED": "The playback engine stopped",
+      "CIRCUIT_OPEN": "The playback engine is paused after repeated failures",
+      "FORMAT_UNSUPPORTED": "This format cannot be played",
+      "TRANSCODE_FAILED": "Transcoding failed",
+      "DEVICE_UNAVAILABLE": "That output device is unavailable",
+      "ENGINE_NOT_FOUND": "The playback engine is missing",
+      "ENGINE_SPAWN_FAILED": "The playback engine did not start",
+      "ENGINE_NOT_RUNNING": "The playback engine is not running"
+    }
+  },
   "scratchpad": {
     "title": "Scratchpad",
     "count_one": "{{count}} song",
@@ -702,6 +744,7 @@ export default {
       "settings-appearance": { "title": "Appearance settings", "description": "Open visual and appearance settings" },
       "settings-general": { "title": "General settings", "description": "Open general app preferences" },
       "settings-playback": { "title": "Playback settings", "description": "Open playback behavior settings" },
+      "ok-stems": { "title": "Stem mix", "description": "Open per-track volume, mute and a cappella" },
       "playback-replaygain-off": { "title": "Disable ReplayGain", "description": "Play audio without ReplayGain adjustment" },
       "playback-replaygain-track": { "title": "ReplayGain: Track mode", "description": "Apply per-track ReplayGain adjustment" },
       "playback-replaygain-album": { "title": "ReplayGain: Album mode", "description": "Apply album ReplayGain adjustment" },
