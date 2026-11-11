@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { MixRole, WorkMix, WorkTrack } from '../../types/multitrack';
 import { formatGigabytes } from '../../services/multitrack/format';
+import { okFillClass } from '../ok/okChrome';
 
 // src/components/multitrack/StemMixPanel.tsx
 // 一首作品的分轨音量：人声、伴奏、原唱，每条静音。清唱和和声是开关，和声没有自己的滑杆。
@@ -60,7 +61,7 @@ const StemMixPanel: React.FC<StemMixPanelProps> = ({
                                 aria-pressed={row.muted}
                                 disabled={disabled || !track}
                                 onClick={() => onMuted(role, !row.muted)}
-                                className={`rounded-full px-2 py-0.5 text-xs disabled:opacity-40 ${row.muted ? 'bg-[var(--ok-accent)] text-white' : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
+                                className={`rounded-full px-2 py-0.5 text-xs disabled:opacity-40 ${row.muted ? okFillClass(isDaylight) : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
                             >
                                 {row.muted ? t('ok.stem.unmute') : t('ok.stem.mute')}
                             </button>
@@ -75,7 +76,7 @@ const StemMixPanel: React.FC<StemMixPanelProps> = ({
                     aria-pressed={karaoke}
                     disabled={disabled}
                     onClick={() => onKaraoke(!karaoke)}
-                    className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${karaoke ? 'bg-[var(--ok-accent)] text-white' : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
+                    className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${karaoke ? okFillClass(isDaylight) : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
                 >
                     {t('ok.stem.karaoke')}
                 </button>
@@ -85,7 +86,7 @@ const StemMixPanel: React.FC<StemMixPanelProps> = ({
                     disabled={disabled}
                     title={t('ok.stem.harmonyHint')}
                     onClick={() => onHarmony(!harmony)}
-                    className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${harmony ? 'bg-[var(--ok-accent)] text-white' : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
+                    className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${harmony ? okFillClass(isDaylight) : isDaylight ? 'bg-black/5' : 'bg-white/10'}`}
                 >
                     {t('ok.stem.harmony')}
                 </button>

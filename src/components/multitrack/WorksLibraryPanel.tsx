@@ -2,6 +2,7 @@ import React, { useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Work } from '../../types/multitrack';
 import { formatClock } from '../../services/multitrack/format';
+import { okFillClass } from '../ok/okChrome';
 import { addWorksRoot, getWorksLibrary, removeWorksRoot, rescanWorks, subscribeWorksLibrary } from '../../services/multitrack/worksLibrary';
 import type { WorkPlaybackError } from '../../services/multitrack/workPlayback';
 
@@ -31,7 +32,7 @@ const WorksLibraryPanel: React.FC<WorksLibraryPanelProps> = ({ isDaylight, playi
     return (
         <section data-testid="ok-works" className="flex flex-col gap-3" aria-label={t('ok.works.title')}>
             <div className="flex flex-wrap gap-2">
-                <button type="button" className="rounded-full bg-[var(--ok-accent)] px-3 py-1 text-xs text-white" onClick={() => { void addWorksRoot(); }}>
+                <button type="button" className={`rounded-full px-3 py-1 text-xs ${okFillClass(isDaylight)}`} onClick={() => { void addWorksRoot(); }}>
                     {t('ok.works.addRoot')}
                 </button>
                 <button type="button" className={`rounded-full px-3 py-1 text-xs ${isDaylight ? 'bg-black/5' : 'bg-white/10'}`} onClick={() => { void rescanWorks(); }}>

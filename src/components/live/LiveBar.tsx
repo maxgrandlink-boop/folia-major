@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { LiveMode } from '../../types/live';
 import { setKaraoke } from '../../services/multitrack/workPlayback';
+import { okFillClass } from '../ok/okChrome';
 import { getLiveSession, setLiveMode, subscribeLiveLevels, subscribeLiveSession } from '../../services/live/liveSession';
 
 // src/components/live/LiveBar.tsx
@@ -51,7 +52,7 @@ const LiveBar: React.FC<LiveBarProps> = ({ isDaylight, karaoke }) => {
                         type="button"
                         aria-pressed={active}
                         onClick={() => { void setLiveMode(mode, 'ui'); }}
-                        className={`rounded-full px-2.5 py-1 ${active ? 'bg-[var(--ok-accent)] text-white' : muted}`}
+                        className={`rounded-full px-2.5 py-1 ${active ? okFillClass(isDaylight) : muted}`}
                     >
                         {t(`ok.live.mode.${mode}`)}{switching ? ` · ${t('ok.live.switching')}` : ''}
                     </button>
@@ -76,7 +77,7 @@ const LiveBar: React.FC<LiveBarProps> = ({ isDaylight, karaoke }) => {
                 type="button"
                 aria-pressed={karaoke}
                 onClick={() => { void setKaraoke(!karaoke); }}
-                className={`rounded-full px-2.5 py-1 ${karaoke ? 'bg-[var(--ok-accent)] text-white' : muted}`}
+                className={`rounded-full px-2.5 py-1 ${karaoke ? okFillClass(isDaylight) : muted}`}
             >
                 {t('ok.stem.karaoke')}
             </button>

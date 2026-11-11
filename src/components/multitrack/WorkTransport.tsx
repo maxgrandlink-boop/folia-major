@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatClock } from '../../services/multitrack/format';
+import { okFillClass } from '../ok/okChrome';
 import { activeLyricIndex, parseWorkLyrics, type LyricLine } from '../../services/multitrack/parseWorkLyrics';
 import { readPositionSec, seekWork, type WorkPlaybackSnapshot } from '../../services/multitrack/workPlayback';
 
@@ -75,7 +76,7 @@ const WorkTransport: React.FC<WorkTransportProps> = ({ isDaylight, playback, lyr
                     type="button"
                     onClick={onToggle}
                     disabled={playback.pending || playback.attempt === 0}
-                    className="rounded-full bg-[var(--ok-accent)] px-3 py-1 text-xs text-white disabled:opacity-40"
+                    className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${okFillClass(isDaylight)}`}
                 >
                     {playback.pending ? t('ok.player.loading') : playing ? t('ok.player.pause') : t('ok.player.play')}
                 </button>

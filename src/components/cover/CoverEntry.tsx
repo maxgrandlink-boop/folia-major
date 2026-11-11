@@ -1,6 +1,7 @@
 import React, { useState, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatGigabytes } from '../../services/multitrack/format';
+import { okFillClass } from '../ok/okChrome';
 import {
     addCoverModel,
     buildCoverRequest,
@@ -62,7 +63,7 @@ const CoverEntry: React.FC<CoverEntryProps> = ({ isDaylight, playRequest }) => {
                     </p>
                 )}
                 {!installed && !installing && (
-                    <button type="button" className="self-start rounded-full bg-[var(--ok-accent)] px-3 py-1 text-white" onClick={() => { void installCoverComponent(); }}>
+                    <button type="button" className={`self-start rounded-full px-3 py-1 ${okFillClass(isDaylight)}`} onClick={() => { void installCoverComponent(); }}>
                         {t('ok.cover.install')}
                     </button>
                 )}
@@ -108,7 +109,7 @@ const CoverEntry: React.FC<CoverEntryProps> = ({ isDaylight, playRequest }) => {
                 <span className="w-6 text-right tabular-nums">{keySemitones}</span>
             </label>
             <div className="flex gap-2">
-                <button type="button" disabled={!installed || running || title.trim().length === 0} className="rounded-full bg-[var(--ok-accent)] px-3 py-1 text-xs text-white disabled:opacity-40" onClick={start}>
+                <button type="button" disabled={!installed || running || title.trim().length === 0} className={`rounded-full px-3 py-1 text-xs disabled:opacity-40 ${okFillClass(isDaylight)}`} onClick={start}>
                     {t('ok.cover.start')}
                 </button>
                 {running && job && (
@@ -119,7 +120,7 @@ const CoverEntry: React.FC<CoverEntryProps> = ({ isDaylight, playRequest }) => {
             {job?.phase === 'done' && job.workId && (
                 <button
                     type="button"
-                    className="self-start rounded-full bg-[var(--ok-accent)] px-3 py-1 text-xs text-white"
+                    className={`self-start rounded-full px-3 py-1 text-xs ${okFillClass(isDaylight)}`}
                     onClick={() => { void playWork(job.workId!, playRequest); }}
                 >
                     {t('ok.cover.playResult')}
