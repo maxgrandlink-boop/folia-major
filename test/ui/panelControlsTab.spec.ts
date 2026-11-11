@@ -263,7 +263,7 @@ test('cycles the open panel tabs with Tab and wraps around', async ({ page }) =>
     const coverTab = page.getByRole('button', { name: '封面', exact: true });
     const controlsTab = page.getByRole('button', { name: '控制', exact: true });
     const queueTab = page.getByRole('button', { name: '播放列表', exact: true });
-    const accountTab = page.getByRole('button', { name: '账户', exact: true });
+    const accountTab = page.getByRole('button', { name: '音质', exact: true });
 
     await expect(controlsTab).toHaveAttribute('aria-pressed', 'true');
     await page.keyboard.press('Tab');

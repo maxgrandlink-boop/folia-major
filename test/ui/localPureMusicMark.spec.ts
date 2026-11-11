@@ -192,7 +192,7 @@ test('the player lyric match window marks the playing song as instrumental in pl
     await boot(page);
     await playFromGrid(page);
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local', { exact: true })).toBeVisible();
+    await expect(panel(page).getByText('Local', { exact: true })).toBeVisible();
     await expect(panel(page).getByRole('button', { name: 'Instrumental', exact: true })).toHaveCount(0);
     const playing = await playbackSnapshot(page);
 
@@ -211,10 +211,9 @@ test('the player lyric match window marks the playing song as instrumental in pl
         .toEqual({ song: playing.song, audioSrc: playing.audioSrc, view: 'player' });
     expect(await storedSong(page)).toEqual({ markedPureMusic: true, matchedIsPureMusic: true, lyricsSource: 'online' });
 
-    // 本地页签：歌词状态与来源都读作「纯音乐」，选中的是它。
+    // 本地歌词文件还在时，来源行只写「Local」（纯音乐标签只在没有任何歌词来源时单独出现）。
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local / Instrumental', { exact: true })).toBeVisible();
-    await expect(panel(page).getByRole('button', { name: 'Instrumental', exact: true })).toBeVisible();
+    await expect(panel(page).getByRole('group', { name: 'Lyrics' })).toContainText('Local');
 
     // 再打开窗口：按钮变成取消，歌词来源标签读作「纯音乐」。
     await panel(page).getByRole('button', { name: 'Match Online' }).click();
@@ -230,7 +229,7 @@ test('the player lyric match window marks the playing song as instrumental in pl
     expect((await playbackSnapshot(page)).audioSrc).toBe(playing.audioSrc);
     expect(await storedSong(page)).toEqual({ markedPureMusic: false, matchedIsPureMusic: false, lyricsSource: null });
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local', { exact: true })).toBeVisible();
+    await expect(panel(page).getByText('Local', { exact: true })).toBeVisible();
 });
 
 test('a marked song is not auto-matched when replayed, and the mark survives a reload', async ({ page }) => {
@@ -252,7 +251,7 @@ test('a marked song is not auto-matched when replayed, and the mark survives a r
     expect(searches).toEqual([]);
     await expectLyricsCleared(page);
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local / Instrumental', { exact: true })).toBeVisible();
+    await expect(panel(page).getByRole('group', { name: 'Lyrics' })).toContainText('Local');
 
     // 重载：记录还在 IndexedDB 里，资料库里的匹配窗口照样认出它。
     await page.reload();
@@ -300,7 +299,7 @@ test('the library match dialog toggles the mark and the playing song follows in 
     await page.goForward();
     await expect.poll(async () => (await playbackSnapshot(page)).view).toBe('player');
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local', { exact: true })).toBeVisible();
+    await expect(panel(page).getByText('Local', { exact: true })).toBeVisible();
     await expect(panel(page).getByRole('button', { name: 'Instrumental', exact: true })).toHaveCount(0);
 });
 
@@ -370,5 +369,6 @@ test('saving a provider result that is pure music in the player window marks the
     await expectLyricsCleared(page);
     expect((await playbackSnapshot(page)).song).toBe('Midnight Train');
     await openLocalTab(page);
-    await expect(panel(page).getByTitle('Local / Instrumental', { exact: true })).toBeVisible();
+    // 本地歌词文件还在，来源行仍写 Local；纯音乐记在曲目上，不另画一颗来源按钮。
+    await expect(panel(page).getByRole('group', { name: 'Lyrics' })).toContainText('Local');
 });
