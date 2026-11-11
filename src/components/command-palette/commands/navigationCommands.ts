@@ -84,4 +84,16 @@ export const navigationCommands: CommandPaletteCommand[] = [
             return true;
         },
     }),
+    defineCommand({
+        id: 'ok-cover',
+        group: 'navigation',
+        title: 'AI cover',
+        description: 'Open the cover entry and watch a job until the new work can play',
+        keywords: ['cover job', 'voice model', '翻唱', '翻唱进度'],
+        isAvailable: context => !context || okBridgeReady(),
+        execute: () => {
+            toggleOkPanel('cover');
+            return true;
+        },
+    }),
 ];

@@ -23,7 +23,9 @@ import WorksLibraryPanel from '../multitrack/WorksLibraryPanel';
 import WorkTransport from '../multitrack/WorkTransport';
 import { getOkPanel, setOkPanel, subscribeOkPanel } from './okPanels';
 import { startLiveSession } from '../../services/live/liveSession';
+import { startCoverSession } from '../../services/cover/coverSession';
 import LiveBar from '../live/LiveBar';
+import CoverEntry from '../cover/CoverEntry';
 
 // src/components/ok/OkHost.tsx
 // ok唱歌 界面的装配点。没有桥就不画。分轨面板是第一块；直播条、作品库、翻唱从这里往上加。
@@ -49,10 +51,12 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
         const stopPlayback = startWorkPlayback();
         const stopLive = startLiveSession();
         const stopWorks = startWorksLibrary();
+        const stopCover = startCoverSession();
         return () => {
             stopPlayback();
             stopLive();
             stopWorks();
+            stopCover();
         };
     }, [ready]);
 
@@ -67,7 +71,7 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
 
     if (!ready) return null;
 
-    const open = panel === 'stems' || panel === 'works';
+    const open = panel === 'stems' || panel === 'works' || panel === 'cover';
     const shell = isDaylight ? 'border-black/10 bg-white/95 text-neutral-900' : 'border-white/15 bg-neutral-950/92 text-neutral-100';
 
     const play = (work: Work) => {
@@ -90,6 +94,13 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
             <button
                 type="button"
                 className={`pointer-events-auto rounded-full border px-3 py-1.5 text-xs shadow-lg ${shell}`}
+                onClick={() => setOkPanel(panel === 'cover' ? null : 'cover')}
+            >
+                {t('ok.cover.title')}
+            </button>
+            <button
+                type="button"
+                className={`pointer-events-auto rounded-full border px-3 py-1.5 text-xs shadow-lg ${shell}`}
                 onClick={() => setOkPanel(open ? null : 'stems')}
             >
                 {t('ok.stems')}
@@ -100,12 +111,13 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
                     className={`pointer-events-auto flex max-h-[70vh] w-[22rem] flex-col gap-4 overflow-y-auto rounded-2xl border p-4 shadow-2xl ${shell}`}
                 >
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-medium">{panel === 'works' ? t('ok.works.title') : t('ok.stems')}</h2>
+                        <h2 className="text-sm font-medium">{panel === 'works' ? t('ok.works.title') : panel === 'cover' ? t('ok.cover.title') : t('ok.stems')}</h2>
                         <button type="button" className="text-xs opacity-70" onClick={() => setOkPanel(null)}>{t('ok.close')}</button>
                     </div>
                     {playback.error && (
                         <p className="text-xs text-red-500" role="alert">{t(`ok.errors.${playback.error.code}`, playback.error.code)}</p>
                     )}
+                    {panel === 'cover' && <CoverEntry isDaylight={isDaylight} playRequest={{ master: masterOf(), loopOne: useAudioSettingsStore.getState().loopMode === 'one' }} />}
                     {!shown && panel === 'stems' && <p className="text-xs opacity-70">{t('ok.works.pick')}</p>}
                     {panel === 'works' && (
                         <WorksLibraryPanel
