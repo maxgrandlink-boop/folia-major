@@ -1,0 +1,57 @@
+name: ok-engine
+
+on:
+  pull_request:
+    paths:
+      - 'native/ok-engine/**'
+      - 'native/okLiveShm/**'
+      - 'packaging/windows/build-ok-engine.mjs'
+      - 'electron/okEngine/**'
+      - '.github/workflows/ok-engine.yml'
+  push:
+    paths:
+      - 'native/ok-engine/**'
+      - 'native/okLiveShm/**'
+      - 'packaging/windows/build-ok-engine.mjs'
+      - 'electron/okEngine/**'
+      - '.github/workflows/ok-engine.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux mix and clock
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ cmake
+          cmake -S native/ok-engine -B build/ok-engine-cmake -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/ok-engine-cmake -j$(nproc)
+      - name: Seek sync
+        run: ./build/ok-engine-cmake/ok-engine-tests
+      - name: Memory probe
+        run: ./build/ok-engine-cmake/ok-engine --self-test memory --root /tmp/okchang-missing
+
+  windows:
+    name: Windows engine
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: |
+          cmake -S native/ok-engine -B build/ok-engine-cmake -G "Visual Studio 17 2022" -A x64
+          cmake --build build/ok-engine-cmake --config Release
+      - name: Seek sync
+        run: .\build\ok-engine-cmake\Release\ok-engine-tests.exe
+      - name: Memory
+        run: .\build\ok-engine-cmake\Release\ok-engine.exe --self-test memory --root D:\okchang-missing
+      - name: Device
+        run: .\build\ok-engine-cmake\Release\ok-engine.exe --self-test device --root D:\okchang-missing
+      - name: Audio service
+        run: Get-Service Audiosrv | Format-List Name,Status,StartType

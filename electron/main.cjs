@@ -116,6 +116,11 @@ const { createSourceBridge } = require('./hifi/sourceBridge.cjs');
 const { createMpvSession } = require('./hifi/mpvSession.cjs');
 const { registerHifiIpc } = require('./hifi/hifiIpc.cjs');
 const { registerOkIpc } = require('./okIpc.cjs');
+const { createOkEngineSession } = require('./okEngine/engineSession.cjs');
+const { createOkEngineHandlers } = require('./okEngine/engineIpc.cjs');
+const { resolveOkEnginePath } = require('./okEngine/enginePath.cjs');
+const { resolveWorkTracks } = require('./okEngine/workTracks.cjs');
+const { resolveFfmpeg, TRANSCODE_RUNTIME_DIR } = require('./ffmpeg.cjs');
 const { createPipewireProbe, collectOwnPids } = require('./hifi/pipewireProbe.cjs');
 const { createApprovedMpvPathStore, isReservedHifiSettingKey } = require('./hifi/approvedMpvPath.cjs');
 const { registerMprisIpc } = require('./hifi/mpris/mprisIpc.cjs');
@@ -345,10 +350,25 @@ hifiIpc = registerHifiIpc({
   getApprovedMpvPath: () => hifiApprovedMpvPath.get(),
   setApprovedMpvPath: value => hifiApprovedMpvPath.set(value),
 });
-// ok唱歌 W1：通道先登记成桩，一律回 not implemented。不接引擎，不改现有播放。
+// ok唱歌 W3：引擎通道接到 ok-engine.exe。作品扫描还没登记路径时，load 回 WORK_NOT_FOUND。
+const okEngine = createOkEngineSession({
+  resolveExe: () => resolveOkEnginePath({ resourcesPath: process.resourcesPath, appPath: app.getAppPath() }),
+  resolveTracks: resolveWorkTracks,
+  resolveFfmpeg: async () => {
+    const found = await resolveFfmpeg({ appGetAppPath: () => app.getAppPath(), packagedDirName: TRANSCODE_RUNTIME_DIR });
+    return found && found.path;
+  },
+  cacheDir: () => path.join(app.getPath('userData'), 'ok-engine-cache'),
+  send: (channel, payload) => {
+    for (const win of BrowserWindow.getAllWindows()) {
+      if (!win.isDestroyed()) win.webContents.send(channel, payload);
+    }
+  },
+});
 registerOkIpc({
   ipcMain,
   isTrustedSender: event => isTrustedMainWindowContents(event.sender),
+  handlers: createOkEngineHandlers(okEngine),
 });
 // Linux: while HiFi plays, main registers MPRIS on the session bus itself. A silent keep-alive in
 // the page would be a Chromium stream on the same PipeWire device, and PipeWire switches the
@@ -363,7 +383,10 @@ const hifiMpris = process.platform === 'linux'
   })
   : null;
 // Last resort for every way out, app.exit() included: an mpv left behind would keep playing.
-process.on('exit', () => hifiSession.killSync());
+process.on('exit', () => {
+  hifiSession.killSync();
+  okEngine.killSync();
+});
 // KuGou credentials stay inside the main process and are encrypted lazily after Electron is ready.
 // The bridge refuses Linux's plaintext `basic_text` fallback and degrades to an in-memory session.
 const kugouApiBridge = createKugouApiBridge({ store, safeStorage });

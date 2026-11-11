@@ -101,9 +101,20 @@ async function pruneLibrespotBinaries(context) {
   }
 }
 
+async function verifyBundledOkEngine(context) {
+  if (context.electronPlatformName !== 'win32') return;
+  const file = path.join(context.packager.getResourcesDir(context.appOutDir), 'ok-engine.exe');
+  try {
+    await fs.access(file);
+  } catch {
+    throw new Error(`[afterPack] ${file} is missing - ok-engine.exe would not be in this package`);
+  }
+}
+
 exports.default = async (context) => {
   await verifyBundledLocales(context);
   await verifyBundledMnn(context);
+  await verifyBundledOkEngine(context);
   await pruneLibrespotBinaries(context);
   if (context.electronPlatformName === 'darwin') {
     const { verifyMacCompanion } = require('../electron/appleMusic/macos/prepareBundle.cjs');
