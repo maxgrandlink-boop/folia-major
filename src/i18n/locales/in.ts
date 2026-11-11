@@ -44,8 +44,30 @@ export default {
       "harmonyHint": "Harmoni digabung ke iringan dan tidak punya slider sendiri",
       "missing": "Karya ini tidak punya trek ini"
     },
+    "works": {
+      "title": "Karya",
+      "addRoot": "Tambah folder karya",
+      "rescan": "Pindai ulang",
+      "empty": "Belum ada karya",
+      "skipped": "Dilewati {{count}}",
+      "removeRoot": "Hapus",
+      "pick": "Pilih karya dari pustaka"
+    },
+    "skip": {
+      "hidden": "Tersembunyi",
+      "processing": "Masih diproses",
+      "not-complete": "Belum lengkap",
+      "no-tracks": "Tidak ada trek",
+      "unreadable": "Tidak terbaca"
+    },
     "errors": {
       "IPC_TIMEOUT": "Tidak ada jawaban tepat waktu",
+      "ROOT_DUPLICATE": "Folder ini sudah ditambahkan",
+      "ROOT_PROTECTED": "Folder keluaran cover tidak bisa dihapus",
+      "ROOT_NOT_FOUND": "Folder tidak ditemukan",
+      "ROOT_UNREADABLE": "Folder tidak bisa dibaca",
+      "DIALOG_CANCELLED": "Pemilihan dibatalkan",
+      "WRITE_FAILED": "Tidak bisa menyimpan",
       "INVALID_REQUEST": "Permintaan ini tidak valid",
       "UNKNOWN": "Ada yang salah",
       "TRACK_UNREADABLE": "Trek tidak bisa dibaca",
@@ -765,6 +787,7 @@ export default {
       "settings-playback": { "title": "Pengaturan pemutaran", "description": "Buka pengaturan perilaku pemutaran" },
       "settings-live": { "title": "Pengaturan siaran", "description": "Buka pengaturan menyanyi siaran" },
       "ok-stems": { "title": "Volume stem", "description": "Buka volume tiap trek, senyap, dan a cappella" },
+      "ok-works": { "title": "Pustaka karya", "description": "Buka karya multitrack, termasuk folder yang dilewati" },
       "live-mode-speech": { "title": "Siaran: bicara", "description": "Pindah plugin ke bicara biasa" },
       "live-mode-reverb-speech": { "title": "Siaran: bicara berreverb", "description": "Pindah plugin ke bicara berreverb" },
       "live-mode-ai-follow": { "title": "Siaran: AI ikut", "description": "Pindah plugin ke AI yang ikut menyanyi" },

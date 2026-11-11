@@ -238,6 +238,7 @@ exports[`command palette registry contract > keeps the registered command order 
   "home-explore",
   "desktop-toggle-remote-control",
   "desktop-toggle-main-window-always-on-top",
+  "ok-works",
   "panel-cover",
   "panel-controls",
   "panel-queue",

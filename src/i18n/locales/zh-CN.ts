@@ -44,8 +44,30 @@ export default {
       "harmonyHint": "和声并进伴奏，没有单独的音量",
       "missing": "这首没有这条轨"
     },
+    "works": {
+      "title": "作品库",
+      "addRoot": "添加作品目录",
+      "rescan": "重新扫描",
+      "empty": "还没有作品",
+      "skipped": "已跳过 {{count}} 个",
+      "removeRoot": "移除",
+      "pick": "先从作品库选一首"
+    },
+    "skip": {
+      "hidden": "隐藏",
+      "processing": "还在处理",
+      "not-complete": "不完整",
+      "no-tracks": "没有音轨",
+      "unreadable": "读不了"
+    },
     "errors": {
       "IPC_TIMEOUT": "没有等到回应",
+      "ROOT_DUPLICATE": "这个目录已经加过了",
+      "ROOT_PROTECTED": "翻唱输出目录不能移除",
+      "ROOT_NOT_FOUND": "找不到这个目录",
+      "ROOT_UNREADABLE": "这个目录读不了",
+      "DIALOG_CANCELLED": "取消了选择",
+      "WRITE_FAILED": "没有写成",
       "INVALID_REQUEST": "这个请求不对",
       "UNKNOWN": "出了点问题",
       "TRACK_UNREADABLE": "轨道读不了",
@@ -765,6 +787,7 @@ export default {
       "settings-playback": { "title": "播放设置", "description": "打开播放行为设置" },
       "settings-live": { "title": "直播设置", "description": "打开直播代唱的设置" },
       "ok-stems": { "title": "分轨音量", "description": "打开人声、伴奏、原唱的音量和清唱" },
+      "ok-works": { "title": "作品库", "description": "打开多轨作品，包括被跳过的文件夹" },
       "live-mode-speech": { "title": "直播：普通说话", "description": "插件切到普通说话" },
       "live-mode-reverb-speech": { "title": "直播：混响说话", "description": "插件切到混响说话" },
       "live-mode-ai-follow": { "title": "直播：AI跟唱", "description": "插件切到 AI 跟唱" },

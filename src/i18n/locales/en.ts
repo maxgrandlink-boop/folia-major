@@ -44,8 +44,30 @@ export default {
       "harmonyHint": "Harmony is mixed into the instrumental and has no slider of its own",
       "missing": "This work has no track of this kind"
     },
+    "works": {
+      "title": "Works",
+      "addRoot": "Add a works folder",
+      "rescan": "Rescan",
+      "empty": "No works yet",
+      "skipped": "Skipped {{count}}",
+      "removeRoot": "Remove",
+      "pick": "Choose a work from the library"
+    },
+    "skip": {
+      "hidden": "Hidden",
+      "processing": "Still processing",
+      "not-complete": "Incomplete",
+      "no-tracks": "No tracks",
+      "unreadable": "Unreadable"
+    },
     "errors": {
       "IPC_TIMEOUT": "No response in time",
+      "ROOT_DUPLICATE": "That folder is already added",
+      "ROOT_PROTECTED": "The cover output folder cannot be removed",
+      "ROOT_NOT_FOUND": "That folder was not found",
+      "ROOT_UNREADABLE": "That folder cannot be read",
+      "DIALOG_CANCELLED": "The choice was cancelled",
+      "WRITE_FAILED": "Could not save",
       "INVALID_REQUEST": "That request is not valid",
       "UNKNOWN": "Something went wrong",
       "TRACK_UNREADABLE": "A track could not be read",
@@ -765,6 +787,7 @@ export default {
       "settings-playback": { "title": "Playback settings", "description": "Open playback behavior settings" },
       "settings-live": { "title": "Live settings", "description": "Open live singing settings" },
       "ok-stems": { "title": "Stem mix", "description": "Open per-track volume, mute and a cappella" },
+      "ok-works": { "title": "Works library", "description": "Open multitrack works, including folders that were skipped" },
       "live-mode-speech": { "title": "Live: speech", "description": "Switch the plugin to plain speech" },
       "live-mode-reverb-speech": { "title": "Live: reverb speech", "description": "Switch the plugin to reverberated speech" },
       "live-mode-ai-follow": { "title": "Live: AI follow", "description": "Switch the plugin to AI follow singing" },

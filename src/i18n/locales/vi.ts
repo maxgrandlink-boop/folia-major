@@ -44,8 +44,30 @@ export default {
       "harmonyHint": "Hòa âm trộn vào nhạc đệm và không có thanh âm lượng riêng",
       "missing": "Bài này không có track này"
     },
+    "works": {
+      "title": "Tác phẩm",
+      "addRoot": "Thêm thư mục tác phẩm",
+      "rescan": "Quét lại",
+      "empty": "Chưa có tác phẩm",
+      "skipped": "Đã bỏ qua {{count}}",
+      "removeRoot": "Gỡ",
+      "pick": "Chọn một bài trong thư viện"
+    },
+    "skip": {
+      "hidden": "Ẩn",
+      "processing": "Đang xử lý",
+      "not-complete": "Chưa đủ",
+      "no-tracks": "Không có track",
+      "unreadable": "Không đọc được"
+    },
     "errors": {
       "IPC_TIMEOUT": "Không nhận được phản hồi kịp",
+      "ROOT_DUPLICATE": "Thư mục này đã được thêm",
+      "ROOT_PROTECTED": "Không gỡ được thư mục xuất bản cover",
+      "ROOT_NOT_FOUND": "Không thấy thư mục",
+      "ROOT_UNREADABLE": "Không đọc được thư mục",
+      "DIALOG_CANCELLED": "Đã hủy chọn",
+      "WRITE_FAILED": "Không lưu được",
       "INVALID_REQUEST": "Yêu cầu không hợp lệ",
       "UNKNOWN": "Có lỗi xảy ra",
       "TRACK_UNREADABLE": "Không đọc được track",
@@ -765,6 +787,7 @@ export default {
       "settings-playback": { "title": "Cài đặt phát nhạc", "description": "Mở cài đặt hành vi phát nhạc" },
       "settings-live": { "title": "Cài đặt phát sóng", "description": "Mở cài đặt hát khi phát sóng" },
       "ok-stems": { "title": "Âm lượng track", "description": "Mở âm lượng từng track, tắt tiếng và a cappella" },
+      "ok-works": { "title": "Thư viện tác phẩm", "description": "Mở tác phẩm nhiều track, kể cả thư mục bị bỏ qua" },
       "live-mode-speech": { "title": "Phát sóng: nói", "description": "Chuyển plugin sang nói thường" },
       "live-mode-reverb-speech": { "title": "Phát sóng: nói có vang", "description": "Chuyển plugin sang nói có vang" },
       "live-mode-ai-follow": { "title": "Phát sóng: AI hát theo", "description": "Chuyển plugin sang AI hát theo" },

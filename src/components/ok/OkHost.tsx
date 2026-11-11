@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useSyncExternalStore } from 'react';
+import React, { useEffect, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Work } from '../../types/multitrack';
-import { okBridgeReady, readOkBridge } from '../../services/ok/okAccess';
+import { okBridgeReady } from '../../services/ok/okAccess';
 import { clampMasterVolume } from '../../stores/useLiveSettingsStore';
 import { useAudioSettingsStore } from '../../stores/useAudioSettingsStore';
 import {
     getWorkPlayback,
     playWork,
-    SAMPLE_WORK_ID,
     setHarmony,
     setKaraoke,
     setLoopOne,
@@ -18,7 +17,9 @@ import {
     subscribeWorkPlayback,
     toggleWorkPlayback,
 } from '../../services/multitrack/workPlayback';
+import { startWorksLibrary, workById } from '../../services/multitrack/worksLibrary';
 import StemMixPanel from '../multitrack/StemMixPanel';
+import WorksLibraryPanel from '../multitrack/WorksLibraryPanel';
 import WorkTransport from '../multitrack/WorkTransport';
 import { getOkPanel, setOkPanel, subscribeOkPanel } from './okPanels';
 import { startLiveSession } from '../../services/live/liveSession';
@@ -42,15 +43,16 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
     const ready = okBridgeReady();
     const panel = useSyncExternalStore(subscribeOkPanel, getOkPanel, () => null);
     const playback = useSyncExternalStore(subscribeWorkPlayback, getWorkPlayback, getWorkPlayback);
-    const [work, setWork] = useState<Work | null>(null);
 
     useEffect(() => {
         if (!ready) return undefined;
         const stopPlayback = startWorkPlayback();
         const stopLive = startLiveSession();
+        const stopWorks = startWorksLibrary();
         return () => {
             stopPlayback();
             stopLive();
+            stopWorks();
         };
     }, [ready]);
 
@@ -65,24 +67,26 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
 
     if (!ready) return null;
 
-    const open = panel === 'stems';
+    const open = panel === 'stems' || panel === 'works';
     const shell = isDaylight ? 'border-black/10 bg-white/95 text-neutral-900' : 'border-white/15 bg-neutral-950/92 text-neutral-100';
 
-    const playSample = async () => {
-        const bridge = readOkBridge();
-        if (!bridge) return;
-        const listed = await bridge.works.list();
-        const found = listed.ok ? listed.value.find(item => item.id === SAMPLE_WORK_ID) ?? null : null;
-        setWork(found);
-        await playWork(SAMPLE_WORK_ID, { master: masterOf(), loopOne: useAudioSettingsStore.getState().loopMode === 'one' });
+    const play = (work: Work) => {
+        void playWork(work.id, { master: masterOf(), loopOne: useAudioSettingsStore.getState().loopMode === 'one' });
     };
 
-    const shown = work && playback.workId === work.id ? work : null;
+    const shown = workById(playback.workId);
 
     return (
         <div className="pointer-events-none fixed bottom-4 left-4 z-[60] flex flex-col items-start gap-2" style={{ ['--ok-accent' as string]: accentColor }}>
             <LiveBar isDaylight={isDaylight} karaoke={playback.karaoke} />
             <div className="flex items-end gap-3">
+            <button
+                type="button"
+                className={`pointer-events-auto rounded-full border px-3 py-1.5 text-xs shadow-lg ${shell}`}
+                onClick={() => setOkPanel(panel === 'works' ? null : 'works')}
+            >
+                {t('ok.works.title')}
+            </button>
             <button
                 type="button"
                 className={`pointer-events-auto rounded-full border px-3 py-1.5 text-xs shadow-lg ${shell}`}
@@ -96,13 +100,22 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
                     className={`pointer-events-auto flex max-h-[70vh] w-[22rem] flex-col gap-4 overflow-y-auto rounded-2xl border p-4 shadow-2xl ${shell}`}
                 >
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-medium">{t('ok.stems')}</h2>
+                        <h2 className="text-sm font-medium">{panel === 'works' ? t('ok.works.title') : t('ok.stems')}</h2>
                         <button type="button" className="text-xs opacity-70" onClick={() => setOkPanel(null)}>{t('ok.close')}</button>
                     </div>
                     {playback.error && (
                         <p className="text-xs text-red-500" role="alert">{t(`ok.errors.${playback.error.code}`, playback.error.code)}</p>
                     )}
-                    {shown && playback.workId === shown.id ? (
+                    {!shown && panel === 'stems' && <p className="text-xs opacity-70">{t('ok.works.pick')}</p>}
+                    {panel === 'works' && (
+                        <WorksLibraryPanel
+                            isDaylight={isDaylight}
+                            playingId={playback.workId}
+                            error={playback.error}
+                            onPlay={play}
+                        />
+                    )}
+                    {shown && (
                         <WorkTransport
                             isDaylight={isDaylight}
                             playback={playback}
@@ -111,10 +124,6 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
                             artist={shown.artist}
                             onToggle={() => { void toggleWorkPlayback(); }}
                         />
-                    ) : (
-                        <button type="button" className="self-start rounded-full bg-[var(--ok-accent)] px-3 py-1 text-xs text-white" onClick={() => { void playSample(); }}>
-                            {t('ok.playSample')}
-                        </button>
                     )}
                     <StemMixPanel
                         isDaylight={isDaylight}

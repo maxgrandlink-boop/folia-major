@@ -1,6 +1,8 @@
 import type { CommandPaletteCommand } from '../types';
 import { defineCommand, createToggleCommand, createHomeTabCommand } from '../commandFactories';
 import { omni } from '../../../services/onlineMusic/omni';
+import { okBridgeReady } from '../../../services/ok/okAccess';
+import { toggleOkPanel } from '../../ok/okPanels';
 
 // src/components/command-palette/commands/navigationCommands.ts
 // Commands in the `navigation` group: moving between home tabs, the player, and window-level views.
@@ -69,5 +71,17 @@ export const navigationCommands: CommandPaletteCommand[] = [
         isAvailable: (context) => !context?.navigation.isWallpaperMode
             && context?.navigation.isWindowAlwaysOnTopSupported !== false,
         execute: (_input, context) => context.navigation.toggleMainWindowAlwaysOnTop(),
-    }
+    },
+    defineCommand({
+        id: 'ok-works',
+        group: 'navigation',
+        title: 'Works library',
+        description: 'Open multitrack works, including folders that were skipped',
+        keywords: ['multitrack works', 'skipped folders', '作品', '作品库'],
+        isAvailable: context => !context || okBridgeReady(),
+        execute: () => {
+            toggleOkPanel('works');
+            return true;
+        },
+    }),
 ];
