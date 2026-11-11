@@ -1,0 +1,3 @@
+/* Pin live meters and hide the cover elapsed clock so baselines do not move between frames. */
+[data-ok-meter-fill] { transform: scaleX(0.45) !important; }
+[data-ok-elapsed] { visibility: hidden !important; }

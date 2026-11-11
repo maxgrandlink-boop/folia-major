@@ -9,6 +9,8 @@ import type { CommandPaletteCommand, CommandPaletteContext } from '../types';
 import { createToggleCommand, createReplayGainCommand, createSoundPresetCommand, defineCommand } from '../commandFactories';
 import { canShuffleQueue } from '../../../utils/playbackNeighbors';
 import { undoFoliumQueueReplace, useFoliumQueueUndoStore } from '../../../mods/runtime/queue/queueReplaceUndo';
+import { okBridgeReady } from '../../../services/ok/okAccess';
+import { toggleOkPanel } from '../../ok/okPanels';
 
 // src/components/command-palette/commands/playbackCommands.ts
 // Commands in the `playback` group: transport, queue, volume, Personal FM mode, ReplayGain, and
@@ -227,5 +229,17 @@ export const playbackCommands: CommandPaletteCommand[] = [
         keywords: ['instrumental', 'pure music', 'no lyrics', '纯音乐', '标记纯音乐', '取消纯音乐', '无歌词'],
         icon: Piano,
         execute: (_input, context) => context.playback.toggleCurrentSongPureMusicMark(),
-    }
+    },
+    defineCommand({
+        id: 'ok-stems',
+        group: 'playback',
+        title: 'Stem mix',
+        description: 'Open per-track volume, mute and a cappella',
+        keywords: ['multitrack', 'track gain', 'a cappella', '分轨', '清唱'],
+        isAvailable: context => !context || okBridgeReady(),
+        execute: () => {
+            toggleOkPanel('stems');
+            return true;
+        },
+    }),
 ];

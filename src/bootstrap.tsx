@@ -112,9 +112,10 @@ const bootNavidrome = async () => {
 };
 
 // allSettled：mod 加载失败也要等预置写完再渲染，失败原因单独打出来，不吞掉。
-// ok唱歌 W1 的 mock 只在开发构建里、并且显式 VITE_OK_MOCK=true 时才加载；默认这两个启动项不变。
+// ok唱歌 W1 的 mock 只在开发构建里加载：显式 VITE_OK_MOCK=true，或地址带 ?okMock（界面截图用）。默认这两个启动项不变。
 const boots: Array<Promise<unknown>> = [bootFolium(), bootNavidrome()];
-if (import.meta.env.DEV && (import.meta.env as { VITE_OK_MOCK?: string }).VITE_OK_MOCK === 'true') {
+const okMockQuery = typeof location !== 'undefined' && new URLSearchParams(location.search).has('okMock');
+if (import.meta.env.DEV && ((import.meta.env as { VITE_OK_MOCK?: string }).VITE_OK_MOCK === 'true' || okMockQuery)) {
     boots.push(import('./services/okMock/installOkMock').then(({ installOkMock }) => {
         installOkMock();
     }));

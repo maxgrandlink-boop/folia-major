@@ -10,6 +10,7 @@ import * as home from './HomePage';
 import * as integration from './IntegrationPage';
 import * as interaction from './InteractionPage';
 import * as lyrics from './LyricsPage';
+import * as live from './LivePage';
 import * as mods from './ModsPage';
 import * as playback from './PlaybackPage';
 import * as player from './PlayerPage';
@@ -27,6 +28,7 @@ const PAGE_MODULES: Record<SettingsSectionId, PageModule> = {
     player,
     home,
     playback,
+    live,
     lyrics,
     general,
     interaction,
