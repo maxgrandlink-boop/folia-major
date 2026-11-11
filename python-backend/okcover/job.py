@@ -4,6 +4,7 @@ import sys
 from okcover.classify import from_exception, judge
 from okcover.config import check_paths, load, scrub_network_env, write_backend
 from okcover.errors import OkcError
+from okcover.finalize import build_work
 from okcover.hooks import HookState, install
 from okcover.model_guard import check_model
 from okcover.protocol import emit, hello_payload, result_error, result_success
@@ -60,10 +61,25 @@ def run(proto, config_path, backend_dir):
             ctx['mode'], verdict.code, verdict.message, raw=raw, separator=ctx['separator'], reverb=verdict.reverb,
         ))
         return 1
+    try:
+        _stage(proto, 'finalize', 0, ctx['separator'])
+        built = build_work(cfg, verdict, backend_dir)
+        _stage(proto, 'finalize', 100, ctx['separator'])
+    except OkcError as exc:
+        _emit(proto, gate, result_error(
+            ctx['mode'], exc.code, exc.message, raw=raw, separator=ctx['separator'], reverb=verdict.reverb,
+        ))
+        return 1
     _emit(proto, gate, result_success(
-        ctx['mode'], ctx['separator'], raw, reverb=verdict.reverb,
+        ctx['mode'], ctx['separator'], raw,
+        work_dir=built['work_dir'], tracks=built['tracks'], reverb=verdict.reverb,
     ))
     return 0
+
+
+def _stage(proto, stage, pct, separator):
+    payload = {'type': 'progress', 'stage': stage, 'pct': pct, 'separator': separator}
+    emit(proto, payload)
 
 
 def _emit(proto, gate, payload):

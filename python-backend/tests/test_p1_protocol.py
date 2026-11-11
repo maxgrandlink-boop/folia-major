@@ -65,7 +65,10 @@ def _ready(tmp, **overrides):
     src.write_bytes(b'present')
     ffmpeg = root / 'ffmpeg' / 'bin' / 'ffmpeg'
     ffmpeg.parent.mkdir(parents=True, exist_ok=True)
-    ffmpeg.write_bytes(b'')
+    if os.path.isfile('/usr/bin/ffmpeg'):
+        ffmpeg.symlink_to('/usr/bin/ffmpeg')
+    else:
+        ffmpeg.write_bytes(b'')
     cfg = root / 'okc_config.json'
     _config(cfg, model=str(model), sha=digest, src=str(src), **overrides)
     return cfg
