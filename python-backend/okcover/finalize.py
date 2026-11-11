@@ -115,15 +115,20 @@ def _stereo(frames):
     return np.asarray(frames[:, :2], dtype=np.float64)
 
 
-def _write_folder(cfg, vocal, instrumental, original):
-    work_dir = cfg['finalize']['work_dir']
-    os.makedirs(work_dir, exist_ok=True)
-    base = os.path.basename(os.path.normpath(work_dir))
-    names = {
+def track_filenames(base):
+    """作品文件名按 2.5，不带括号。PB 自己的中间文件仍是 (人声).wav 那套。"""
+    return {
         'vocal': '%s人声.wav' % base,
         'instrumental': '%s伴奏.wav' % base,
         'original': '%s原声.wav' % base,
     }
+
+
+def _write_folder(cfg, vocal, instrumental, original):
+    work_dir = cfg['finalize']['work_dir']
+    os.makedirs(work_dir, exist_ok=True)
+    base = os.path.basename(os.path.normpath(work_dir))
+    names = track_filenames(base)
     arrays = {'vocal': vocal, 'instrumental': instrumental, 'original': original}
     tracks = {}
     for role, name in names.items():
