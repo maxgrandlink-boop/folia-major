@@ -8,7 +8,7 @@ import { filterPonderIndex } from '@/utils/ponder/ponderIndexFilter';
 type Lesson = { id: string; text: string };
 
 const groups: { category: 'basics' | 'playback'; targets: Lesson[] }[] = [
-    { category: 'basics', targets: [{ id: 'help-page', text: 'Getting to know Folia' }, { id: 'settings-page', text: 'Options page How settings are grouped' }] },
+    { category: 'basics', targets: [{ id: 'help-page', text: 'Getting to know ok唱歌' }, { id: 'settings-page', text: 'Options page How settings are grouped' }] },
     { category: 'playback', targets: [{ id: 'player-bar', text: 'Bottom control bar What is on the capsule' }, { id: 'queue-shuffle', text: 'Where is shuffle The queue instead' }] },
 ];
 const seen = new Set(['help-page', 'player-bar']);

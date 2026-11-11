@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, useMemo, lazy, Suspense } fro
 import { AnimatePresence, motion, useMotionValueEvent } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft } from 'lucide-react';
+import { catalogSearchSource } from './product/okChang';
 import { loadCachedOrFetchCover } from './services/coverCache';
 import VisualizerRenderer from './components/visualizer/VisualizerRenderer';
 import CommandPalette from './components/command-palette/CommandPalette';
@@ -1704,11 +1705,11 @@ export default function App() {
     const toggleDaylightMode = useCallback(() => {
         handleToggleDaylight(!isDaylight);
     }, [handleToggleDaylight, isDaylight]);
-    const currentSearchSourceTabInPalette = useMemo(() => resolveCommandPaletteSearchSource(
+    const currentSearchSourceTabInPalette = useMemo(() => catalogSearchSource(resolveCommandPaletteSearchSource(
         currentSong,
         searchSourceTab,
         activeProviderId,
-    ), [activeProviderId, currentSong, searchSourceTab]);
+    )), [activeProviderId, currentSong, searchSourceTab]);
     const toggleBrowserFullscreen = useCallback(async () => {
         if (typeof window !== 'undefined' && window.electron?.toggleFullscreenWindow) {
             return window.electron.toggleFullscreenWindow();

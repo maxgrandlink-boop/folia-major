@@ -2,6 +2,7 @@ import React from 'react';
 import { Plug } from 'lucide-react';
 import type { BravaisHomeAccount } from './bravaisHomeModels';
 import BravaisProviderAvatar from './BravaisProviderAvatar';
+import { onlineCatalogUiEnabled } from '../../../product/okChang';
 import './bravaisAccount.css';
 
 // src/library/suites/bravais/BravaisSeamAccountSwitcher.tsx
@@ -17,6 +18,7 @@ const BravaisSeamAccountSwitcher: React.FC<{
     /** 横的首页窄缝的测量副本：同样的尺寸，不带按钮、data 属性与可访问名（BravaisSeamHomeRow 量宽度用）。 */
     measure?: boolean;
 }> = ({ account, compact, measure = false }) => {
+    if (!onlineCatalogUiEnabled) return null;
     const status = [account.providerLabel, account.detail].filter(Boolean).join(' · ');
     const label = `${account.guest ? account.connectLabel : account.toggleLabel} · ${status}`;
     const picture = account.guest

@@ -2,6 +2,7 @@ import { Radio } from 'lucide-react';
 import { defineCommand } from '../commandFactories';
 import { fmModeSurface } from '../surfaces/fmModeSurface';
 import { getPersonalFmSelectionLabel } from '../../../services/onlineMusic/fmModes';
+import { onlineCatalogUiEnabled } from '../../../product/okChang';
 import type { CommandPaletteCommand } from '../types';
 
 // src/components/command-palette/commands/fmModeCommand.ts
@@ -22,7 +23,7 @@ export const fmModeCommand: CommandPaletteCommand = defineCommand({
     icon: Radio,
     surface: fmModeSurface,
     requiresInput: true,
-    isAvailable: context => context?.playback.isPersonalFmModeSupported ?? false,
+    isAvailable: context => !context || (onlineCatalogUiEnabled && Boolean(context.playback.isPersonalFmModeSupported)),
     placeholder: context => context.shared.t('commandPalette.fmModeFilterPlaceholder', 'Type to filter modes and scenes'),
     getPreview: (_input, context) => getPersonalFmSelectionLabel(context.playback.personalFmSelection, context.shared.t, context.playback.personalFmCatalog),
     execute: () => false,

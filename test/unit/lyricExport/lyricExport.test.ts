@@ -259,7 +259,7 @@ describe('buildLyricExportArchive', () => {
             new Date(2026, 0, 2, 3, 4, 5),
         );
 
-        expect(archive.fileName).toBe('folia-lyrics-2026-01-02-03-04-05.zip');
+        expect(archive.fileName).toBe('ok唱歌-lyrics-2026-01-02-03-04-05.zip');
         const files = unzipSync(new Uint8Array(await archive.blob.arrayBuffer()));
         expect(Object.keys(files).sort()).toEqual([
             'fia/online/T - A (2).fia',

@@ -11,6 +11,7 @@ import {
 import { chooseLibrarySuite, listLibrarySuiteOptions, useActiveLibrarySuiteId } from '../../../../library/app/librarySuiteChoice';
 import { isGridLibraryActive, useIsGridLibraryActive } from '../../../../library/app/gridLibraryActive';
 import { hasLibrarySuiteChoice } from '../../../../library/registry';
+import { onlineCatalogUiEnabled } from '../../../../product/okChang';
 import { omni } from '../../../../services/onlineMusic/omni';
 import { useGridViewSettingsStore } from '../../../../stores/useGridViewSettingsStore';
 import { useHomeLayoutSettingsStore } from '../../../../stores/useHomeLayoutSettingsStore';
@@ -36,10 +37,10 @@ const GRID_ONLY = { available: isGridLibraryActive };
 const O = {
     suite: option(SUITE, 'librarySuiteChoice', 'options.librarySuite'),
     tabs: option(HOME, 'homeTabsVisibility', 'options.homeTabsVisibility'),
-    tabPlaylist: option(HOME, 'showHomeTabPlaylist', 'options.showHomeTabPlaylist'),
-    tabRadio: option(HOME, 'showHomeTabRadio', 'options.showHomeTabRadio'),
-    tabExplore: option(HOME, 'showHomeTabExplore', 'options.showHomeTabExplore'),
-    tabAlbums: option(HOME, 'showHomeTabAlbums', 'options.showHomeTabAlbums'),
+    tabPlaylist: option(HOME, 'showHomeTabPlaylist', 'options.showHomeTabPlaylist', { available: () => onlineCatalogUiEnabled }),
+    tabRadio: option(HOME, 'showHomeTabRadio', 'options.showHomeTabRadio', { available: () => onlineCatalogUiEnabled }),
+    tabExplore: option(HOME, 'showHomeTabExplore', 'options.showHomeTabExplore', { available: () => onlineCatalogUiEnabled }),
+    tabAlbums: option(HOME, 'showHomeTabAlbums', 'options.showHomeTabAlbums', { available: () => onlineCatalogUiEnabled }),
     tabLocal: option(HOME, 'showHomeTabLocal', 'options.showHomeTabLocal'),
     cardStyle: option(HOME, 'grid3dCardStyle', 'options.grid3dCardStyle', GRID_ONLY),
     rememberPosition: option(HOME, 'rememberHomeCardPosition', 'options.rememberHomeCardPosition', GRID_ONLY),
@@ -108,10 +109,12 @@ const HomePage: React.FC = () => {
                 <Row option={O.tabs}>
                     <Chips
                         items={[
-                            { id: O.tabPlaylist.id, label: t('home.playlists'), checked: home.tabPlaylist, onChange: home.setTabPlaylist },
-                            { id: O.tabRadio.id, label: t('home.radio'), checked: home.tabRadio, onChange: home.setTabRadio },
-                            { id: O.tabExplore.id, label: t('home.explore'), checked: home.tabExplore, onChange: home.setTabExplore, disabled: !hasExplore },
-                            { id: O.tabAlbums.id, label: t('home.albums'), checked: home.tabAlbums, onChange: home.setTabAlbums },
+                            ...(onlineCatalogUiEnabled ? [
+                                { id: O.tabPlaylist.id, label: t('home.playlists'), checked: home.tabPlaylist, onChange: home.setTabPlaylist },
+                                { id: O.tabRadio.id, label: t('home.radio'), checked: home.tabRadio, onChange: home.setTabRadio },
+                                { id: O.tabExplore.id, label: t('home.explore'), checked: home.tabExplore, onChange: home.setTabExplore, disabled: !hasExplore },
+                                { id: O.tabAlbums.id, label: t('home.albums'), checked: home.tabAlbums, onChange: home.setTabAlbums },
+                            ] : []),
                             { id: O.tabLocal.id, label: t('localMusic.folder'), checked: home.tabLocal, onChange: home.setTabLocal },
                         ]}
                     />

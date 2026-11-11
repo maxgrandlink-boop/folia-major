@@ -87,7 +87,7 @@ describe('searchSettings', () => {
     });
 
     it('never surfaces what the platform does not show', () => {
-        expect(hitsFor('模组').map(hit => hit.sectionId)).toContain('mods');
+        expect(hitsFor('模组').map(hit => hit.sectionId)).not.toContain('mods');
         expect(hitsFor('模组', webEntries).map(hit => hit.sectionId)).not.toContain('mods');
 
         expect(hitsFor('AI 供应商').map(hit => hit.targetId)).toContain('aiProvider');

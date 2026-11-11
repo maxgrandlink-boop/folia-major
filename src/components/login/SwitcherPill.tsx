@@ -26,9 +26,11 @@ type SwitcherPillProps = {
     /** 平台和它们的账号来自账户 controller。 */
     account: LibraryAccountController;
     onBackToPlayer: () => void;
+    /** ok唱歌 关掉在线曲库入口时只留返回播放器。默认开着，资料库首页传入产品开关。 */
+    showPlatform?: boolean;
 };
 
-const SwitcherPill: React.FC<SwitcherPillProps> = ({ account, onBackToPlayer }) => {
+const SwitcherPill: React.FC<SwitcherPillProps> = ({ account, onBackToPlayer, showPlatform = true }) => {
     const { t } = useTranslation();
     const { providers, activeProviderId } = useLibraryAccountProviders(account);
     const { isDaylight, theme } = useSettingsKitTheme();
@@ -115,7 +117,7 @@ const SwitcherPill: React.FC<SwitcherPillProps> = ({ account, onBackToPlayer }) 
             style={{ ...settingsTokens(isDaylight, theme), ...kitMotionTokens(reduced), '--login-edge': 'var(--st-menu)' } as React.CSSProperties}
         >
             <div className="flex items-center rounded-[26px] bg-[var(--st-menu)] p-0.5 text-[color:var(--st-t1)] shadow-lg md:p-1.5">
-                <Tooltip text={t('home.switchOnlineProvider')} className="inline-flex">
+                {showPlatform && <Tooltip text={t('home.switchOnlineProvider')} className="inline-flex">
                     <button
                         type="button"
                         onClick={event => openLoginWindow(provider.providerId, event.currentTarget.querySelector('[data-login-pill]'))}
@@ -132,8 +134,8 @@ const SwitcherPill: React.FC<SwitcherPillProps> = ({ account, onBackToPlayer }) 
                             {providerDisplayName(t, provider)}
                         </span>
                     </button>
-                </Tooltip>
-                <span className="mx-1.5 hidden h-6 w-px bg-[var(--st-line2)] md:block" aria-hidden="true" />
+                </Tooltip>}
+                {showPlatform && <span className="mx-1.5 hidden h-6 w-px bg-[var(--st-line2)] md:block" aria-hidden="true" />}
                 <Tooltip text={t('home.backToPlayer')} className="hidden md:inline-flex">
                     <button
                         type="button"

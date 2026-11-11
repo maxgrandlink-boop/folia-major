@@ -129,8 +129,9 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
     // 只在页面开着时看：启动时本地曲库还没读完，那时的「没有歌」不作数。
     useEffect(() => {
         if (!isSearchOpen) return;
-        const fellBack = useSearchNavigationStore.getState().keepSearchSourceWithin(sources, activeProviderId);
-        if (fellBack && submittedQuery.trim()) onSubmitSearch(activeProviderId);
+        const fallbackSource = sources.includes(activeProviderId) ? activeProviderId : (sources[0] ?? 'local');
+        const fellBack = useSearchNavigationStore.getState().keepSearchSourceWithin(sources, fallbackSource);
+        if (fellBack && submittedQuery.trim()) onSubmitSearch(fallbackSource);
     }, [activeProviderId, isSearchOpen, onSubmitSearch, sources, submittedQuery]);
 
     useEffect(() => {

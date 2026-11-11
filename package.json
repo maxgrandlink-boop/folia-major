@@ -1,6 +1,6 @@
 {
   "name": "folia-major",
-  "productName": "Folia",
+  "productName": "ok唱歌",
   "desktopName": "folia-major.desktop",
   "description": "Lyrics Reimagine",
   "author": {
@@ -63,8 +63,8 @@
     "manual:ai-probe": "node test/manual/ai_probe.mjs"
   },
   "build": {
-    "appId": "top.izuna.foliamajor",
-    "productName": "Folia",
+    "appId": "com.okchang.app",
+    "productName": "ok唱歌",
     "beforePack": "build/beforePack.cjs",
     "afterPack": "build/afterPack.cjs",
     "electronLanguages": [
@@ -81,7 +81,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "chthollyphile",
+        "owner": "maxgrandlink-boop",
         "repo": "folia-major"
       }
     ],

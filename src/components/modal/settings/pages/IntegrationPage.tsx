@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { onlineCatalogUiEnabled } from '../../../../product/okChang';
 import { usePlaybackReportReady } from '../../../../services/onlineMusic/playbackReportGate';
 import { useAudioSettingsStore } from '../../../../stores/useAudioSettingsStore';
 import { usePlayerChromeSettingsStore } from '../../../../stores/usePlayerChromeSettingsStore';
@@ -58,13 +59,15 @@ const IntegrationPage: React.FC = () => {
                         </Reveal>
                     </>
                 )}
-                <Row
-                    option={O.scrobble}
-                    hint={t(canScrobble ? 'options.neteaseScrobbleDesc' : 'options.neteaseScrobbleSignInHint')}
-                    disabled={!canScrobble}
-                >
-                    <Toggle checked={scrobbleEnabled} onChange={setScrobbleEnabled} />
-                </Row>
+                {onlineCatalogUiEnabled && (
+                    <Row
+                        option={O.scrobble}
+                        hint={t(canScrobble ? 'options.neteaseScrobbleDesc' : 'options.neteaseScrobbleSignInHint')}
+                        disabled={!canScrobble}
+                    >
+                        <Toggle checked={scrobbleEnabled} onChange={setScrobbleEnabled} />
+                    </Row>
+                )}
             </Group>
 
             <Group def={STREAMING}>

@@ -1,3 +1,4 @@
+import { onlineCatalogUiEnabled } from '../../../../../product/okChang';
 import { option, type SettingsGroupDef } from '../../kit';
 
 // src/components/modal/settings/pages/integration/options.ts
@@ -18,7 +19,7 @@ export const O = {
     syncUrl: option(SERVICES, 'r2SyncWorkerUrl', 'options.r2SyncWorkerUrl'),
     syncToken: option(SERVICES, 'r2SyncToken', 'options.r2SyncToken'),
     discord: option(SERVICES, 'discordRichPresence', 'options.discordRichPresence', { electronOnly: true }),
-    scrobble: option(SERVICES, 'scrobbleSettings', 'options.neteaseScrobble'),
+    scrobble: option(SERVICES, 'scrobbleSettings', 'options.neteaseScrobble', { available: () => onlineCatalogUiEnabled }),
     transparentBackground: option(STREAMING, 'transparentPlayerBackground', 'options.transparentPlayerBackground'),
     obs: option(STREAMING, 'obsBrowserSource', 'options.obsBrowserSource', { electronOnly: true }),
     obsKeepAnimation: option(STREAMING, 'obsKeepMainWindowAnimation', 'options.obsKeepMainWindowAnimation', { electronOnly: true }),

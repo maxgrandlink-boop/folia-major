@@ -25,7 +25,7 @@ export interface SettingsSectionAvailability {
 export const getAvailableSettingsSectionIds = ({ isElectron }: SettingsSectionAvailability): SettingsSectionId[] => (
     SETTINGS_NAV_GROUP_SPECS
         .flatMap(group => group.sections)
-        .filter(section => !section.electronOnly || isElectron)
+        .filter(section => (!section.electronOnly || isElectron) && (section.enabled?.() ?? true))
         .map(section => section.id)
 );
 

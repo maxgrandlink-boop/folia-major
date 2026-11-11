@@ -155,8 +155,8 @@ describe('HiFi PipeWire texts', () => {
 
     it('says the PipeWire step is only what PipeWire reports, that Folia cannot confirm what the DAC receives, and points at the DAC or the ears', () => {
         const footnote = textsOf('hifi.signal.system.footnote');
-        expect(footnote.en).toBe("This is what PipeWire reports. Folia can only read what PipeWire reports and cannot confirm what your DAC receives: check your DAC's sample-rate indicator, or listen.");
-        expect(footnote['zh-CN']).toBe('以上是 PipeWire 报告的状态。Folia 只读得到 PipeWire 报的内容，确认不了 DAC 实际收到的采样率：请看 DAC 的采样率指示，或者用耳朵听。');
+        expect(footnote.en).toBe("This is what PipeWire reports. ok唱歌 can only read what PipeWire reports and cannot confirm what your DAC receives: check your DAC's sample-rate indicator, or listen.");
+        expect(footnote['zh-CN']).toBe('以上是 PipeWire 报告的状态。ok唱歌 只读得到 PipeWire 报的内容，确认不了 DAC 实际收到的采样率：请看 DAC 的采样率指示，或者用耳朵听。');
         expect(footnote.in).toMatch(/hanya bisa membaca laporan PipeWire/);
         expect(footnote.in).toMatch(/tidak bisa memastikan apa yang diterima DAC/);
         expect(footnote.in).toMatch(/indikator laju sampel DAC/);

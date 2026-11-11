@@ -11,6 +11,7 @@ import { loginDoneLanding, loginDonePlays } from './done/loginDoneFrame';
 import { createLoginHostState } from './loginHostState';
 import { closeLoginWindow, loginHostMounted, setLoginLanding, useLoginWindowStore } from './loginWindowStore';
 import { orderRows } from './platformRows';
+import { onlineCatalogUiEnabled } from '../../product/okChang';
 import LoginScreen from './window/LoginScreen';
 
 // src/components/login/LoginHost.tsx
@@ -25,7 +26,11 @@ type LoginHostProps = {
 
 const selectCompletion = (snapshot: LibraryAccountSnapshot) => snapshot.lastLoginCompletion;
 
-const LoginHost: React.FC<LoginHostProps> = ({ account }) => {
+const LoginHost: React.FC<LoginHostProps> = ({ account }) => (
+    onlineCatalogUiEnabled ? <LoginHostBody account={account} /> : null
+);
+
+const LoginHostBody: React.FC<LoginHostProps> = ({ account }) => {
     const requestId = useLoginWindowStore(state => state.requestId);
     const isOpen = useLoginWindowStore(state => state.isOpen);
     const origin = useLoginWindowStore(state => state.origin);

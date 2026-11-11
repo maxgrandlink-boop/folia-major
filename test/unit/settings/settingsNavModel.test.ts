@@ -12,9 +12,11 @@ import id from '../../../src/i18n/locales/in';
 
 const echo = (key: string) => key;
 
-const ALL_SECTIONS: SettingsSectionId[] = [
-    'appearance', 'player', 'home', 'playback', 'lyrics', 'general', 'interaction', 'integration', 'storage', 'desktop', 'graphics', 'mods', 'developer',
+// mods stays a real section (its page and anchors remain) but ok唱歌 leaves Folium off, so the sidebar omits it.
+const SIDEBAR_SECTIONS: SettingsSectionId[] = [
+    'appearance', 'player', 'home', 'playback', 'lyrics', 'general', 'interaction', 'integration', 'storage', 'desktop', 'graphics', 'developer',
 ];
+const ALL_SECTIONS: SettingsSectionId[] = [...SIDEBAR_SECTIONS.slice(0, 11), 'mods', 'developer'];
 
 const lookup = (bundle: Record<string, unknown>, key: string): unknown => (
     key.split('.').reduce<unknown>((node, part) => (
@@ -25,7 +27,8 @@ const lookup = (bundle: Record<string, unknown>, key: string): unknown => (
 describe('settingsNavModel', () => {
     it('lists every section exactly once on desktop, in side-list order', () => {
         const ids = flattenSettingsNavItems(buildSettingsNavGroups(echo, { isElectron: true })).map(item => item.id);
-        expect(ids).toEqual(ALL_SECTIONS);
+        expect(ids).toEqual(SIDEBAR_SECTIONS);
+        expect(ids).not.toContain('mods');
     });
 
     it('drops desktop-only sections on web without leaving an empty group', () => {
@@ -34,13 +37,13 @@ describe('settingsNavModel', () => {
 
         expect(ids).not.toContain('desktop');
         expect(ids).not.toContain('mods');
-        expect(ids).toHaveLength(ALL_SECTIONS.length - 2);
+        expect(ids).toHaveLength(SIDEBAR_SECTIONS.length - 1);
         expect(groups.every(group => group.items.length > 0)).toBe(true);
     });
 
     it('resolves a nav item for every section id', () => {
         const groups = buildSettingsNavGroups(echo, { isElectron: true });
-        for (const sectionId of ALL_SECTIONS) {
+        for (const sectionId of SIDEBAR_SECTIONS) {
             expect(findSettingsNavItem(groups, sectionId)?.id).toBe(sectionId);
         }
     });
