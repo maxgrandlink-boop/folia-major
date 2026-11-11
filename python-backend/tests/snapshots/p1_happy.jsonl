@@ -1,0 +1,9 @@
+{"type":"progress","stage":"convert_input","pct":0}
+{"type":"progress","stage":"convert_input","pct":100}
+{"type":"progress","stage":"separate","pct":0,"separator":"builtin"}
+{"type":"progress","stage":"separate","pct":100,"separator":"builtin"}
+{"type":"progress","stage":"save","pct":0,"separator":"builtin"}
+{"type":"progress","stage":"save","pct":100,"separator":"builtin"}
+{"type":"progress","stage":"convert_voice","pct":null,"separator":"builtin"}
+{"type":"progress","stage":"convert_voice","pct":null,"separator":"builtin"}
+{"type":"result","schema_version":2,"status":"success","mode":"library","separator":"builtin","work_dir":null,"tracks":null,"dropped":{"reverb":null},"raw":{"status":"success","svc_outputs":[{"original_input_path":"<job>/out/vocal.wav","svc_output_path":"<job>/out/vocal.wav","status":"success"}],"msst_outputs":{"song":{"伴奏":"<job>/out/inst.wav","原唱":"<job>/out/orig.wav"}}}}
