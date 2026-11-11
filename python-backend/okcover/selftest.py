@@ -1,5 +1,6 @@
 import os
 
+from okcover.config import find_ffmpeg
 from okcover.protocol import emit, hello_payload, result_error, result_success
 
 # --selftest：不导入 process_pipeline（它会改 torch.load 并 chdir）。失败码 COMPONENT_MISSING。
@@ -29,7 +30,7 @@ def run(proto, backend_dir):
         path = os.path.join(backend_dir, rel)
         if not os.path.isfile(path):
             problems.append('缺少 %s' % rel)
-    if _ffmpeg(backend_dir) is None:
+    if find_ffmpeg(backend_dir) is None:
         problems.append('缺少 ffmpeg/bin/ffmpeg')
     if problems:
         emit(proto, result_error('library', 'COMPONENT_MISSING', '; '.join(problems)))
@@ -45,11 +46,3 @@ def _import_torch():
         return None
     return torch
 
-
-def _ffmpeg(backend_dir):
-    bindir = os.path.join(backend_dir, 'ffmpeg', 'bin')
-    for name in ('ffmpeg.exe', 'ffmpeg'):
-        path = os.path.join(bindir, name)
-        if os.path.isfile(path):
-            return path
-    return None
