@@ -142,6 +142,12 @@ describe('cover protocol', () => {
             cancelRequested: false,
             cudaSeen: true,
         }).error_code).toBe('CUDA_OOM');
+        expect(protocol.classifyCoverOutput({
+            records: [{ kind: 'text', text: 'CUDA out of memory' }],
+            exitCode: 130,
+            cancelRequested: true,
+            cudaSeen: true,
+        }).error_code).toBe('CANCELLED');
     });
 });
 
