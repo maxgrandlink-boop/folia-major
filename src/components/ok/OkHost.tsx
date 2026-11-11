@@ -21,6 +21,8 @@ import {
 import StemMixPanel from '../multitrack/StemMixPanel';
 import WorkTransport from '../multitrack/WorkTransport';
 import { getOkPanel, setOkPanel, subscribeOkPanel } from './okPanels';
+import { startLiveSession } from '../../services/live/liveSession';
+import LiveBar from '../live/LiveBar';
 
 // src/components/ok/OkHost.tsx
 // ok唱歌 界面的装配点。没有桥就不画。分轨面板是第一块；直播条、作品库、翻唱从这里往上加。
@@ -44,7 +46,12 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
 
     useEffect(() => {
         if (!ready) return undefined;
-        return startWorkPlayback();
+        const stopPlayback = startWorkPlayback();
+        const stopLive = startLiveSession();
+        return () => {
+            stopPlayback();
+            stopLive();
+        };
     }, [ready]);
 
     useEffect(() => {
@@ -73,7 +80,9 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
     const shown = work && playback.workId === work.id ? work : null;
 
     return (
-        <div className="pointer-events-none fixed bottom-4 left-4 z-[60] flex items-end gap-3" style={{ ['--ok-accent' as string]: accentColor }}>
+        <div className="pointer-events-none fixed bottom-4 left-4 z-[60] flex flex-col items-start gap-2" style={{ ['--ok-accent' as string]: accentColor }}>
+            <LiveBar isDaylight={isDaylight} karaoke={playback.karaoke} />
+            <div className="flex items-end gap-3">
             <button
                 type="button"
                 className={`pointer-events-auto rounded-full border px-3 py-1.5 text-xs shadow-lg ${shell}`}
@@ -121,6 +130,7 @@ const OkHost: React.FC<OkHostProps> = ({ isDaylight, accentColor }) => {
                     />
                 </div>
             )}
+            </div>
         </div>
     );
 };

@@ -6,6 +6,25 @@ export default {
     "stems": "Track",
     "close": "Đóng",
     "playSample": "Phát 暗号",
+    "live": {
+      "switching": "Đang chuyển",
+      "smartReverb": "Vang thông minh",
+      "mic": "Mic",
+      "gate": "Cổng",
+      "mode": {
+        "speech": "Nói",
+        "reverb-speech": "Nói có vang",
+        "ai-follow": "AI hát theo",
+        "ai-sing": "AI hát"
+      },
+      "connection": {
+        "connected": "Đã kết nối",
+        "absent": "Chưa kết nối",
+        "abi-mismatch": "Lệch phiên bản",
+        "duplicate": "Trùng plugin"
+      },
+      "route": { "local": "Máy này", "live": "Phát sóng" }
+    },
     "player": {
       "play": "Phát",
       "pause": "Tạm dừng",
@@ -745,6 +764,11 @@ export default {
       "settings-general": { "title": "Cài đặt chung", "description": "Mở tùy chọn chung của ứng dụng" },
       "settings-playback": { "title": "Cài đặt phát nhạc", "description": "Mở cài đặt hành vi phát nhạc" },
       "ok-stems": { "title": "Âm lượng track", "description": "Mở âm lượng từng track, tắt tiếng và a cappella" },
+      "live-mode-speech": { "title": "Phát sóng: nói", "description": "Chuyển plugin sang nói thường" },
+      "live-mode-reverb-speech": { "title": "Phát sóng: nói có vang", "description": "Chuyển plugin sang nói có vang" },
+      "live-mode-ai-follow": { "title": "Phát sóng: AI hát theo", "description": "Chuyển plugin sang AI hát theo" },
+      "live-mode-ai-sing": { "title": "Phát sóng: AI hát", "description": "Chuyển plugin sang AI hát" },
+      "live-karaoke-toggle": { "title": "Bật tắt a cappella", "description": "Tắt hoặc bật lại nhạc đệm" },
       "playback-replaygain-off": { "title": "Tắt ReplayGain", "description": "Phát âm thanh không áp dụng ReplayGain" },
       "playback-replaygain-track": { "title": "ReplayGain: Chế độ bài hát", "description": "Áp dụng cân bằng ReplayGain theo từng bài hát" },
       "playback-replaygain-album": { "title": "ReplayGain: Chế độ album", "description": "Áp dụng cân bằng ReplayGain theo album" },

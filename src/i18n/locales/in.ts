@@ -6,6 +6,25 @@ export default {
     "stems": "Stem",
     "close": "Tutup",
     "playSample": "Putar 暗号",
+    "live": {
+      "switching": "Beralih",
+      "smartReverb": "Reverb pintar",
+      "mic": "Mikrofon",
+      "gate": "Gerbang",
+      "mode": {
+        "speech": "Bicara",
+        "reverb-speech": "Bicara berreverb",
+        "ai-follow": "AI ikut",
+        "ai-sing": "AI nyanyi"
+      },
+      "connection": {
+        "connected": "Terhubung",
+        "absent": "Terputus",
+        "abi-mismatch": "Versi tidak cocok",
+        "duplicate": "Plugin ganda"
+      },
+      "route": { "local": "Lokal", "live": "Siaran" }
+    },
     "player": {
       "play": "Putar",
       "pause": "Jeda",
@@ -745,6 +764,11 @@ export default {
       "settings-general": { "title": "Pengaturan umum", "description": "Buka preferensi aplikasi umum" },
       "settings-playback": { "title": "Pengaturan pemutaran", "description": "Buka pengaturan perilaku pemutaran" },
       "ok-stems": { "title": "Volume stem", "description": "Buka volume tiap trek, senyap, dan a cappella" },
+      "live-mode-speech": { "title": "Siaran: bicara", "description": "Pindah plugin ke bicara biasa" },
+      "live-mode-reverb-speech": { "title": "Siaran: bicara berreverb", "description": "Pindah plugin ke bicara berreverb" },
+      "live-mode-ai-follow": { "title": "Siaran: AI ikut", "description": "Pindah plugin ke AI yang ikut menyanyi" },
+      "live-mode-ai-sing": { "title": "Siaran: AI nyanyi", "description": "Pindah plugin ke AI yang menyanyi" },
+      "live-karaoke-toggle": { "title": "Alihkan a cappella", "description": "Matikan atau hidupkan iringan" },
       "playback-replaygain-off": { "title": "Nonaktifkan ReplayGain", "description": "Putar audio tanpa penyesuaian ReplayGain" },
       "playback-replaygain-track": { "title": "ReplayGain: Mode Trek", "description": "Terapkan penyesuaian ReplayGain per trek" },
       "playback-replaygain-album": { "title": "ReplayGain: Mode Album", "description": "Terapkan penyesuaian ReplayGain album" },

@@ -6,6 +6,25 @@ export default {
     "stems": "分轨",
     "close": "关闭",
     "playSample": "播放「暗号」",
+    "live": {
+      "switching": "切换中",
+      "smartReverb": "智能混响",
+      "mic": "麦克风",
+      "gate": "跟唱门",
+      "mode": {
+        "speech": "普通说话",
+        "reverb-speech": "混响说话",
+        "ai-follow": "AI跟唱",
+        "ai-sing": "AI唱歌"
+      },
+      "connection": {
+        "connected": "已连接",
+        "absent": "未连接",
+        "abi-mismatch": "版本不符",
+        "duplicate": "重复连接"
+      },
+      "route": { "local": "本机", "live": "直播" }
+    },
     "player": {
       "play": "播放",
       "pause": "暂停",
@@ -745,6 +764,11 @@ export default {
       "settings-general": { "title": "通用设置", "description": "打开全局应用偏好" },
       "settings-playback": { "title": "播放设置", "description": "打开播放行为设置" },
       "ok-stems": { "title": "分轨音量", "description": "打开人声、伴奏、原唱的音量和清唱" },
+      "live-mode-speech": { "title": "直播：普通说话", "description": "插件切到普通说话" },
+      "live-mode-reverb-speech": { "title": "直播：混响说话", "description": "插件切到混响说话" },
+      "live-mode-ai-follow": { "title": "直播：AI跟唱", "description": "插件切到 AI 跟唱" },
+      "live-mode-ai-sing": { "title": "直播：AI唱歌", "description": "插件切到 AI 唱歌" },
+      "live-karaoke-toggle": { "title": "切换清唱", "description": "静音或恢复伴奏" },
       "playback-replaygain-off": { "title": "关闭 ReplayGain", "description": "播放音频时不应用 ReplayGain 调整" },
       "playback-replaygain-track": { "title": "ReplayGain：单曲模式", "description": "按每首歌曲的 ReplayGain 数据调整响度" },
       "playback-replaygain-album": { "title": "ReplayGain：专辑模式", "description": "按专辑 ReplayGain 数据调整响度" },

@@ -6,6 +6,25 @@ export default {
     "stems": "Stems",
     "close": "Close",
     "playSample": "Play 暗号",
+    "live": {
+      "switching": "Switching",
+      "smartReverb": "Smart reverb",
+      "mic": "Mic",
+      "gate": "Gate",
+      "mode": {
+        "speech": "Speech",
+        "reverb-speech": "Reverb speech",
+        "ai-follow": "AI follow",
+        "ai-sing": "AI sing"
+      },
+      "connection": {
+        "connected": "Connected",
+        "absent": "Disconnected",
+        "abi-mismatch": "Version mismatch",
+        "duplicate": "Duplicate plugin"
+      },
+      "route": { "local": "Local", "live": "Live" }
+    },
     "player": {
       "play": "Play",
       "pause": "Pause",
@@ -745,6 +764,11 @@ export default {
       "settings-general": { "title": "General settings", "description": "Open general app preferences" },
       "settings-playback": { "title": "Playback settings", "description": "Open playback behavior settings" },
       "ok-stems": { "title": "Stem mix", "description": "Open per-track volume, mute and a cappella" },
+      "live-mode-speech": { "title": "Live: speech", "description": "Switch the plugin to plain speech" },
+      "live-mode-reverb-speech": { "title": "Live: reverb speech", "description": "Switch the plugin to reverberated speech" },
+      "live-mode-ai-follow": { "title": "Live: AI follow", "description": "Switch the plugin to AI follow singing" },
+      "live-mode-ai-sing": { "title": "Live: AI sing", "description": "Switch the plugin to AI singing" },
+      "live-karaoke-toggle": { "title": "Toggle a cappella", "description": "Silence or restore the instrumental" },
       "playback-replaygain-off": { "title": "Disable ReplayGain", "description": "Play audio without ReplayGain adjustment" },
       "playback-replaygain-track": { "title": "ReplayGain: Track mode", "description": "Apply per-track ReplayGain adjustment" },
       "playback-replaygain-album": { "title": "ReplayGain: Album mode", "description": "Apply album ReplayGain adjustment" },
