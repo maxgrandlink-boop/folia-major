@@ -25,6 +25,7 @@
 #endif
 #include <windows.h>
 #include <psapi.h>
+#pragma comment(lib, "psapi.lib")
 #else
 #include <fstream>
 #endif
