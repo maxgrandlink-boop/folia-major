@@ -1,0 +1,256 @@
+name: Windows CI
+
+# Folia fork 的 Windows 构建基线。基线提交是 fork 时默认分支 HEAD，本 workflow 不改它：
+# 686553c71294fc99c27942cbdd53a26703c01324
+#
+# test:unit、test:ui、test:render 每次 push / PR 都在 windows-latest 上跑。
+# 同一仓库的 PR 会同时触发 push 和 pull_request，push 的检查会挂到该 PR 上，
+# 再跑一遍 pull_request 等于把 NSIS 打包做两份。外部 fork 的 PR 没有 push，仍走 pull_request。
+# 打包不签名：runner 上没有本应用的证书。CSC_IDENTITY_AUTO_DISCOVERY=false，
+# 避免 electron-builder 去用机器上无关的签名身份。产物是未签名的 NSIS 安装包。
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      update_ui_snapshots:
+        description: 'Rewrite Windows UI screenshots and upload them'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: windows-ci-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-unit:
+    name: test:unit
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run typecheck
+        run: npm run typecheck
+
+      - name: Run test:unit
+        run: npm run test:unit
+
+  test-ui:
+    name: test:ui (${{ matrix.shard }}/4)
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    # 上一轮 2 个 worker 在 4 核上跑完整包，90 分钟只跑完约一半（487 过、69 失败、518 没跑到），
+    # 失败里大量是 15s/90s 等元素出现。拆成 4 台机器、每台 1 个 worker：墙钟降下来，
+    # 性能护栏（bravaisPerf 的 loaf 天花板）也不再和另一个完整页面抢 CPU。超时不加。
+    runs-on: windows-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Playwright 把浏览器放在 %USERPROFILE%\AppData\Local\ms-playwright。
+      # 缓存没命中时下面的 install 会下载；命中时 install 只做校验。
+      - name: Cache Playwright Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\ms-playwright
+          key: playwright-chromium-windows-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      # 截图基线按平台后缀分开：*-linux.png 与 *-win32.png 并存，这里只对比已提交的图。
+      # --workers=1 盖过配置里 CI 的 2：这一台只跑四分之一用例，再开第二个浏览器只会把 4 核占满。
+      - name: Run test:ui
+        shell: pwsh
+        env:
+          UPDATE_UI_SNAPSHOTS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.update_ui_snapshots == 'true' }}
+        run: |
+          if ($env:UPDATE_UI_SNAPSHOTS -eq 'true') {
+            # 只重写三张首页图，不把整包用例再跑一遍。
+            if ('${{ matrix.shard }}' -ne '1') { exit 0 }
+            npx playwright test test/ui/app.screenshot.spec.ts --update-snapshots --workers=1 --reporter=line
+          } else {
+            npm run test:ui -- --reporter=line --reporter=github --shard=${{ matrix.shard }}/4 --workers=1
+          }
+
+      - name: Upload Windows screenshot baselines
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.update_ui_snapshots == 'true' && matrix.shard == 1
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-ui-snapshots
+          path: test/ui/**/*-win32.png
+          if-no-files-found: error
+
+      - name: Upload test:ui failure artifacts
+        if: failure() || cancelled()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-ui-failure-${{ matrix.shard }}
+          path: |
+            test-results
+            playwright-report
+            test/ui/**/*-snapshots/**
+          if-no-files-found: ignore
+          retention-days: 7
+
+  test-render:
+    name: test:render
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    # 单独一个 runner。renderCounts.probe.ts 量的是「这次写入让谁重渲染」，
+    # 和 test:ui 挤在同一台机器上时，空闲对照窗口里会混进别人的渲染，数字就没有意义。
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Playwright Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\ms-playwright
+          key: playwright-chromium-windows-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Run test:render
+        run: npm run test:render -- --reporter=line --reporter=github
+
+      - name: Upload test:render failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-render-failure
+          path: |
+            test-results
+            playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
+
+  build-windows:
+    name: Windows NSIS build
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Cache wallpaper-helper Cargo build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packaging/windows/wallpaper-helper
+
+      - name: Build wallpaper helper
+        run: node packaging/windows/build-wallpaper-helper.mjs
+
+      - name: Build web app for Electron
+        env:
+          ELECTRON: 'true'
+          ELECTRON_DEV: 'false'
+        run: npm run build
+
+      # beforePack（build/buildMnnRuntime.mjs）编 MNN。缓存的是编完的库和钉住的源码树。
+      - name: Cache MNN runtime build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/.mnn-src
+            build/mnn
+          key: mnn-${{ runner.os }}-${{ hashFiles('build/buildMnnRuntime.mjs', 'native/folia-mnn/**') }}
+
+      # ffmpeg 和模型在 beforePack 里按清单下载并校验。没有签名证书，不签名。
+      - name: Package unsigned NSIS installer
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: npx electron-builder --win nsis --publish never
+
+      - name: Check the NSIS installer exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          ls -la release
+          count=0
+          for installer in release/*-Setup-*.exe; do
+            [ -f "$installer" ] || continue
+            bytes=$(stat -c%s "$installer")
+            echo "$installer $bytes"
+            if [ "$bytes" -lt 1000000 ]; then
+              echo "::error::$installer is unexpectedly small ($bytes bytes)"
+              exit 1
+            fi
+            count=$((count + 1))
+          done
+          if [ "$count" -lt 1 ]; then
+            echo "::error::electron-builder did not produce an NSIS installer"
+            exit 1
+          fi
+
+      - name: Upload NSIS installer
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-nsis
+          path: |
+            release/*.exe
+            release/*.blockmap
+            release/*.yml
+            !release/builder-debug.yml
+          if-no-files-found: error
+          retention-days: 14
