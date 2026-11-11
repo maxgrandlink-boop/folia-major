@@ -9,7 +9,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(okengine_core STATIC
     src/wav.cpp
-    src/mixer.cpp)
+    src/mixer.cpp
+    src/json.cpp
+    src/transcode.cpp
+    src/shm.cpp
+    src/device.cpp
+    src/engine.cpp)
 target_include_directories(okengine_core PUBLIC src "${CMAKE_CURRENT_SOURCE_DIR}/../okLiveShm" "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 if(MSVC)
     set_property(TARGET okengine_core PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded")

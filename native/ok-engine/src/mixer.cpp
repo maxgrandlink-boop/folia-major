@@ -152,6 +152,11 @@ void Mixer::stop() {
     fadeLeft_ = fadeTotal_;
 }
 
+void Mixer::rewind(int64_t frames) {
+    if (frames <= 0 || rate_ == 0) return;
+    master_ = frames >= master_ ? 0 : master_ - frames;
+}
+
 void Mixer::seek(double seconds) {
     if (rate_ == 0) return;
     const int64_t target = frameForSeconds(seconds, rate_, duration_);

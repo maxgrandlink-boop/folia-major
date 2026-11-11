@@ -52,6 +52,7 @@ public:
     void pause();
     void stop();
     void seek(double seconds);
+    void rewind(int64_t frames);
     void setGain(Role role, TrackGain gain);
     void setKaraoke(bool on);
     void setHarmony(bool on);
