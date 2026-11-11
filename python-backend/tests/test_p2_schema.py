@@ -141,8 +141,10 @@ class FixtureTest(unittest.TestCase):
             code, result, _proc = _run(tmp, 'with-reverb')
             self.assertEqual(code, 0, _proc.stderr_text())
             self.assertTrue(result['dropped']['reverb'].endswith('reverb.wav'))
-            self.assertIsNone(result['tracks'])
-            self.assertNotIn('harmony', json.dumps(result['tracks']))
+            self.assertEqual(set(result['tracks']), {'vocal', 'instrumental', 'original'})
+            names = os.listdir(result['work_dir'])
+            self.assertFalse(any('和声' in name or 'harmony' in name for name in names))
+            self.assertTrue(os.path.isfile(os.path.join(result['work_dir'], '.complete')))
 
     def test_malicious_pickle_does_not_run(self):
         with tempfile.TemporaryDirectory() as tmp:
