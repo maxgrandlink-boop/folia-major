@@ -1,9 +1,11 @@
 'use strict';
 
 const { createSenderGuardedHandler } = require('./ipcAccessGuard.cjs');
+const { registerCoverIpc } = require('./cover/coverIpc.cjs');
+const { createUnavailableCoverDeps } = require('./cover/coverHost.cjs');
 
 // electron/okIpc.cjs
-// W1 桩：ok-* 的 invoke 通道都登记上，处理函数一律回 not implemented。事件只在 preload 订阅，这里不登记。
+// ok-* 的 invoke 通道都登记上。翻唱交给 coverIpc；其余在对应模块接上之前仍回 not implemented。
 
 const OK_INVOKE_CHANNELS = Object.freeze([
     'ok-works:list-roots',
@@ -52,15 +54,20 @@ const OK_INVOKE_CHANNELS = Object.freeze([
 
 const notImplemented = () => ({ ok: false, code: 'UNKNOWN', detail: 'not implemented' });
 
-function registerOkIpc({ ipcMain, isTrustedSender }) {
+function registerOkIpc({ ipcMain, isTrustedSender, coverDeps, coverOptions }) {
     for (const channel of OK_INVOKE_CHANNELS) {
+        if (channel.startsWith('ok-cover:')) continue;
         ipcMain.handle(channel, createSenderGuardedHandler({
             channel,
             isTrusted: isTrustedSender,
             handler: notImplemented,
         }));
     }
-    return { channels: OK_INVOKE_CHANNELS };
+    const cover = registerCoverIpc(ipcMain, coverDeps || createUnavailableCoverDeps(), {
+        isTrusted: isTrustedSender,
+        jobs: coverOptions,
+    });
+    return { channels: OK_INVOKE_CHANNELS, cover };
 }
 
 module.exports = { registerOkIpc, OK_INVOKE_CHANNELS };

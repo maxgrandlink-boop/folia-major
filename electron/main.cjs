@@ -116,6 +116,7 @@ const { createSourceBridge } = require('./hifi/sourceBridge.cjs');
 const { createMpvSession } = require('./hifi/mpvSession.cjs');
 const { registerHifiIpc } = require('./hifi/hifiIpc.cjs');
 const { registerOkIpc } = require('./okIpc.cjs');
+const { createCoverHost } = require('./cover/coverHost.cjs');
 const { createPipewireProbe, collectOwnPids } = require('./hifi/pipewireProbe.cjs');
 const { createApprovedMpvPathStore, isReservedHifiSettingKey } = require('./hifi/approvedMpvPath.cjs');
 const { registerMprisIpc } = require('./hifi/mpris/mprisIpc.cjs');
@@ -345,10 +346,17 @@ hifiIpc = registerHifiIpc({
   getApprovedMpvPath: () => hifiApprovedMpvPath.get(),
   setApprovedMpvPath: value => hifiApprovedMpvPath.set(value),
 });
-// ok唱歌 W1：通道先登记成桩，一律回 not implemented。不接引擎，不改现有播放。
+// ok唱歌：作品、引擎、直播仍是桩。翻唱通道已接到 coverIpc。
+// 输出根和组件目录等 B1 的 CoverDeps；在那之前 getOutputRoot / getBackendDir 为 null。
+const coverHost = createCoverHost({
+  getUserDataDir: () => app.getPath('userData'),
+  getMainWindow: () => mainWindow,
+  getWindows: () => BrowserWindow.getAllWindows(),
+});
 registerOkIpc({
   ipcMain,
   isTrustedSender: event => isTrustedMainWindowContents(event.sender),
+  coverDeps: coverHost.deps,
 });
 // Linux: while HiFi plays, main registers MPRIS on the session bus itself. A silent keep-alive in
 // the page would be a Chromium stream on the same PipeWire device, and PipeWire switches the
@@ -6397,6 +6405,7 @@ app.on('window-all-closed', () => {
 const quitHoldingBridges = [ytmApiBridge, spotifyApiBridge];
 // Set while a quit is held for such work (see before-quit).
 let isQuitHeldForAccounts = false;
+let coverQuitDone = false;
 
 app.on('before-quit', (event) => {
   // Work of a bridge that must not be cut off: a web sign-in under way, whose ended browser leaves
@@ -6413,6 +6422,16 @@ app.on('before-quit', (event) => {
     return;
   }
   isQuitHeldForAccounts = false;
+  if (!coverQuitDone) {
+    const pendingCover = coverHost.shutdown();
+    if (pendingCover) {
+      coverQuitDone = true;
+      event.preventDefault();
+      void Promise.resolve(pendingCover).finally(() => app.quit());
+      return;
+    }
+    coverQuitDone = true;
+  }
   transcodeService.dispose();
   hifiSession.killSync();
   // An mpv download the quit cuts off is stopped: its partial files go now if there is time, or

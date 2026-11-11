@@ -174,6 +174,17 @@ if (mode === 'hang') {
     });
     process.stdin.on('end', finish);
     setTimeout(finish, 30000);
+} else if (mode === 'fallback') {
+    writeProbe();
+    const config = readConfig();
+    say(hello);
+    say({ type: 'progress', stage: 'separate', pct: 30, separator: 'msst-native', msg: 'native' });
+    say({ type: 'log', level: 'warn', text: 'native failed, built-in separator' });
+    say({ type: 'progress', stage: 'separate', pct: 80, separator: 'builtin', msg: 'builtin' });
+    say({ type: 'progress', stage: 'convert_voice', pct: null, separator: 'builtin' });
+    say({ type: 'progress', stage: 'finalize', pct: 100, separator: 'builtin' });
+    say({ ...successResult(config), separator: 'builtin' });
+    process.exit(0);
 } else if (mode === 'fail') {
     writeProbe();
     standardProgress();

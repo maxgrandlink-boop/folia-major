@@ -171,7 +171,7 @@ describe('coverBackendRunner against the fake backend', () => {
                     expect(options.env?.PYTHONIOENCODING).toBe('utf-8');
                     expect(options.env?.PIP_NO_INDEX).toBe('1');
                     expect(JSON.stringify(options.env)).not.toContain(SECRET);
-                    return realSpawn(command, args, options);
+                    return realSpawn(command, args, options as import('node:child_process').SpawnOptions);
                 },
             },
         );
