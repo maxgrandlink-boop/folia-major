@@ -31,6 +31,14 @@ export const SETTINGS_ANCHOR_DEFINITIONS = {
     rememberHomeCardPosition: { section: 'home' },
     gridViewCardSettings: { section: 'home' },
 
+    // pages/LivePage
+    liveMode: { section: 'live' },
+    liveFollow: { section: 'live' },
+    liveSmartReverb: { section: 'live' },
+    livePluginGains: { section: 'live' },
+    liveLeaveGap: { section: 'live' },
+    livePlugin: { section: 'live' },
+
     // pages/LyricsPage
     localLyricFormatOrder: { section: 'lyrics' },
 

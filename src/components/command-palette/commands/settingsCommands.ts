@@ -152,6 +152,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
     createSettingsAnchorCommand('settings-custom-shortcut', 'Custom shortcuts', 'Jump to the custom keyboard shortcut bindings', ['keybinding', 'rebind', 'hotkey', '自定义快捷键'], 'customShortcut'),
     createSettingsAnchorCommand('settings-grid-action-button', 'Grid action button', 'Jump to what the grid action button slides to', ['grid button', 'action button', '海报墙按钮'], 'gridActionButton', GRID_ONLY),
     createSettingsCommand('settings-playback', 'Playback settings', 'Open playback behavior settings', ['playback', '播放', '播放设置'], 'options', 'playback'),
+    createSettingsCommand('settings-live', 'Live settings', 'Open live singing settings', ['livestream', 'live singing', '直播', '直播设置'], 'options', 'live'),
     createSettingsAnchorCommand('settings-queue-behavior', 'Queue behavior', 'Jump to how the play queue is built and kept', ['queue settings', 'queue behaviour', '队列行为'], 'queueSettings'),
     createSettingsAnchorCommand('settings-netease-scrobble', 'NetEase listening report', 'Jump to whether finished plays are reported to NetEase Cloud Music', ['scrobble', 'netease scrobble', 'listening report', 'play count', '听歌打卡', '打卡', '听歌排行'], 'scrobbleSettings'),
     createToggleCommand(
