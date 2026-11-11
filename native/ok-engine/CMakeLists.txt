@@ -23,7 +23,7 @@ else()
     target_link_libraries(okengine_core PUBLIC pthread dl m)
 endif()
 
-add_executable(ok-engine src/main.cpp)
+add_executable(ok-engine src/main.cpp src/selftest.cpp)
 target_link_libraries(ok-engine PRIVATE okengine_core)
 if(MSVC)
     set_property(TARGET ok-engine PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded")

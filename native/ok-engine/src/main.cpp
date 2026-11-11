@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "selftest.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -9,10 +10,7 @@
 int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         const std::string arg = argv[i];
-        if (arg == "--self-test") {
-            std::cerr << "[ok-engine] self-test is the next unit\n";
-            return 2;
-        }
+        if (arg == "--self-test") return runSelfTest(argc, argv);
     }
     const bool software = std::getenv("OK_ENGINE_SOFTWARE") != nullptr;
     okengine::Engine engine({[](const std::string& line) {

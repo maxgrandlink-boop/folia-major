@@ -52,12 +52,14 @@ const OK_INVOKE_CHANNELS = Object.freeze([
 
 const notImplemented = () => ({ ok: false, code: 'UNKNOWN', detail: 'not implemented' });
 
-function registerOkIpc({ ipcMain, isTrustedSender }) {
+function registerOkIpc({ ipcMain, isTrustedSender, handlers }) {
+    const table = handlers || {};
     for (const channel of OK_INVOKE_CHANNELS) {
+        const handler = typeof table[channel] === 'function' ? table[channel] : notImplemented;
         ipcMain.handle(channel, createSenderGuardedHandler({
             channel,
             isTrusted: isTrustedSender,
-            handler: notImplemented,
+            handler,
         }));
     }
     return { channels: OK_INVOKE_CHANNELS };

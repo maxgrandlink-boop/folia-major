@@ -22,6 +22,10 @@ exports.default = async (context) => {
   // file each for every platform.
   const { prepareBundledModels } = await import("./fetchModels.mjs");
   await prepareBundledModels({ outputDir: require("path").join(context.packager.projectDir, "models") });
+  if (context.electronPlatformName === 'win32') {
+    const { prepareOkEngine } = await import('../packaging/windows/build-ok-engine.mjs');
+    await prepareOkEngine({ projectRoot: context.packager.projectDir });
+  }
   if (context.electronPlatformName === 'darwin') {
     const { prepareMacCompanion } = require('../electron/appleMusic/macos/prepareBundle.cjs');
     prepareMacCompanion({ arch, projectRoot: context.packager.projectDir });
