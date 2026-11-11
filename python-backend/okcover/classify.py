@@ -2,7 +2,8 @@ import os
 
 from okcover.errors import OkcError
 
-# 成功判据（设计稿 4.4 先修 #3）。帧数 > 0 即通过，不看振幅：全静音夹具因此放行。
+# 成功判据。帧数 > 0 即通过，不看振幅：全静音夹具因此放行。
+# svc 比设计稿 4.4 的「至少一项」更严：工作台补丁要求非空且全部 success（分析 v4 §8 #8）。
 
 CUDA_NEEDLES = ('CUDA out of memory', 'cudaMalloc', 'CUDA error')
 
@@ -117,18 +118,20 @@ def _msst(raw):
 
 
 def _vocal(raw):
+    """svc_outputs 必须非空，且每一项都是 success、文件能读、帧数 > 0。"""
     outputs = raw.get('svc_outputs')
-    if outputs is None:
+    if not isinstance(outputs, list) or not outputs:
         return None
-    if not isinstance(outputs, list):
-        return None
+    first = None
     for item in outputs:
         if not isinstance(item, dict) or item.get('status') != 'success':
-            continue
+            return None
         path = item.get('svc_output_path')
-        if isinstance(path, str) and _readable(path):
-            return path
-    return None
+        if not isinstance(path, str) or not _readable(path):
+            return None
+        if first is None:
+            first = path
+    return first
 
 
 def _readable(path):

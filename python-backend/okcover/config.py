@@ -4,18 +4,52 @@ from okcover.errors import OkcError
 
 # schema v2 → PB 键。只写翻译表里的键；prepare_pipeline_config 不调用。
 
-_NETWORK_ENV = (
+# 工作台 local_processing 清掉的环境。PATH 不在这里改：设计稿 4.4 把 PATH 留给 runner。
+_SCRUB_ENV = (
     'DUOAI_RVC_PARAMS',
     'DUOAI_BACKEND_URL',
     'BACKEND_URL',
     'YZG_BACKEND_URL',
     'DUOAI_MSST2_DIR',
+    'PYTHONHOME',
+    'PYTHONPATH',
+    'VIRTUAL_ENV',
+    'CONDA_PREFIX',
+    'QT_PLUGIN_PATH',
+    'QT_QPA_PLATFORM_PLUGIN_PATH',
 )
+_CHILD_ENV = {
+    'PYTHONUTF8': '1',
+    'PYTHONNOUSERSITE': '1',
+    'PYTHONDONTWRITEBYTECODE': '1',
+    'PYTHONUNBUFFERED': '1',
+    'PYTHONIOENCODING': 'utf-8',
+}
 
 
 def scrub_network_env():
-    for key in _NETWORK_ENV:
+    """给本进程之后拉起的子进程用。不重写 PATH。"""
+    for key in _SCRUB_ENV:
         os.environ.pop(key, None)
+    os.environ.update(_CHILD_ENV)
+
+
+def index_rate_from_formant_slider(slider):
+    """本地页面：index_rate = formant_slider / 100。滑条是 0–100，不是已经换成 0–1 的比例。"""
+    if isinstance(slider, bool) or not isinstance(slider, (int, float)):
+        raise OkcError('CONFIG_INVALID', 'formant_slider 必须是数字')
+    if slider < 0 or slider > 100:
+        raise OkcError('CONFIG_INVALID', 'formant_slider 必须在 0–100')
+    return float(slider) / 100.0
+
+
+def index_rate_from_formant_shift(shift):
+    """云端 DEV/TEST：index_rate = formant_shift，缺省 0.72。"""
+    if shift is None:
+        return 0.72
+    if isinstance(shift, bool) or not isinstance(shift, (int, float)):
+        raise OkcError('CONFIG_INVALID', 'formant_shift 必须是数字')
+    return float(shift)
 
 
 MODES = ('library', 'normal', 'aggressive')

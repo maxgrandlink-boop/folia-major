@@ -312,7 +312,7 @@ class HookTest(unittest.TestCase):
 
 class EquivalenceTest(unittest.TestCase):
     def test_diff_trees_and_d11_is_blocked(self):
-        self.assertEqual(D11_STATUS, 'blocked-on-workbench-patch')
+        self.assertEqual(D11_STATUS, 'deferred-to-j1')
         with tempfile.TemporaryDirectory() as tmp:
             left = Path(tmp) / 'a'
             right = Path(tmp) / 'b'
